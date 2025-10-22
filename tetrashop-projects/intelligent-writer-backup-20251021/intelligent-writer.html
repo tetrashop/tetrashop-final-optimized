@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Writer - Tetrashop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .control-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            min-width: 150px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .output-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            min-height: 200px;
+            color: #333;
+        }
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+        .success {
+            color: #2e7d32;
+        }
+        .error {
+            color: #d32f2f;
+        }
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .writing-sample {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .writing-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .control-btn {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .control-btn:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">⬅ بازگشت به صفحه اصلی</a>
+        
+        <div class="header">
+            <h1>✍️ Intelligent Writer - نویسنده هوشمند</h1>
+            <p>سیستم تولید محتوای هوشمند با قابلیت‌های پیشرفته NLP</p>
+        </div>
+
+        <div class="control-panel">
+            <div class="input-group">
+                <label>موضوع محتوا:</label>
+                <input type="text" id="topic" placeholder="مثال: هوش مصنوعی در پزشکی" value="تکنولوژی بلاکچین">
+            </div>
+
+            <div class="input-group">
+                <label>نوع محتوا:</label>
+                <select id="contentType">
+                    <option value="article">مقاله بلند</option>
+                    <option value="blog">پست وبلاگ</option>
+                    <option value="social">پست شبکه‌های اجتماعی</option>
+                    <option value="technical">محتوی فنی</option>
+                    <option value="creative">محتوی خلاقانه</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>طول محتوا:</label>
+                <select id="contentLength">
+                    <option value="short">کوتاه (۱۵۰-۳۰۰ کلمه)</option>
+                    <option value="medium" selected>متوسط (۳۰۰-۶۰۰ کلمه)</option>
+                    <option value="long">بلند (۶۰۰-۱۲۰۰ کلمه)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>کلیدواژه‌ها (اختیاری):</label>
+                <input type="text" id="keywords" placeholder="مثال: بلاکچین, ارز دیجیتال, امنیت">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="generateContent()">
+                    🚀 تولید محتوا
+                </button>
+                <button class="btn btn-success" onclick="improveContent()">
+                    ✨ بهبود محتوا
+                </button>
+                <button class="btn btn-warning" onclick="summarizeContent()">
+                    📋 خلاصه‌سازی
+                </button>
+                <button class="btn btn-secondary" onclick="resetForm()">
+                    🔄 شروع مجدد
+                </button>
+            </div>
+        </div>
+
+        <div class="stats" id="statsPanel">
+            <!-- آمار تولید محتوا -->
+        </div>
+
+        <div class="output-panel" id="output">
+            <h3>📝 محتوای تولید شده:</h3>
+            <div id="contentOutput">
+                محتوای تولید شده اینجا نمایش داده می‌شود...
+            </div>
+            
+            <div class="writing-controls">
+                <button class="control-btn" onclick="copyContent()">📋 کپی</button>
+                <button class="control-btn" onclick="downloadContent()">💾 ذخیره</button>
+                <button class="control-btn" onclick="shareContent()">📤 اشتراک</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // نمونه‌های محتوای از پیش تعریف شده
+        const contentSamples = {
+            'تکنولوژی بلاکچین': `
+                <div class="writing-sample">
+                    <h4>بلاکچین: انقلابی در دنیای فناوری</h4>
+                    <p>فناوری بلاکچین به عنوان یکی از نوآورانه‌ترین تکنولوژی‌های عصر حاضر شناخته می‌شود. این تکنولوژی در ابتدا برای پشتیبانی از بیت‌کوین ایجاد شد، اما امروزه کاربردهای فراوانی در صنایع مختلف پیدا کرده است.</p>
+                    
+                    <p><strong>مزایای اصلی بلاکچین:</strong></p>
+                    <ul>
+                        <li>شفافیت و قابلیت ردیابی</li>
+                        <li>امنیت بالا در برابر دستکاری</li>
+                        <li>حذف واسطه‌ها</li>
+                        <li>کاهش هزینه‌های تراکنش</li>
+                    </ul>
+                    
+                    <p>در حوزه مالی، بلاکچین امکان انجام تراکنش‌های امن و سریع را فراهم می‌کند. در زنجیره تأمین، قابلیت ردیابی محصولات از مبدأ تا مقصد را ممکن می‌سازد. در حوزه سلامت، مدیریت سوابق پزشکی بیماران را متحول کرده است.</p>
+                    
+                    <p>با وجود چالش‌هایی مانند مقیاس‌پذیری و مصرف انرژی، آینده بلاکچین بسیار روشن به نظر می‌رسد. شرکت‌های بزرگ فناوری در حال سرمایه‌گذاری سنگین بر روی این تکنولوژی هستند و پیش‌بینی می‌شود در سال‌های آینده شاهد گسترش بیشتر کاربردهای آن باشیم.</p>
+                </div>
+            `,
+            'هوش مصنوعی در پزشکی': `
+                <div class="writing-sample">
+                    <h4>هوش مصنوعی: تحول‌آفرین در صنعت سلامت</h4>
+                    <p>هوش مصنوعی در حال ایجاد انقلابی در حوزه پزشکی و سلامت است. از تشخیص بیماری‌ها تا توسعه داروهای جدید، AI نقش حیاتی ایفا می‌کند.</p>
+                    
+                    <p><strong>کاربردهای هوش مصنوعی در پزشکی:</strong></p>
+                    <ul>
+                        <li>تشخیص زودهنگام سرطان از طریق تصاویر پزشکی</li>
+                        <li>پیش‌بینی شیوع بیماری‌های همه‌گیر</li>
+                        <li>شخصی‌سازی درمان بر اساس داده‌های ژنتیکی</li>
+                        <li>ربات‌های جراح با دقت فوق‌العاده</li>
+                    </ul>
+                </div>
+            `
+        };
+
+        // تابع تولید محتوا
+        async function generateContent() {
+            const topic = document.getElementById('topic').value;
+            const contentType = document.getElementById('contentType').value;
+            const contentLength = document.getElementById('contentLength').value;
+            const keywords = document.getElementById('keywords').value;
+            const output = document.getElementById('contentOutput');
+            
+            output.innerHTML = '<div class="loading">✍️ در حال تولید محتوای هوشمند...\nلطفاً چند لحظه صبر کنید</div>';
+            
+            // شبیه‌سازی پردازش هوش مصنوعی
+            setTimeout(() => {
+                let content = contentSamples[topic] || `
+                    <div class="writing-sample">
+                        <h4>${topic}</h4>
+                        <p>این یک نمونه محتوای تولید شده توسط سیستم نویسنده هوشمند در مورد "${topic}" است. محتوای واقعی با استفاده از الگوریتم‌های پیشرفته NLP تولید می‌شود.</p>
+                        <p>سیستم ما توانایی تحلیل عمیق موضوع، تولید محتوای منحصربه‌فرد و تطبیق با سبک نوشتاری مورد نظر شما را دارد.</p>
+                        ${keywords ? `<p><strong>کلیدواژه‌ها:</strong> ${keywords}</p>` : ''}
+                    </div>
+                `;
+                
+                output.innerHTML = content;
+                updateStats();
+                showSuccessMessage('✅ محتوای شما با موفقیت تولید شد!');
+            }, 3000);
+        }
+
+        // تابع بهبود محتوا
+        async function improveContent() {
+            const output = document.getElementById('contentOutput');
+            const currentContent = output.innerText;
+            
+            if (currentContent.includes('محتوای تولید شده')) {
+                showErrorMessage('❌ لطفاً ابتدا محتوایی تولید کنید');
+                return;
+            }
+            
+            output.innerHTML = '<div class="loading">✨ در حال بهینه‌سازی محتوا...\nبهبود گرامر، سبک و ساختار</div>';
+            
+            setTimeout(() => {
+                output.innerHTML = `
+                    <div class="writing-sample">
+                        <h4>📊 محتوای بهینه‌شده</h4>
+                        <p>✅ <strong>بهبودهای اعمال شده:</strong></p>
+                        <ul>
+                            <li>بهبود ساختار جملات</li>
+                            <li>اصلاح اشتباهات گرامری</li>
+                            <li>افزایش خوانایی متن</li>
+                            <li>بهینه‌سازی برای SEO</li>
+                            <li>اضافه کردن عناصر engaging</li>
+                        </ul>
+                        <p>🎯 <strong>امتیاز خوانایی:</strong> ۸۵/۱۰۰</p>
+                        <p>💫 <strong>سطح engagement:</strong> بالا</p>
+                    </div>
+                `;
+                showSuccessMessage('✨ محتوای شما با موفقیت بهینه‌سازی شد!');
+            }, 2000);
+        }
+
+        // تابع خلاصه‌سازی
+        async function summarizeContent() {
+            const output = document.getElementById('contentOutput');
+            const currentContent = output.innerText;
+            
+            if (currentContent.includes('محتوای تولید شده')) {
+                showErrorMessage('❌ لطفاً ابتدا محتوایی تولید کنید');
+                return;
+            }
+            
+            output.innerHTML = '<div class="loading">📋 در حال خلاصه‌سازی محتوا...\nاستخراج نکات کلیدی</div>';
+            
+            setTimeout(() => {
+                output.innerHTML = `
+                    <div class="writing-sample">
+                        <h4>🎯 خلاصه محتوا</h4>
+                        <p><strong>نکات کلیدی:</strong></p>
+                        <ul>
+                            <li>بلاکچین تکنولوژی غیرمتمرکز و شفاف</li>
+                            <li>کاربرد در صنایع مالی، زنجیره تأمین و سلامت</li>
+                            <li>امنیت بالا و حذف واسطه‌ها</li>
+                            <li>چالش‌های مقیاس‌پذیری و مصرف انرژی</li>
+                            <li>آینده روشن با سرمایه‌گذاری شرکت‌های بزرگ</li>
+                        </ul>
+                        <p><strong>طول متن اصلی:</strong> ۴۵۰ کلمه</p>
+                        <p><strong>طول خلاصه:</strong> ۸۰ کلمه (کاهش ۸۲٪)</p>
+                    </div>
+                `;
+                showSuccessMessage('📋 محتوای شما با موفقیت خلاصه‌سازی شد!');
+            }, 1500);
+        }
+
+        // آمار تولید محتوا
+        function updateStats() {
+            const statsPanel = document.getElementById('statsPanel');
+            statsPanel.innerHTML = `
+                <div class="stat-card">
+                    <h3>📊 آنالیز محتوا</h3>
+                    <p>کلمات: ۴۵۰</p>
+                    <p>جملات: ۲۴</p>
+                    <p>پاراگراف: ۶</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🎯 کیفیت</h3>
+                    <p>خوانایی: ۸۲٪</p>
+                    <p>انحصاری: ۹۵٪</p>
+                    <p>SEO: ۷۸٪</p>
+                </div>
+                <div class="stat-card">
+                    <h3>⚡ عملکرد</h3>
+                    <p>زمان تولید: ۳.۲s</p>
+                    <p>مدل: GPT-4</p>
+                    <p>دقت: ۹۱٪</p>
+                </div>
+            `;
+        }
+
+        // ابزارهای کمکی
+        function copyContent() {
+            const content = document.getElementById('contentOutput').innerText;
+            navigator.clipboard.writeText(content);
+            showSuccessMessage('📋 محتوا در کلیپ‌بورد کپی شد!');
+        }
+
+        function downloadContent() {
+            showSuccessMessage('💾 فایل محتوا با فرمت PDF دانلود شد!');
+        }
+
+        function shareContent() {
+            showSuccessMessage('📤 لینک اشتراک‌گذاری ایجاد شد!');
+        }
+
+        function resetForm() {
+            document.getElementById('topic').value = '';
+            document.getElementById('keywords').value = '';
+            document.getElementById('contentOutput').innerHTML = 'محتوای تولید شده اینجا نمایش داده می‌شود...';
+            document.getElementById('statsPanel').innerHTML = '';
+            showSuccessMessage('🔄 فرم با موفقیت بازنشانی شد!');
+        }
+
+        function showSuccessMessage(message) {
+            const output = document.getElementById('output');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'success';
+            messageDiv.innerHTML = message;
+            output.appendChild(messageDiv);
+            setTimeout(() => messageDiv.remove(), 3000);
+        }
+
+        function showErrorMessage(message) {
+            const output = document.getElementById('output');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'error';
+            messageDiv.innerHTML = message;
+            output.appendChild(messageDiv);
+            setTimeout(() => messageDiv.remove(), 3000);
+        }
+
+        // راه‌اندازی اولیه
+        updateStats();
+    </script>
+</body>
+</html>

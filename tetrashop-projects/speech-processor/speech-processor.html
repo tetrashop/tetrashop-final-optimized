@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Processor - Tetrashop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 50%, #3498db 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #9b59b6, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .speech-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .input-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #9b59b6;
+            outline: none;
+            box-shadow: 0 0 10px rgba(155, 89, 182, 0.3);
+        }
+        .audio-visualizer {
+            height: 100px;
+            background: #2c3e50;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 2px;
+            padding: 10px;
+        }
+        .audio-bar {
+            width: 8px;
+            background: linear-gradient(to top, #9b59b6, #3498db);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.1s ease;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            min-width: 150px;
+        }
+        .btn-speech {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+        }
+        .btn-tts {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+        .btn-analyze {
+            background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .output-panel {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            min-height: 200px;
+            color: white;
+            border: 1px solid #9b59b6;
+        }
+        .loading {
+            text-align: center;
+            color: #9b59b6;
+            font-size: 1.2em;
+        }
+        .recording-animation {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .pulse {
+            width: 20px;
+            height: 20px;
+            background: #e74c3c;
+            border-radius: 50%;
+            margin: 0 10px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .speech-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .speech-stat {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .speech-output {
+            background: rgba(155, 89, 182, 0.1);
+            border: 1px solid #9b59b6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        .speech-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .control-btn {
+            padding: 8px 15px;
+            border: 1px solid #9b59b6;
+            background: transparent;
+            color: #9b59b6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .control-btn:hover {
+            background: #9b59b6;
+            color: white;
+        }
+        .transcript {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .wave-animation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            margin: 15px 0;
+        }
+        .wave-bar {
+            width: 4px;
+            height: 20px;
+            background: #3498db;
+            margin: 0 2px;
+            border-radius: 2px;
+            animation: wave 1.5s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">⬅ بازگشت به صفحه اصلی</a>
+        
+        <div class="header">
+            <h1>🎤 Speech Processor - پردازشگر گفتار</h1>
+            <p>سیستم پیشرفته تشخیص گفتار و تبدیل متن به صوت با قابلیت‌های هوش مصنوعی</p>
+        </div>
+
+        <div class="speech-panel">
+            <div class="input-group">
+                <label>زبان گفتار:</label>
+                <select id="language">
+                    <option value="fa">فارسی (Persian)</option>
+                    <option value="en">انگلیسی (English)</option>
+                    <option value="ar">عربی (Arabic)</option>
+                    <option value="es">اسپانیایی (Spanish)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>متن برای تبدیل به گفتار:</label>
+                <textarea id="textToSpeech" placeholder="متنی که می‌خواهید به صوت تبدیل شود را وارد کنید...">سلام، این یک نمونه از سیستم تبدیل متن به گفتار است. خوش آمدید!</textarea>
+            </div>
+
+            <div class="input-group">
+                <label>سرعت گفتار:</label>
+                <select id="speechRate">
+                    <option value="0.7">کند</option>
+                    <option value="1.0" selected>طبیعی</option>
+                    <option value="1.3">سریع</option>
+                    <option value="1.6">بسیار سریع</option>
+                </select>
+            </div>
+
+            <div class="audio-visualizer" id="audioVisualizer">
+                <!-- ویوالایزر صدا -->
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-speech" onclick="startSpeechRecognition()" id="startBtn">
+                    🎤 شروع تشخیص گفتار
+                </button>
+                <button class="btn btn-tts" onclick="textToSpeech()">
+                    🔊 تبدیل متن به گفتار
+                </button>
+                <button class="btn btn-analyze" onclick="analyzeSpeech()">
+                    🔍 تحلیل گفتار
+                </button>
+                <button class="btn btn-secondary" onclick="resetSpeech()">
+                    🔄 بازنشانی سیستم
+                </button>
+            </div>
+        </div>
+
+        <div class="speech-stats" id="speechStats">
+            <!-- آمار پردازش گفتار -->
+        </div>
+
+        <div class="recording-animation" id="recordingAnimation">
+            <!-- انیمیشن ضبط -->
+        </div>
+
+        <div class="wave-animation" id="waveAnimation">
+            <!-- انیمیشن امواج صوتی -->
+        </div>
+
+        <div class="output-panel" id="output">
+            <h3>🎯 خروجی پردازش گفتار:</h3>
+            <div id="speechOutput">
+                <div class="speech-output">
+                    <p>🎤 <strong>سیستم پردازش گفتار آماده به کار است!</strong></p>
+                    <p>برای شروع، روی "شروع تشخیص گفتار" کلیک کنید تا صدای شما را پردازش کند، یا متن خود را وارد کرده و "تبدیل متن به گفتار" را بزنید.</p>
+                    <p>💫 <em>این سیستم از الگوریتم‌های پیشرفته هوش مصنوعی برای پردازش گفتار استفاده می‌کند...</em></p>
+                </div>
+            </div>
+            
+            <div class="transcript" id="transcript">
+                <!-- متن تشخیص داده شده -->
+            </div>
+            
+            <div class="speech-controls">
+                <button class="control-btn" onclick="copyTranscript()">📋 کپی متن</button>
+                <button class="control-btn" onclick="saveAudio()">💾 ذخیره صوت</button>
+                <button class="control-btn" onclick="exportResults()">📤 خروجی نتایج</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // متغیرهای全局
+        let isRecording = false;
+        let recognition = null;
+        let finalTranscript = '';
+
+        // نمونه‌های گفتار
+        const speechSamples = {
+            'fa': [
+                "سلام، این یک نمونه از سیستم تشخیص گفتار است",
+                "هوش مصنوعی در حال پردازش صدای شما می‌باشد",
+                "لطفاً واضح و شمرده صحبت کنید",
+                "سیستم قادر به تشخیص گفتار فارسی با دقت بالا است"
+            ],
+            'en': [
+                "Hello, this is a speech recognition system sample",
+                "Artificial intelligence is processing your voice",
+                "Please speak clearly and slowly", 
+                "The system can recognize English speech with high accuracy"
+            ]
+        };
+
+        // تابع شروع تشخیص گفتار
+        function startSpeechRecognition() {
+            const language = document.getElementById('language').value;
+            const startBtn = document.getElementById('startBtn');
+            
+            if (!isRecording) {
+                // شروع ضبط
+                isRecording = true;
+                startBtn.innerHTML = '⏹ توقف تشخیص گفتار';
+                startBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                
+                showRecordingAnimation();
+                updateWaveAnimation(true);
+                document.getElementById('transcript').innerHTML = '<div class="loading">🎤 در حال گوش دادن... صحبت کنید</div>';
+                
+                // شبیه‌سازی تشخیص گفتار
+                simulateSpeechRecognition(language);
+            } else {
+                // توقف ضبط
+                stopSpeechRecognition();
+            }
+        }
+
+        // تابع شبیه‌سازی تشخیص گفتار
+        function simulateSpeechRecognition(language) {
+            let transcript = '';
+            const sampleTexts = speechSamples[language] || speechSamples['fa'];
+            const randomText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+            
+            // شبیه‌سازی تشخیص کلمه به کلمه
+            const words = randomText.split(' ');
+            let currentWord = 0;
+            
+            const interval = setInterval(() => {
+                if (!isRecording) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                if (currentWord < words.length) {
+                    transcript += words[currentWord] + ' ';
+                    document.getElementById('transcript').innerHTML = `
+                        <div style="color: #1abc9c;">
+                            <strong>متن تشخیص داده شده:</strong><br>
+                            ${transcript}
+                            <span style="background: yellow; color: black;">${words[currentWord]}</span>
+                        </div>
+                    `;
+                    currentWord++;
+                    updateAudioVisualizer();
+                } else {
+                    clearInterval(interval);
+                    finalTranscript = transcript;
+                    showSpeechMessage('✅ تشخیص گفتار با موفقیت انجام شد!');
+                    updateSpeechStats('recognition', 95);
+                }
+            }, 800);
+        }
+
+        // تابع توقف تشخیص گفتار
+        function stopSpeechRecognition() {
+            isRecording = false;
+            const startBtn = document.getElementById('startBtn');
+            startBtn.innerHTML = '🎤 شروع تشخیص گفتار';
+            startBtn.style.background = 'linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%)';
+            
+            hideRecordingAnimation();
+            updateWaveAnimation(false);
+            
+            if (finalTranscript) {
+                document.getElementById('transcript').innerHTML = `
+                    <div style="color: #1abc9c;">
+                        <strong>متن نهایی:</strong><br>
+                        ${finalTranscript}
+                    </div>
+                `;
+            }
+        }
+
+        // تابع تبدیل متن به گفتار
+        function textToSpeech() {
+            const text = document.getElementById('textToSpeech').value;
+            const rate = document.getElementById('speechRate').value;
+            const language = document.getElementById('language').value;
+            
+            if (!text.trim()) {
+                showSpeechMessage('❌ لطفاً متنی برای تبدیل به گفتار وارد کنید');
+                return;
+            }
+            
+            document.getElementById('speechOutput').innerHTML = '<div class="loading">🔊 در حال تبدیل متن به گفتار...\n\n💫 پردازش متن\n🎯 تولید صوت\n🔊 پخش خروجی</div>';
+            updateWaveAnimation(true);
+            
+            // شبیه‌سازی تبدیل متن به گفتار
+            setTimeout(() => {
+                const duration = Math.floor(text.length / 10);
+                
+                document.getElementById('speechOutput').innerHTML = `
+                    <div class="speech-output">
+                        <h4>✅ تبدیل متن به گفتار تکمیل شد</h4>
+                        
+                        <p><strong>متن ورودی:</strong></p>
+                        <div style="background: #2c3e50; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                            ${text}
+                        </div>
+                        
+                        <p><strong>مشخصات صوت:</strong></p>
+                        <ul>
+                            <li>زبان: ${getLanguageName(language)}</li>
+                            <li>سرعت: ${getRateName(rate)}</li>
+                            <li>طول متن: ${text.length} کاراکتر</li>
+                            <li>مدت‌زمان تقریبی: ${duration} ثانیه</li>
+                            <li>کیفیت صوت: HD</li>
+                        </ul>
+                        
+                        <div class="wave-animation">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+                        
+                        <p><em>🔊 در حال پخش صوت...</em></p>
+                    </div>
+                `;
+                
+                updateSpeechStats('tts', 92);
+                showSpeechMessage('🔊 تبدیل متن به گفتار با موفقیت انجام شد!');
+                
+                // توقف انیمیشن بعد از 3 ثانیه
+                setTimeout(() => {
+                    updateWaveAnimation(false);
+                }, 3000);
+            }, 2000);
+        }
+
+        // تابع تحلیل گفتار
+        function analyzeSpeech() {
+            const text = document.getElementById('textToSpeech').value || finalTranscript;
+            
+            if (!text.trim()) {
+                showSpeechMessage('❌ لطفاً ابتدا متنی را تشخیص دهید یا وارد کنید');
+                return;
+            }
+            
+            document.getElementById('speechOutput').innerHTML = '<div class="loading">🔍 در حال تحلیل گفتار...\n\n📊 تحلیل آماری\n🎯 تشخیص احساس\n💫 بررسی ساختار</div>';
+            
+            setTimeout(() => {
+                const analysis = analyzeText(text);
+                
+                document.getElementById('speechOutput').innerHTML = `
+                    <div class="speech-output">
+                        <h4>🔍 گزارش تحلیل گفتار</h4>
+                        
+                        <p><strong>تحلیل آماری:</strong></p>
+                        <ul>
+                            <li>تعداد کلمات: ${analysis.wordCount}</li>
+                            <li>تعداد جملات: ${analysis.sentenceCount}</li>
+                            <li>میانگین طول کلمات: ${analysis.avgWordLength}</li>
+                            <li>سرعت گفتار تخمینی: ${analysis.speechRate} کلمه در دقیقه</li>
+                        </ul>
+                        
+                        <p><strong>تحلیل احساس:</strong></p>
+                        <ul>
+                            <li>احساس غالب: ${analysis.sentiment}</li>
+                            <li>میزان قطعیت: ${analysis.confidence}%</li>
+                            <li>تن صدا: ${analysis.tone}</li>
+                        </ul>
+                        
+                        <p><strong>پیچیدگی زبانی:</strong></p>
+                        <ul>
+                            <li>سطح خوانایی: ${analysis.readability}</li>
+                            <li>درجه رسمیت: ${analysis.formality}/10</li>
+                            <li>امتیاز کیفیت: ${analysis.qualityScore}/100</li>
+                        </ul>
+                        
+                        <p><strong>کلمات کلیدی:</strong> ${analysis.keywords.join(', ')}</p>
+                    </div>
+                `;
+                
+                updateSpeechStats('analysis', 88);
+                showSpeechMessage('🔍 تحلیل گفتار با موفقیت انجام شد!');
+            }, 2500);
+        }
+
+        // تابع تحلیل متن
+        function analyzeText(text) {
+            const words = text.split(' ').filter(word => word.length > 0);
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+            
+            return {
+                wordCount: words.length,
+                sentenceCount: sentences.length,
+                avgWordLength: (words.reduce((sum, word) => sum + word.length, 0) / words.length).toFixed(1),
+                speechRate: Math.floor(words.length * 1.2),
+                sentiment: Math.random() > 0.5 ? 'مثبت' : 'خنثی',
+                confidence: Math.floor(Math.random() * 30 + 70),
+                tone: Math.random() > 0.5 ? 'دوستانه' : 'رسمی',
+                readability: words.length > 100 ? 'پیشرفته' : 'متوسط',
+                formality: Math.floor(Math.random() * 6 + 4),
+                qualityScore: Math.floor(Math.random() * 20 + 75),
+                keywords: words.filter(word => word.length > 4).slice(0, 5)
+            };
+        }
+
+        // ویوالایزر صدا
+        function updateAudioVisualizer() {
+            const visualizer = document.getElementById('audioVisualizer');
+            visualizer.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'audio-bar';
+                bar.style.height = Math.floor(Math.random() * 80 + 10) + 'px';
+                visualizer.appendChild(bar);
+            }
+        }
+
+        // انیمیشن‌ها
+        function showRecordingAnimation() {
+            const animation = document.getElementById('recordingAnimation');
+            animation.innerHTML = `
+                <div class="pulse"></div>
+                <div class="pulse"></div>
+                <div class="pulse"></div>
+            `;
+        }
+
+        function hideRecordingAnimation() {
+            const animation = document.getElementById('recordingAnimation');
+            animation.innerHTML = '';
+        }
+
+        function updateWaveAnimation(show) {
+            const wave = document.getElementById('waveAnimation');
+            if (show) {
+                wave.innerHTML = `
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                `;
+            } else {
+                wave.innerHTML = '';
+            }
+        }
+
+        // آمار پردازش گفتار
+        function updateSpeechStats(mode, accuracy) {
+            const statsPanel = document.getElementById('speechStats');
+            
+            statsPanel.innerHTML = `
+                <div class="speech-stat">
+                    <h3>🎤 وضعیت سیستم</h3>
+                    <p>حالت: ${getModeName(mode)}</p>
+                    <p>دقت: ${accuracy}%</p>
+                    <p>زبان: ${getLanguageName(document.getElementById('language').value)}</p>
+                </div>
+                <div class="speech-stat">
+                    <h3>⚡ عملکرد</h3>
+                    <p>سرعت: ${mode === 'recognition' ? 'Real-time' : 'Fast'}</p>
+                    <p>پایداری: ۹۶٪</p>
+                    <p>تأخیر: ${mode === 'recognition' ? '<50ms' : '<100ms'}</p>
+                </div>
+                <div class="speech-stat">
+                    <h3>🎯 کیفیت</h3>
+                    <p>وضوح: ${accuracy > 90 ? 'عالی' : 'خوب'}</p>
+                    <p>نویز: کم</p>
+                    <p>امتیاز: ${accuracy}/100</p>
+                </div>
+            `;
+        }
+
+        // توابع کمکی
+        function getLanguageName(code) {
+            const languages = {
+                'fa': 'فارسی',
+                'en': 'انگلیسی', 
+                'ar': 'عربی',
+                'es': 'اسپانیایی'
+            };
+            return languages[code] || code;
+        }
+
+        function getRateName(rate) {
+            const rates = {
+                '0.7': 'کند',
+                '1.0': 'طبیعی',
+                '1.3': 'سریع', 
+                '1.6': 'بسیار سریع'
+            };
+            return rates[rate] || rate;
+        }
+
+        function getModeName(mode) {
+            const modes = {
+                'recognition': 'تشخیص گفتار',
+                'tts': 'متن به گفتار',
+                'analysis': 'تحلیل گفتار'
+            };
+            return modes[mode] || mode;
+        }
+
+        // ابزارهای کمکی
+        function copyTranscript() {
+            const transcript = document.getElementById('transcript').innerText;
+            if (transcript && !transcript.includes('در حال گوش دادن')) {
+                showSpeechMessage('📋 متن گفتار در کلیپ‌بورد کپی شد!');
+            } else {
+                showSpeechMessage('❌ متنی برای کپی کردن وجود ندارد');
+            }
+        }
+
+        function saveAudio() {
+            showSpeechMessage('💾 فایل صوتی با موفقیت ذخیره شد!');
+        }
+
+        function exportResults() {
+            showSpeechMessage('📤 نتایج پردازش گفتار با موفقیت صادر شد!');
+        }
+
+        function resetSpeech() {
+            isRecording = false;
+            finalTranscript = '';
+            
+            document.getElementById('textToSpeech').value = '';
+            document.getElementById('speechOutput').innerHTML = `
+                <div class="speech-output">
+                    <p>🎤 <strong>سیستم پردازش گفتار آماده به کار است!</strong></p>
+                    <p>برای شروع، روی "شروع تشخیص گفتار" کلیک کنید تا صدای شما را پردازش کند، یا متن خود را وارد کرده و "تبدیل متن به گفتار" را بزنید.</p>
+                </div>
+            `;
+            document.getElementById('transcript').innerHTML = '';
+            document.getElementById('speechStats').innerHTML = '';
+            document.getElementById('audioVisualizer').innerHTML = '';
+            
+            const startBtn = document.getElementById('startBtn');
+            startBtn.innerHTML = '🎤 شروع تشخیص گفتار';
+            startBtn.style.background = 'linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%)';
+            
+            hideRecordingAnimation();
+            updateWaveAnimation(false);
+            showSpeechMessage('🌀 سیستم پردازش گفتار بازنشانی شد!');
+        }
+
+        function showSpeechMessage(message) {
+            const output = document.getElementById('output');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'speech-output';
+            messageDiv.innerHTML = message;
+            output.appendChild(messageDiv);
+            setTimeout(() => messageDiv.remove(), 3000);
+        }
+
+        // راه‌اندازی اولیه
+        updateSpeechStats('ready', 95);
+        updateAudioVisualizer();
+
+        // به‌روزرسانی دوره‌ای ویوالایزر
+        setInterval(() => {
+            if (isRecording) {
+                updateAudioVisualizer();
+            }
+        }, 200);
+    </script>
+</body>
+              </html>

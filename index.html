@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>فروشگاه من</title>
+    <style>
+        body { font-family: Tahoma; margin: 20px; }
+        button { 
+            background: green; color: white; 
+            padding: 15px; margin: 10px; border: none; 
+            border-radius: 5px; cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+    <h1>🛍️ فروشگاه تست</h1>
+    <button onclick="sell()">🎯 خرید محصول (29,000 تومان)</button>
+    <p id="status">وضعیت: در حال بررسی...</p>
+    
+    <script>
+        async function sell() {
+            try {
+                const response = await fetch('http://localhost:3000/api/sell', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({})
+                });
+                const result = await response.json();
+                alert('✅ خرید موفق! درآمد: ' + result.total.toLocaleString() + ' تومان');
+                checkStatus();
+            } catch (error) {
+                alert('❌ خطا! مطمئن شوید revenue.js اجرا شده است');
+            }
+        }
+        
+        async function checkStatus() {
+            try {
+                const response = await fetch('http://localhost:3000/api/stats');
+                const data = await response.json();
+                document.getElementById('status').innerHTML = 
+                    '💰 درآمد کل: ' + data.total.toLocaleString() + ' تومان';
+            } catch (error) {
+                document.getElementById('status').innerHTML = 
+                    '❌ سیستم درآمدزایی وصل نیست';
+            }
+        }
+        checkStatus();
+    </script>
+</body>
+</html>

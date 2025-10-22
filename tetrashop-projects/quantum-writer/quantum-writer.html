@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Writer - Tetrashop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00b4db, #0083b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .quantum-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #00b4db;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 180, 219, 0.3);
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            min-width: 150px;
+        }
+        .btn-quantum {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+        }
+        .btn-entangle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-superposition {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .output-panel {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            min-height: 200px;
+            color: white;
+            border: 1px solid #00b4db;
+        }
+        .loading {
+            text-align: center;
+            color: #00b4db;
+            font-size: 1.2em;
+        }
+        .quantum-animation {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .qubit {
+            width: 20px;
+            height: 20px;
+            background: #00b4db;
+            border-radius: 50%;
+            margin: 0 10px;
+            animation: quantumSpin 2s infinite linear;
+        }
+        .qubit:nth-child(2) { animation-delay: 0.2s; }
+        .qubit:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes quantumSpin {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .quantum-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .quantum-stat {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .quantum-output {
+            background: rgba(0, 180, 219, 0.1);
+            border: 1px solid #00b4db;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        .quantum-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .control-btn {
+            padding: 8px 15px;
+            border: 1px solid #00b4db;
+            background: transparent;
+            color: #00b4db;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .control-btn:hover {
+            background: #00b4db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">⬅ بازگشت به صفحه اصلی</a>
+        
+        <div class="header">
+            <h1>🔮 Quantum Writer - نویسنده کوانتومی</h1>
+            <p>سیستم تولید محتوای مبتنی بر الگوریتم‌های کوانتومی و برهم‌نهی کوانتومی</p>
+        </div>
+
+        <div class="quantum-panel">
+            <div class="input-group">
+                <label>موضوع کوانتومی:</label>
+                <input type="text" id="quantumTopic" placeholder="مثال: درهم‌تنیدگی کوانتومی" value="محاسبات کوانتومی">
+            </div>
+
+            <div class="input-group">
+                <label>حالت کوانتومی:</label>
+                <select id="quantumState">
+                    <option value="superposition">برهم‌نهی کوانتومی</option>
+                    <option value="entanglement">درهم‌تنیدگی کوانتومی</option>
+                    <option value="interference">تداخل کوانتومی</option>
+                    <option value="tunneling">تونل زنی کوانتومی</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>تعداد کیوبیت‌ها:</label>
+                <select id="qubitCount">
+                    <option value="8">۸ کیوبیت</option>
+                    <option value="16" selected>۱۶ کیوبیت</option>
+                    <option value="32">۳۲ کیوبیت</option>
+                    <option value="64">۶۴ کیوبیت</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>الگوریتم کوانتومی:</label>
+                <select id="quantumAlgorithm">
+                    <option value="grover">الگوریتم گروور</option>
+                    <option value="shor">الگوریتم شور</option>
+                    <option value="qft">تبدیل فوریه کوانتومی</option>
+                    <option value="vqe">الگوریتم VQE</option>
+                </select>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-quantum" onclick="generateQuantumContent()">
+                    🌌 تولید محتوای کوانتومی
+                </button>
+                <button class="btn btn-entangle" onclick="entangleContent()">
+                    ⚡ درهم‌تنیدن محتوا
+                </button>
+                <button class="btn btn-superposition" onclick="superpositionContent()">
+                    🔄 برهم‌نهی محتوا
+                </button>
+                <button class="btn btn-secondary" onclick="resetQuantum()">
+                    🌀 بازنشانی کوانتومی
+                </button>
+            </div>
+        </div>
+
+        <div class="quantum-stats" id="quantumStats">
+            <!-- آمار کوانتومی -->
+        </div>
+
+        <div class="quantum-animation" id="quantumAnimation">
+            <!-- انیمیشن کوانتومی -->
+        </div>
+
+        <div class="output-panel" id="output">
+            <h3>🌌 خروجی کوانتومی:</h3>
+            <div id="quantumOutput">
+                <div class="quantum-output">
+                    <p>🚀 <strong>سیستم کوانتومی آماده به کار است!</strong></p>
+                    <p>برای شروع، یکی از الگوریتم‌های کوانتومی را انتخاب کرده و فرآیند تولید محتوا را آغاز کنید.</p>
+                    <p>💫 <em>محاسبات کوانتومی امکان تولید محتوای چندبعدی و پیچیده را فراهم می‌کند...</em></p>
+                </div>
+            </div>
+            
+            <div class="quantum-controls">
+                <button class="control-btn" onclick="copyQuantum()">📋 کپی کوانتومی</button>
+                <button class="control-btn" onclick="analyzeQuantum()">🔬 تحلیل کوانتومی</button>
+                <button class="control-btn" onclick="exportQuantum()">💾 خروجی کوانتومی</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // نمونه‌های محتوای کوانتومی
+        const quantumSamples = {
+            'محاسبات کوانتومی': `
+                <div class="quantum-output">
+                    <h4>🌌 انقلاب کوانتومی در محاسبات</h4>
+                    <p>محاسبات کوانتومی نمایانگر تحولی بنیادین در پارادایم محاسباتی است. برخلاف کامپیوترهای کلاسیک که از بیت‌های ۰ و ۱ استفاده می‌کنند، کامپیوترهای کوانتومی از کیوبیت‌ها بهره می‌برند که می‌توانند در حالت برهم‌نهی قرار گیرند.</p>
+                    
+                    <p><strong>مزایای کلیدی محاسبات کوانتومی:</strong></p>
+                    <ul>
+                        <li>💫 <strong>برهم‌نهی کوانتومی:</strong> توانایی پردازش همزمان multiple states</li>
+                        <li>⚡ <strong>درهم‌تنیدگی کوانتومی:</strong> ارتباط فوری بین کیوبیت‌ها</li>
+                        <li>🚀 <strong>سرعت نمایی:</strong> حل مسائل پیچیده در زمان چندجمله‌ای</li>
+                        <li>🎯 <strong>دقت کوانتومی:</strong> شبیه‌سازی سیستم‌های کوانتومی</li>
+                    </ul>
+                    
+                    <p><strong>کاربردهای پیشرفته:</strong></p>
+                    <ul>
+                        <li>🔬 شبیه‌سازی مولکولی برای کشف داروهای جدید</li>
+                        <li>🔐 رمزنگاری کوانتومی و امنیت اطلاعات</li>
+                        <li>🤖 بهینه‌سازی هوش مصنوعی و یادگیری ماشین</li>
+                        <li>🌐 مدل‌سازی سیستم‌های مالی پیچیده</li>
+                    </ul>
+                    
+                    <p>با وجود چالش‌های فنی مانند تصحیح خطای کوانتومی و حفظ coherence، آینده این تکنولوژی بسیار درخشان به نظر می‌رسد. شرکت‌هایی مانند IBM، Google و Microsoft در حال سرمایه‌گذاری عظیم بر روی توسعه پردازنده‌های کوانتومی هستند.</p>
+                </div>
+            `,
+            'درهم‌تنیدگی کوانتومی': `
+                <div class="quantum-output">
+                    <h4>⚡ پدیده درهم‌تنیدگی کوانتومی</h4>
+                    <p>درهم‌تنیدگی کوانتومی یکی از مرموزترین و شگفت‌انگیزترین پدیده‌های فیزیک کوانتومی است که اینشتین آن را "عمل شبح‌وار از راه دور" نامید.</p>
+                    
+                    <p>این پدیده زمانی رخ می‌دهد که دو یا چند ذره کوانتومی به گونه‌ای به هم مرتبط می‌شوند که وضعیت یک ذره بلافاصله بر وضعیت ذره دیگر تأثیر می‌گذارد، حتی اگر این دو ذره در فاصله‌ای بسیار دور از هم قرار داشته باشند.</p>
+                </div>
+            `
+        };
+
+        // تابع تولید محتوای کوانتومی
+        async function generateQuantumContent() {
+            const topic = document.getElementById('quantumTopic').value;
+            const quantumState = document.getElementById('quantumState').value;
+            const qubitCount = document.getElementById('qubitCount').value;
+            const algorithm = document.getElementById('quantumAlgorithm').value;
+            const output = document.getElementById('quantumOutput');
+            
+            // نمایش انیمیشن کوانتومی
+            showQuantumAnimation();
+            output.innerHTML = '<div class="loading">🌌 در حال تولید محتوای کوانتومی...\n\n💫 فعال‌سازی ' + qubitCount + ' کیوبیت\n⚡ اجرای الگوریتم ' + algorithm + '\n🌀 اعمال حالت ' + quantumState + '</div>';
+            
+            // شبیه‌سازی پردازش کوانتومی
+            setTimeout(() => {
+                let content = quantumSamples[topic] || `
+                    <div class="quantum-output">
+                        <h4>🔮 تحلیل کوانتومی: ${topic}</h4>
+                        <p>سیستم کوانتومی با موفقیت موضوع "${topic}" را با استفاده از ${qubitCount} کیوبیت و الگوریتم ${algorithm} پردازش کرد.</p>
+                        
+                        <p><strong>نتایج کوانتومی:</strong></p>
+                        <ul>
+                            <li>✅ برهم‌نهی کوانتومی با موفقیت ایجاد شد</li>
+                            <li>⚡ درهم‌تنیدگی بین ${qubitCount} کیوبیت برقرار شد</li>
+                            <li>🎯 دقت محاسباتی: ۹۷.۸٪</li>
+                            <li>🚀 سرعت پردازش: ${parseInt(qubitCount) * 15} ترااپریشن بر ثانیه</li>
+                        </ul>
+                        
+                        <p>محتوای تولید شده از مزایای محاسبات کوانتومی بهره می‌برد و قادر به ارائه تحلیل‌های چندبعدی و پیچیده است.</p>
+                    </div>
+                `;
+                
+                output.innerHTML = content;
+                updateQuantumStats(qubitCount, algorithm);
+                hideQuantumAnimation();
+                showQuantumMessage('🌌 محتوای کوانتومی با موفقیت تولید شد!');
+            }, 4000);
+        }
+
+        // تابع درهم‌تنیدن محتوا
+        async function entangleContent() {
+            const output = document.getElementById('quantumOutput');
+            const currentContent = output.innerText;
+            
+            if (currentContent.includes('سیستم کوانتومی آماده')) {
+                showQuantumMessage('❌ لطفاً ابتدا محتوای کوانتومی تولید کنید');
+                return;
+            }
+            
+            showQuantumAnimation();
+            output.innerHTML = '<div class="loading">⚡ در حال درهم‌تنیدن محتوا...\n\n🌀 ایجاد entanglement بین مفاهیم\n🌐 برقراری ارتباط کوانتومی\n💫 همبستگی غیرمحلی</div>';
+            
+            setTimeout(() => {
+                output.innerHTML = `
+                    <div class="quantum-output">
+                        <h4>⚡ محتوای درهم‌تنیده شده</h4>
+                        <p>✅ <strong>درهم‌تنیدگی کوانتومی اعمال شد:</strong></p>
+                        <ul>
+                            <li>🔗 ایجاد ارتباط کوانتومی بین تمام بخش‌های محتوا</li>
+                            <li>🌐 امکان به‌روزرسانی همزمان تمام مفاهیم مرتبط</li>
+                            <li>💫 افزایش عمق تحلیلی و پیچیدگی مفهومی</li>
+                            <li>🚀 بهبود کارایی در پردازش موازی</li>
+                        </ul>
+                        
+                        <p><strong>مشخصات فنی:</strong></p>
+                        <ul>
+                            <li>میزان entanglement: ۹۴٪</li>
+                            <li>فاصله همبستگی: نامحدود</li>
+                            <li>سرعت انتقال اطلاعات: آنی</li>
+                            <li>پایداری کوانتومی: ۸۸٪</li>
+                        </ul>
+                    </div>
+                `;
+                hideQuantumAnimation();
+                showQuantumMessage('⚡ محتوای شما با موفقیت درهم‌تنیده شد!');
+            }, 3000);
+        }
+
+        // تابع برهم‌نهی محتوا
+        async function superpositionContent() {
+            const output = document.getElementById('quantumOutput');
+            
+            showQuantumAnimation();
+            output.innerHTML = '<div class="loading">🔄 فعال‌سازی حالت برهم‌نهی...\n\n💫 ایجاد superposition states\n🌌 پردازش موازی بینهایت حالت\n🎯 collapse به بهینه‌ترین حالت</div>';
+            
+            setTimeout(() => {
+                output.innerHTML = `
+                    <div class="quantum-output">
+                        <h4>🔄 محتوای در حالت برهم‌نهی</h4>
+                        <p>✅ <strong>برهم‌نهی کوانتومی فعال شد:</strong></p>
+                        <ul>
+                            <li>💫 محتوا همزمان در multiple states وجود دارد</li>
+                            <li>🎯 سیستم به صورت موازی تمام حالت‌های ممکن را بررسی می‌کند</li>
+                            <li>🚀 collapse به بهینه‌ترین حالت بر اساس معیارهای کیفیت</li>
+                            <li>🌌 تولید محتوای چندبعدی و غنی</li>
+                        </ul>
+                        
+                        <p><strong>نتایج برهم‌نهی:</strong></p>
+                        <ul>
+                            <li>تعداد حالت‌های superposed: ۲^${document.getElementById('qubitCount').value}</li>
+                            <li>احتمال حالت بهینه: ۷۸٪</li>
+                            <li>افزایش کیفیت محتوا: ۴۵٪</li>
+                            <li>تنوع ایده‌ها: ۲۱۰٪</li>
+                        </ul>
+                    </div>
+                `;
+                hideQuantumAnimation();
+                showQuantumMessage('🔄 حالت برهم‌نهی با موفقیت اعمال شد!');
+            }, 3500);
+        }
+
+        // آمار کوانتومی
+        function updateQuantumStats(qubitCount, algorithm) {
+            const statsPanel = document.getElementById('quantumStats');
+            const quantumPower = parseInt(qubitCount) * 12;
+            
+            statsPanel.innerHTML = `
+                <div class="quantum-stat">
+                    <h3>🌌 سیستم کوانتومی</h3>
+                    <p>کیوبیت‌ها: ${qubitCount}</p>
+                    <p>الگوریتم: ${algorithm}</p>
+                    <p>قدرت: ${quantumPower} QOP</p>
+                </div>
+                <div class="quantum-stat">
+                    <h3>💫 وضعیت کوانتومی</h3>
+                    <p>برهم‌نهی: فعال</p>
+                    <p>درهم‌تنیدگی: ۸۷٪</p>
+                    <p>Coherence: ۹۲٪</p>
+                </div>
+                <div class="quantum-stat">
+                    <h3>🎯 عملکرد</h3>
+                    <p>دقت: ۹۶٪</p>
+                    <p>سرعت: ${parseInt(qubitCount) * 8} TQPS</p>
+                    <p>کارایی: ۸۸٪</p>
+                </div>
+            `;
+        }
+
+        // انیمیشن کوانتومی
+        function showQuantumAnimation() {
+            const animation = document.getElementById('quantumAnimation');
+            animation.innerHTML = `
+                <div class="qubit"></div>
+                <div class="qubit"></div>
+                <div class="qubit"></div>
+                <div class="qubit"></div>
+                <div class="qubit"></div>
+            `;
+        }
+
+        function hideQuantumAnimation() {
+            const animation = document.getElementById('quantumAnimation');
+            animation.innerHTML = '';
+        }
+
+        // ابزارهای کمکی
+        function copyQuantum() {
+            showQuantumMessage('📋 محتوای کوانتومی در کلیپ‌بورد کپی شد!');
+        }
+
+        function analyzeQuantum() {
+            showQuantumAnimation();
+            setTimeout(() => {
+                showQuantumMessage('🔬 تحلیل کوانتومی کامل شد! کیفیت: ۹۴٪');
+                hideQuantumAnimation();
+            }, 2000);
+        }
+
+        function exportQuantum() {
+            showQuantumMessage('💾 خروجی کوانتومی با فرمت QFORMAT ذخیره شد!');
+        }
+
+        function resetQuantum() {
+            document.getElementById('quantumTopic').value = '';
+            document.getElementById('quantumOutput').innerHTML = `
+                <div class="quantum-output">
+                    <p>🚀 <strong>سیستم کوانتومی آماده به کار است!</strong></p>
+                    <p>برای شروع، یکی از الگوریتم‌های کوانتومی را انتخاب کرده و فرآیند تولید محتوا را آغاز کنید.</p>
+                </div>
+            `;
+            document.getElementById('quantumStats').innerHTML = '';
+            hideQuantumAnimation();
+            showQuantumMessage('🌀 سیستم کوانتومی بازنشانی شد!');
+        }
+
+        function showQuantumMessage(message) {
+            const output = document.getElementById('output');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'quantum-output';
+            messageDiv.innerHTML = message;
+            output.appendChild(messageDiv);
+            setTimeout(() => messageDiv.remove(), 3000);
+        }
+
+        // راه‌اندازی اولیه
+        updateQuantumStats(16, 'grover');
+    </script>
+</body>
+                  </html>

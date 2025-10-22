@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Engine - Tetrashop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .control-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            min-width: 150px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .output-panel {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+        .success {
+            color: #2ecc71;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        .chess-board {
+            display: grid;
+            grid-template-columns: repeat(8, 60px);
+            grid-gap: 2px;
+            margin: 20px auto;
+            width: fit-content;
+            border: 3px solid #7b5e57;
+            padding: 10px;
+            background: #7b5e57;
+            border-radius: 5px;
+        }
+        .chess-cell {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .chess-cell:hover {
+            transform: scale(1.1);
+        }
+        .chess-white {
+            background: #f0d9b5;
+        }
+        .chess-black {
+            background: #b58863;
+        }
+        .back-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .analysis-result {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">⬅ بازگشت به صفحه اصلی</a>
+        
+        <div class="header">
+            <h1>♟️ Chess Engine - موتور شطرنج</h1>
+            <p>تحلیل هوشمند موقعیت‌های شطرنج و پیشنهاد حرکات بهینه</p>
+        </div>
+
+        <div class="control-panel">
+            <div class="input-group">
+                <label>موقعیت فعلی مهره‌ها (FEN):</label>
+                <textarea id="chessPosition" rows="3" placeholder="مثال: rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR">
+rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
+                </textarea>
+            </div>
+
+            <div class="input-group">
+                <label>سطح دشواری:</label>
+                <select id="difficulty">
+                    <option value="easy">آسان (عمق ۸)</option>
+                    <option value="medium" selected>متوسط (عمق ۱۲)</option>
+                    <option value="hard">سخت (عمق ۱۶)</option>
+                    <option value="expert">حرفه‌ای (عمق ۲۰)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>زمان تحلیل (ثانیه):</label>
+                <input type="number" id="analysisTime" value="5" min="1" max="30">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="analyzePosition()">
+                    🧠 تحلیل موقعیت
+                </button>
+                <button class="btn btn-success" onclick="suggestMove()">
+                    💡 پیشنهاد حرکت بعدی
+                </button>
+                <button class="btn btn-secondary" onclick="resetBoard()">
+                    🔄 شروع بازی جدید
+                </button>
+            </div>
+        </div>
+
+        <div class="chess-board" id="chessBoard">
+            <!-- تخته شطرنج اینجا تولید می‌شود -->
+        </div>
+
+        <div class="output-panel" id="output">
+            🎯 خروجی تحلیل اینجا نمایش داده می‌شود...
+            \nبرای شروع، روی "تحلیل موقعیت" کلیک کنید.
+        </div>
+    </div>
+
+    <script>
+        // تخته شطرنج اولیه
+        const initialBoard = [
+            ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+            ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+            ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+        ];
+
+        const pieceSymbols = {
+            'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+            'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙',
+            '': ''
+        };
+
+        // تابع تحلیل موقعیت شطرنج
+        async function analyzePosition() {
+            const position = document.getElementById('chessPosition').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const analysisTime = document.getElementById('analysisTime').value;
+            const output = document.getElementById('output');
+            
+            output.innerHTML = '<div class="loading">🔍 در حال تحلیل موقعیت...\nلطفاً صبر کنید</div>';
+            
+            // شبیه‌سازی ارسال به سرور پایتون
+            setTimeout(() => {
+                const depthMap = { easy: 8, medium: 12, hard: 16, expert: 20 };
+                const depth = depthMap[difficulty];
+                
+                const analysis = {
+                    evaluation: "+1.2",
+                    bestMove: "e2-e4",
+                    depth: depth,
+                    nodes: Math.floor(Math.random() * 20000) + 10000,
+                    time: analysisTime + "s",
+                    threats: ["کیش در ۳ حرکت", "تهدید به قلعه رو"],
+                    pv: ["e2-e4", "e7-e5", "g1-f3", "b8-c6", "f1-b5"]
+                };
+                
+                output.innerHTML = `
+                    <div class="success">
+                        <h3>✅ تحلیل کامل شد!</h3>
+                        <div class="analysis-result">
+                            <strong>ارزیابی موقعیت:</strong> ${analysis.evaluation} (سفید برتر)
+                            <br><strong>بهترین حرکت:</strong> ${analysis.bestMove}
+                            <br><strong>عمق تحلیل:</strong> ${analysis.depth}
+                            <br><strong>گره‌های بررسی شده:</strong> ${analysis.nodes.toLocaleString()}
+                            <br><strong>زمان تحلیل:</strong> ${analysis.time}
+                            <br><strong>تهدید‌ها:</strong> ${analysis.threats.join('، ')}
+                            <br><strong>برترین تغییرات:</strong> ${analysis.pv.join(' → ')}
+                        </div>
+                    </div>
+                `;
+                
+                generateChessBoard();
+            }, 2000);
+        }
+
+        // تابع پیشنهاد حرکت
+        async function suggestMove() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<div class="loading">💡 در حال محاسبه بهترین حرکت...\nاین فرآیند چند ثانیه طول می‌کشد</div>';
+            
+            setTimeout(() => {
+                const moves = [
+                    "e2-e4 (باز کردن بازی - کنترل مرکز)",
+                    "d2-d4 (دفاع مرکزی - توسعه وزیر)", 
+                    "g1-f3 (توسعه اسب - آماده کردن قلعه‌رو)",
+                    "c2-c4 (دفاع انگلیسی - کنترل خانه d5)"
+                ];
+                
+                output.innerHTML = `
+                    <div class="success">
+                        <h3>🎯 پیشنهادات حرکت برتر:</h3>
+                        ${moves.map((move, index) => 
+                            `<div class="analysis-result">${index + 1}. ${move}</div>`
+                        ).join('')}
+                        \n\n💡 پیشنهاد سیستم: ${moves[0]}
+                    </div>
+                `;
+            }, 1500);
+        }
+
+        // تولید تخته شطرنج
+        function generateChessBoard() {
+            const board = document.getElementById('chessBoard');
+            board.innerHTML = '';
+            
+            for (let row = 0; row < 8; row++) {
+                for (let col = 0; col < 8; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = `chess-cell ${(row + col) % 2 === 0 ? 'chess-white' : 'chess-black'}`;
+                    cell.textContent = pieceSymbols[initialBoard[row][col]];
+                    cell.onclick = () => selectPiece(row, col);
+                    board.appendChild(cell);
+                }
+            }
+        }
+
+        function selectPiece(row, col) {
+            const piece = initialBoard[row][col];
+            const output = document.getElementById('output');
+            
+            if (piece) {
+                const pieceName = getPieceName(piece);
+                output.innerHTML = `
+                    <div class="analysis-result">
+                        <strong>مهره انتخاب شده:</strong> ${pieceSymbols[piece]} ${pieceName}
+                        <br><strong>موقعیت:</strong> ${String.fromCharCode(97 + col)}${8 - row}
+                        <br><strong>حرکات ممکن:</strong> ${getPossibleMoves(piece, row, col).join(', ')}
+                    </div>
+                `;
+            }
+        }
+
+        function getPieceName(piece) {
+            const names = {
+                'r': 'رخ سیاه', 'n': 'اسب سیاه', 'b': 'فیل سیاه', 'q': 'وزیر سیاه', 'k': 'شاه سیاه', 'p': 'سرباز سیاه',
+                'R': 'رخ سفید', 'N': 'اسب سفید', 'B': 'فیل سفید', 'Q': 'وزیر سفید', 'K': 'شاه سفید', 'P': 'سرباز سفید'
+            };
+            return names[piece] || 'خانه خالی';
+        }
+
+        function getPossibleMoves(piece, row, col) {
+            // شبیه‌سازی حرکات ممکن
+            const moves = [];
+            if (piece.toLowerCase() === 'p') moves.push('حرکت به جلو');
+            if (piece.toLowerCase() === 'n') moves.push('حرکت L شکل');
+            if (piece.toLowerCase() === 'r') moves.push('حرکت عمودی/افقی');
+            if (piece.toLowerCase() === 'b') moves.push('حرکت مورب');
+            if (piece.toLowerCase() === 'q') moves.push('تمام جهات');
+            if (piece.toLowerCase() === 'k') moves.push('یک خانه در تمام جهات');
+            return moves;
+        }
+
+        function resetBoard() {
+            document.getElementById('chessPosition').value = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
+            document.getElementById('output').innerHTML = '🎯 خروجی تحلیل اینجا نمایش داده می‌شود...\nبرای شروع، روی "تحلیل موقعیت" کلیک کنید.';
+            generateChessBoard();
+        }
+
+        // راه‌اندازی اولیه
+        generateChessBoard();
+    </script>
+</body>
+  </html>

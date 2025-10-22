@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetrashop Projects - مدیریت پروژه‌ها</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 15px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            height: fit-content;
+        }
+        
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .project-card h3 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .project-card p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+            height: 60px;
+            overflow: hidden;
+        }
+        
+        .status {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .status.completed { background: #d4edda; color: #155724; }
+        .status.active { background: #d1ecf1; color: #0c5460; }
+        .status.development { background: #fff3cd; color: #856404; }
+        
+        .run-btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: bold;
+        }
+        
+        .run-btn:hover:not(:disabled) {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+        
+        .run-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .notification.show { transform: translateX(0); }
+        .notification.success { background: #22c55e; }
+        .notification.error { background: #ef4444; }
+        .notification.info { background: #3b82f6; }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #22c55e;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 8px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 پروژه‌های Tetrashop</h1>
+            <p>مدیریت و اجرای هوشمند پروژه‌های نرم‌افزاری</p>
+        </div>
+        
+        <div class="projects-grid" id="projects-container"></div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>در حال اجرای پروژه...</p>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        const projects = [
+            {
+                id: 'chess-engine',
+                title: '♟️ Chess Engine',
+                description: 'موتور شطرنج هوشمند با الگوریتم‌های پیشرفته',
+                status: 'completed',
+                path: './chess-engine/index.html'
+            },
+            {
+                id: 'intelligent-writer',
+                title: '✍️ Intelligent Writer',
+                description: 'سیستم هوشمند تولید محتوا با پردازش زبان طبیعی',
+                status: 'completed', 
+                path: './intelligent-writer/index.html'
+            },
+            {
+                id: 'quantum-writer',
+                title: '⚛️ Quantum Writer',
+                description: 'نویسنده کوانتومی با الگوریتم‌های محاسبات کوانتومی',
+                status: 'active',
+                path: './quantum-writer/index.html'
+            },
+            {
+                id: 'secret-guardian', 
+                title: '🛡️ Secret Guardian',
+                description: 'سیستم امنیتی پیشرفته برای محافظت از اطلاعات',
+                status: 'completed',
+                path: './secret-guardian/index.html'
+            },
+            {
+                id: 'speech-processor',
+                title: '🎤 Speech Processor', 
+                description: 'پردازشگر صدا و گفتار با قابلیت تشخیص و تبدیل',
+                status: 'development',
+                path: './speech-processor/index.html'
+            }
+        ];
+
+        class ProjectManager {
+            constructor() {
+                this.projects = projects;
+                this.init();
+            }
+
+            init() {
+                this.renderProjects();
+                this.setupEventListeners();
+            }
+
+            renderProjects() {
+                const container = document.getElementById('projects-container');
+                
+                this.projects.forEach(project => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+                    projectCard.innerHTML = this.createProjectHTML(project);
+                    container.appendChild(projectCard);
+                });
+            }
+
+            createProjectHTML(project) {
+                const statusText = {
+                    'completed': 'تکمیل شده',
+                    'active': 'فعال', 
+                    'development': 'در حال توسعه'
+                };
+
+                const isDisabled = project.status === 'development';
+
+                return `
+                    <div class="project-icon">${project.title.split(' ')[0]}</div>
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                    <div class="status ${project.status}">
+                        ${statusText[project.status]}
+                    </div>
+                    <button class="run-btn" data-project="${project.id}" ${isDisabled ? 'disabled' : ''}>
+                        ${isDisabled ? '⏳ در حال توسعه' : '🚀 اجرای پروژه'}
+                    </button>
+                `;
+            }
+
+            setupEventListeners() {
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('run-btn') && !e.target.disabled) {
+                        const projectId = e.target.getAttribute('data-project');
+                        this.handleProjectRun(projectId);
+                    }
+                });
+            }
+
+            async handleProjectRun(projectId) {
+                const project = this.projects.find(p => p.id === projectId);
+                if (!project) return;
+
+                this.showLoading();
+                this.showNotification(`در حال راه‌اندازی ${project.title}...`, 'info');
+
+                try {
+                    await this.simulateProjectStart(project);
+                    
+                    setTimeout(() => {
+                        this.hideLoading();
+                        this.showNotification(`پروژه ${project.title} اجرا شد`, 'success');
+                        window.location.href = project.path;
+                    }, 1500);
+
+                } catch (error) {
+                    this.hideLoading();
+                    this.showNotification('خطا در اجرای پروژه', 'error');
+                }
+            }
+
+            simulateProjectStart(project) {
+                return new Promise((resolve) => {
+                    const operations = {
+                        'chess-engine': 'راه‌اندازی موتور شطرنج...',
+                        'intelligent-writer': 'بارگذاری مدل‌های NLP...',
+                        'quantum-writer': 'آماده‌سازی محیط کوانتومی...',
+                        'secret-guardian': 'فعال‌سازی سیستم امنیتی...',
+                        'speech-processor': 'راه‌اندازی پردازشگر صدا...'
+                    };
+                    console.log(operations[project.id]);
+                    setTimeout(resolve, 1000);
+                });
+            }
+
+            showLoading() {
+                document.getElementById('loading').style.display = 'block';
+            }
+
+            hideLoading() {
+                document.getElementById('loading').style.display = 'none';
+            }
+
+            showNotification(message, type) {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.className = `notification ${type} show`;
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2500);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProjectManager();
+        });
+    </script>
+</body>
+</html>

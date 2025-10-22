@@ -1,0 +1,9 @@
+name = "tetrashop-chess-engine"
+compatibility_date = "2024-10-21"
+
+[env.production]
+pages_build_output_dir = "public"
+
+[[functions]]
+name = "api"
+route = "/api/*"

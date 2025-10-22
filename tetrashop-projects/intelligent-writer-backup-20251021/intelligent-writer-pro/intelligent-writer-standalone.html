@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Writer Pro - تتراشاپ</title>
+    <style>
+        /* تمام استایل‌های قبلی اینجا */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tahoma', 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 40px 30px; text-align: center; }
+        .header h1 { font-size: 2.8em; margin-bottom: 10px; }
+        .content { padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .content { grid-template-columns: 1fr; } }
+        .form-section, .output-section { background: #f8f9fa; padding: 30px; border-radius: 15px; border: 1px solid #e9ecef; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: bold; color: #495057; font-size: 1.1em; }
+        input, select { width: 100%; padding: 15px; border: 2px solid #dee2e6; border-radius: 10px; font-size: 16px; }
+        .generate-btn { background: linear-gradient(135deg, #2196F3, #1976D2); color: white; padding: 18px 40px; border: none; border-radius: 12px; font-size: 18px; cursor: pointer; width: 100%; }
+        .output { background: white; padding: 25px; border-radius: 12px; border: 2px solid #e9ecef; min-height: 400px; white-space: pre-wrap; font-family: 'Courier New', monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Intelligent Writer Pro</h1>
+            <p>سیستم هوشمند تولید محتوا - CloudFlare Deployment</p>
+        </div>
+        
+        <div class="content">
+            <div class="form-section">
+                <div class="form-group">
+                    <label>📝 موضوع محتوا:</label>
+                    <input type="text" id="topic" placeholder="مثال: هوش مصنوعی در کسب و کار">
+                </div>
+                
+                <div class="form-group">
+                    <label>🎯 نوع محتوا:</label>
+                    <select id="contentType">
+                        <option value="مقاله وبلاگ">مقاله وبلاگ</option>
+                        <option value="پست شبکه اجتماعی">پست شبکه اجتماعی</option>
+                        <option value="ایمیل بازاریابی">ایمیل بازاریابی</option>
+                        <option value="گزارش فنی">گزارش فنی</option>
+                    </select>
+                </div>
+                
+                <button class="generate-btn" onclick="generateContent()">🚀 تولید محتوا</button>
+            </div>
+            
+            <div class="output-section">
+                <h3>📖 محتوای تولید شده:</h3>
+                <div id="output" class="output">موضوعی وارد کنید و تولید محتوا را بزنید...</div>
+                <button onclick="copyContent()" style="background: #FF9800; padding: 12px; margin-top: 15px; width: 100%; border: none; border-radius: 8px; color: white; cursor: pointer;">📋 کپی محتوا</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateContent() {
+            const topic = document.getElementById('topic').value.trim();
+            const contentType = document.getElementById('contentType').value;
+            
+            if (!topic) {
+                alert('لطفاً موضوع محتوا را وارد کنید');
+                return;
+            }
+            
+            const templates = {
+                "مقاله وبلاگ": `# ${topic}
+
+## مقدمه
+در این مقاله جامع به بررسی ${topic} می‌پردازیم.
+
+## مزایای کلیدی
+- افزایش کارایی و بهره‌وری
+- کاهش هزینه‌های عملیاتی
+- بهبود تجربه کاربری
+
+## نتیجه‌گیری
+${topic} نقش مهمی در آینده خواهد داشت.`,
+
+                "پست شبکه اجتماعی": `🎯 ${topic}
+
+✅ مزیت اول: صرفه‌جویی در زمان
+✅ مزیت دوم: افزایش بهره‌وری  
+✅ مزیت سوم: کاهش هزینه‌ها
+
+💬 نظر شما چیست؟
+
+#${topic.replace(' ', '')} #موفقیت`,
+
+                "ایمیل بازاریابی": `موضوع: فرصت استثنایی در زمینه ${topic}
+
+سلام،
+
+سرویس جدید ما در زمینه ${topic} می‌تواند کسب‌وکار شما را متحول کند.
+
+مزایا:
+🔸 صرفه‌جویی در هزینه
+🔸 افزایش بهره‌وری
+🔸 پشتیبانی کامل
+
+با احترام،
+تیم Intelligent Writer Pro`,
+
+                "گزارش فنی": `گزارش فنی: ${topic}
+
+تاریخ: ${new Date().toLocaleDateString('fa-IR')}
+
+خلاصه اجرایی:
+این گزارش به بررسی ${topic} می‌پردازد.
+
+یافته‌های کلیدی:
+1. مورد اول
+2. مورد دوم
+
+توصیه‌ها:
+- اقدام اول
+- اقدام دوم`
+            };
+            
+            document.getElementById('output').textContent = templates[contentType] || `# ${topic}\n\nمحتوای تولید شده`;
+        }
+        
+        function copyContent() {
+            const content = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(content);
+            alert('✅ محتوا کپی شد!');
+        }
+        
+        // فعال کردن Enter
+        document.getElementById('topic').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') generateContent();
+        });
+    </script>
+</body>
+</html>

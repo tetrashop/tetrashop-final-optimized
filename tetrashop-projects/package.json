@@ -1,0 +1,23 @@
+{
+  "name": "tetrashop-projects",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:chess && npm run build:writer && npm run build:quantum && npm run build:security && npm run build:speech",
+    "dev": "concurrently \"npm run dev:*\"",
+    "dev:chess": "cd chess-engine && npm run dev",
+    "dev:writer": "cd intelligent-writer && npm run dev", 
+    "dev:quantum": "cd quantum-writer && npm run dev",
+    "dev:security": "cd secret-guardian && npm run dev",
+    "dev:speech": "cd speech-processor && npm run dev",
+    "build:all": "npm run build:chess && npm run build:writer && npm run build:quantum && npm run build:security && npm run build:speech",
+    "build:chess": "cd chess-engine && npm run build",
+    "build:writer": "cd intelligent-writer && npm run build",
+    "build:quantum": "cd quantum-writer && npm run build",
+    "build:security": "cd secret-guardian && npm run build",
+    "build:speech": "cd speech-processor && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Intelligent Writer Pro - نسخه پیشرفته</title>
+    <style>
+        body { 
+            font-family: Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .form-section, .output-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #495057;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .output {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            min-height: 300px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+        .stats {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .feature {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Intelligent Writer Pro</h1>
+            <p>سیستم هوشمند تولید محتوا - نسخه پیشرفته</p>
+        </div>
+        
+        <div class="content">
+            <div class="form-section">
+                <div class="form-group">
+                    <label>موضوع محتوا:</label>
+                    <input type="text" id="topic" placeholder="مثلاً: هوش مصنوعی در کسب و کار">
+                </div>
+                
+                <div class="form-group">
+                    <label>نوع محتوا:</label>
+                    <select id="contentType">
+                        <option>مقاله وبلاگ</option>
+                        <option>پست شبکه اجتماعی</option>
+                        <option>ایمیل</option>
+                        <option>گزارش</option>
+                        <option>محصول</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>سبک نوشتار:</label>
+                    <select id="writingStyle">
+                        <option>رسمی</option>
+                        <option>خودمانی</option>
+                        <option>تبلیغاتی</option>
+                        <option>آکادمیک</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>طول محتوا:</label>
+                    <select id="contentLength">
+                        <option value="short">کوتاه</option>
+                        <option value="medium" selected>متوسط</option>
+                        <option value="long">طولانی</option>
+                    </select>
+                </div>
+                
+                <button onclick="generateContent()">🚀 تولید محتوا</button>
+                
+                <div class="feature-grid">
+                    <div class="feature">✅ تولید خودکار</div>
+                    <div class="feature">🎯 چندین قالب</div>
+                    <div class="feature">📊 بهینه‌سازی SEO</div>
+                    <div class="feature">💾 ذخیره خودکار</div>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <h3>محتوای تولید شده:</h3>
+                <div id="output" class="output">
+                    محتوای شما اینجا نمایش داده می‌شود...
+                </div>
+                
+                <div id="stats" class="stats" style="display: none;">
+                    📊 <span id="wordCount">0</span> کلمه | 
+                    🕒 <span id="timestamp">--</span> |
+                    🎯 <span id="templateUsed">--</span>
+                </div>
+                
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button onclick="copyContent()" style="background: #FF9800;">📋 کپی محتوا</button>
+                    <button onclick="saveContent()" style="background: #4CAF50;">💾 ذخیره فایل</button>
+                    <button onclick="clearContent()" style="background: #f44336;">🗑️ پاک کردن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function generateContent() {
+            const topic = document.getElementById('topic').value;
+            const contentType = document.getElementById('contentType').value;
+            const writingStyle = document.getElementById('writingStyle').value;
+            const contentLength = document.getElementById('contentLength').value;
+            
+            if (!topic) {
+                alert('لطفاً موضوع را وارد کنید');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/generate_pro', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        topic: topic,
+                        content_type: contentType,
+                        style: writingStyle,
+                        length: contentLength
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    document.getElementById('output').textContent = result.content;
+                    document.getElementById('wordCount').textContent = result.word_count;
+                    document.getElementById('timestamp').textContent = new Date(result.timestamp).toLocaleString('fa-IR');
+                    document.getElementById('templateUsed').textContent = result.template_used;
+                    document.getElementById('stats').style.display = 'block';
+                } else {
+                    alert('خطا در تولید محتوا: ' + result.error);
+                }
+            } catch (error) {
+                alert('خطا در ارتباط با سرور: ' + error.message);
+            }
+        }
+        
+        function copyContent() {
+            const content = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('✅ محتوا با موفقیت کپی شد!');
+            });
+        }
+        
+        function saveContent() {
+            const content = document.getElementById('output').textContent;
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'محتوا_' + new Date().toLocaleDateString('fa-IR') + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function clearContent() {
+            document.getElementById('output').textContent = 'محتوای شما اینجا نمایش داده می‌شود...';
+            document.getElementById('stats').style.display = 'none';
+            document.getElementById('topic').value = '';
+        }
+    </script>
+</body>
+</html>

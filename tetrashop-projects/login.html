@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به سیستم - Tetrashop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            direction: rtl;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .logo p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        .form-group input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .links a:hover {
+            color: #764ba2;
+        }
+        .error-message {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+        .success-message {
+            background: #1dd1a1;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>🚀 Tetrashop</h1>
+            <p>ورود به پنل مدیریت پروژه‌ها</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            ❌ نام کاربری یا رمز عبور اشتباه است
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✅ ورود موفقیت‌آمیز بود
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">نام کاربری:</label>
+                <input type="text" id="username" placeholder="نام کاربری خود را وارد کنید" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">رمز عبور:</label>
+                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید" required>
+            </div>
+
+            <button type="submit" class="login-btn">🚀 ورود به سیستم</button>
+        </form>
+
+        <div class="links">
+            <a href="index.html">← بازگشت به صفحه اصلی</a>
+            <a href="#" onclick="showForgotPassword()">فراموشی رمز عبور</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // مخفی کردن پیغام‌های قبلی
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // اطلاعات ورود پیش‌فرض (در حالت واقعی باید از سرور چک شود)
+            const validUsername = 'admin';
+            const validPassword = 'tetrashop123';
+
+            if (username === validUsername && password === validPassword) {
+                successMessage.style.display = 'block';
+                successMessage.textContent = '✅ ورود موفقیت‌آمیز بود! در حال انتقال...';
+                
+                // انتقال به صفحه اصلی بعد از 2 ثانیه
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            } else {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = '❌ نام کاربری یا رمز عبور اشتباه است';
+                
+                // تکان دادن فرم در صورت خطا
+                document.querySelector('.login-container').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.querySelector('.login-container').style.animation = '';
+                }, 500);
+            }
+        });
+
+        function showForgotPassword() {
+            alert('📧 برای بازیابی رمز عبور با پشتیبانی تماس بگیرید:\nEmail: support@tetrashop.com');
+        }
+
+        // اضافه کردن انیمیشن تکان دادن
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // پیش‌پر کردن فیلدها برای تست (در حالت واقعی حذف شود)
+        document.getElementById('username').value = 'admin';
+        document.getElementById('password').value = 'tetrashop123';
+    </script>
+</body>
+</html>
