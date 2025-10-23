@@ -3,110 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتراشاپ - سیستم یکپارچه شطرنج و فروشگاه</title>
+    <title>تتراشاپ - پلتفرم جامع سیستم‌های نرم‌افزاری</title>
     <style>
-        .integrated-system {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .tetrashop-identity {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 20px 0;
+            padding: 40px 20px;
             text-align: center;
+            border-bottom: 5px solid #fdbb2d;
         }
-        .revenue-streams {
+        .platform-overview {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+        }
+        .core-system {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-right: 4px solid #1a2a6c;
+        }
+        .revenue-dashboard {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
-        .revenue-card {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
+        .system-card {
+            background: white;
+            padding: 25px;
             border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease;
         }
-        .performance-metrics {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 25px 0;
+        .system-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        .metric {
-            text-align: center;
-            padding: 15px;
+        .chess-highlight {
+            border-top: 4px solid #ff6b6b;
         }
-        .metric-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ffd700;
+        .cms-highlight {
+            border-top: 4px solid #4ecdc4;
+        }
+        .project-highlight {
+            border-top: 4px solid #45b7d1;
         }
     </style>
 </head>
 <body>
-    <div class="integrated-system">
-        <h1>🚀 تتراشاپ - سیستم یکپارچه با حداکثر بهره‌وری</h1>
-        <p>ادغام هوشمند سیستم شطرنج پیشرفته با فروشگاه اصلی</p>
-        
-        <div class="performance-metrics">
-            <div class="metric">
-                <div class="metric-value">۲۴۱٪</div>
-                <div>ROI ماهانه</div>
-            </div>
-            <div class="metric">
-                <div class="metric-value">۹+</div>
-                <div>جریان درآمدی</div>
-            </div>
-            <div class="metric">
-                <div class="metric-value">۱۰۰٪</div>
-                <div>آماده تولید</div>
-            </div>
-            <div class="metric">
-                <div class="metric-value">۴ لایه</div>
-                <div>سیستم بونوس</div>
+    <!-- هدر با هویت تتراشاپ -->
+    <div class="tetrashop-identity">
+        <h1>تتراشاپ | Tetrashop</h1>
+        <p>پلتفرم جامع سیستم‌های نرم‌افزاری پیشرفته</p>
+        <div style="margin-top: 20px;">
+            <span style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; margin: 0 10px;">
+                🚀 آماده تولید ۱۰۰٪
+            </span>
+            <span style="background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; margin: 0 10px;">
+                💰 چندین جریان درآمدی
+            </span>
+        </div>
+    </div>
+
+    <!-- نمای کلی پلتفرم -->
+    <div class="platform-overview">
+        <div class="core-system">
+            <h2>اکوسیستم تتراشاپ</h2>
+            <p>ارائه راه‌حل‌های نرم‌افزاری یکپارچه برای کسب‌وکارهای هوشمند</p>
+            
+            <div class="system-grid">
+                <!-- سیستم شطرنج به عنوان بخشی از پلتفرم -->
+                <div class="system-card chess-highlight">
+                    <h3>🎮 سیستم شطرنج پیشرفته</h3>
+                    <div style="color: #e74c3c; font-size: 1.4rem; font-weight: bold; margin: 15px 0;">
+                        ۱۹۰,۰۰۰ تومان
+                    </div>
+                    <ul style="text-align: right; list-style: none; padding: 0;">
+                        <li>✅ سیستم بونوس چندلایه</li>
+                        <li>✅ ROI ماهانه: ۲۴۱٪</li>
+                        <li>✅ تحویل فوری</li>
+                        <li>✅ یکپارچه با پلتفرم</li>
+                    </ul>
+                    <div style="margin-top: 20px;">
+                        <button style="background: #e74c3c; color: white; padding: 12px 25px; 
+                                      border: none; border-radius: 8px; cursor: pointer; width: 100%;">
+                            افزودن به پلتفرم
+                        </button>
+                    </div>
+                </div>
+
+                <!-- سیستم CMS -->
+                <div class="system-card cms-highlight">
+                    <h3>📊 سیستم مدیریت محتوا</h3>
+                    <div style="color: #2ecc71; font-size: 1.4rem; font-weight: bold; margin: 15px 0;">
+                        ۲۵۰K - ۱.۲M تومان
+                    </div>
+                    <ul style="text-align: right; list-style: none; padding: 0;">
+                        <li>✅ پلن‌های مختلف سازمانی</li>
+                        <li>✅ مدیریت محتوای پیشرفته</li>
+                        <li>✅ سئو و بهینه‌سازی</li>
+                        <li>✅ پشتیبانی حرفه‌ای</li>
+                    </ul>
+                </div>
+
+                <!-- سیستم مدیریت پروژه -->
+                <div class="system-card project-highlight">
+                    <h3>🚀 سیستم مدیریت پروژه</h3>
+                    <div style="color: #3498db; font-size: 1.4rem; font-weight: bold; margin: 15px 0;">
+                        ۴۹۰,۰۰۰ تومان
+                    </div>
+                    <ul style="text-align: right; list-style: none; padding: 0;">
+                        <li>✅ آنالیتیکس ROI پیشرفته</li>
+                        <li>✅ مدیریت کارهای تیمی</li>
+                        <li>✅ گزارش‌سازی حرفه‌ای</li>
+                        <li>✅ اینتگریشن گسترده</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div class="revenue-streams">
-            <div class="revenue-card">
-                <h3>🎮 سیستم شطرنج</h3>
-                <p>۱۹۰,۰۰۰ تومان</p>
-                <ul style="text-align: right; list-style: none;">
-                    <li>✓ سیستم بونوس چندلایه</li>
-                    <li>✓ ROI ۲۴۱٪ ماهانه</li>
-                    <li>✓ تحویل فوری</li>
-                </ul>
+        <div class="revenue-dashboard">
+            <h3>📈 کارایی پلتفرم</h3>
+            <div style="margin: 20px 0;">
+                <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                    <span>درآمد ماهانه:</span>
+                    <strong>۳,۷۵۰,۰۰۰ تومان</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                    <span>میانگین ROI:</span>
+                    <strong style="color: #27ae60;">۲۴۱٪</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                    <span>جریان‌های درآمدی:</span>
+                    <strong>۹+ جریان فعال</strong>
+                </div>
             </div>
-            <div class="revenue-card">
-                <h3>📊 سیستم CMS</h3>
-                <p>۲۵۰K - ۱.۲M</p>
-                <ul style="text-align: right; list-style: none;">
-                    <li>✓ ۳ پلن قیمت‌گذاری</li>
-                    <li>✓ مدیریت محتوای پیشرفته</li>
-                    <li>✓ سئو خودکار</li>
-                </ul>
-            </div>
-            <div class="revenue-card">
-                <h3>🚀 مدیریت پروژه</h3>
-                <p>۴۹۰,۰۰۰ تومان</p>
-                <ul style="text-align: right; list-style: none;">
-                    <li>✓ آنالیتیکس ROI</li>
-                    <li>✓ گزارش‌سازی حرفه‌ای</li>
-                    <li>✓ پشتیبانی VIP</li>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                <h4>🎯 ارزش‌های تتراشاپ</h4>
+                <ul style="text-align: right; padding-right: 20px;">
+                    <li>یکپارچگی سیستم‌ها</li>
+                    <li>مقیاس‌پذیری بالا</li>
+                    <li>پشتیبانی ۲۴/۷</li>
+                    <li>راه‌حل‌های سازمانی</li>
                 </ul>
             </div>
         </div>
+    </div>
 
-        <div style="margin-top: 30px;">
-            <button style="background: #4CAF50; color: white; padding: 15px 30px; 
-                          border: none; border-radius: 10px; font-size: 1.1rem; 
-                          cursor: pointer; margin: 10px;">
-                💰 مشاهده همه سیستم‌ها
-            </button>
-            <button style="background: #2196F3; color: white; padding: 15px 30px; 
-                          border: none; border-radius: 10px; font-size: 1.1rem; 
-                          cursor: pointer; margin: 10px;">
-                📈 تحلیل درآمد پیشرفته
-            </button>
+    <!-- بخش ویژگی‌های حرفه‌ای -->
+    <div style="background: #2c3e50; color: white; padding: 40px 20px; text-align: center;">
+        <h2>چرا تتراشاپ؟</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
+            <div>
+                <h3>🏢 حرفه‌ای</h3>
+                <p>راه‌حل‌های سازمانی با استانداردهای جهانی</p>
+            </div>
+            <div>
+                <h3>🔄 یکپارچه</h3>
+                <p>هماهنگی کامل بین تمام سیستم‌ها</p>
+            </div>
+            <div>
+                <h3>📊 مقیاس‌پذیر</h3>
+                <p>رشد همگام با کسب‌وکار شما</p>
+            </div>
+            <div>
+                <h3>⚡ کارا</h3>
+                <p>بهره‌وری حداکثری با حداقل منابع</p>
+            </div>
         </div>
     </div>
 </body>
