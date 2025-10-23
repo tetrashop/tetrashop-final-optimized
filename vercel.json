@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "cd tetrashop-projects/fronted && npm run build",
-  "outputDirectory": "tetrashop-projects/fronted/dist",
-  "installCommand": "cd tetrashop-projects/fronted && npm install",
+  "builds": [],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/tetrashop-projects/fronted/dist/$1"
+      "dest": "/404.html"
     }
   ]
 }
