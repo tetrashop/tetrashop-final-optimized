@@ -1,15 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "tetrashop-projects/package.json",
-      "use": "@vercel/static-build"
-    }
-  ],
+  "buildCommand": "cd tetrashop-projects/fronted && npm run build",
+  "outputDirectory": "tetrashop-projects/fronted/dist", 
+  "installCommand": "cd tetrashop-projects/fronted && npm install",
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/tetrashop-projects/$1"
+      "dest": "/tetrashop-projects/fronted/dist/$1"
     }
   ]
 }
