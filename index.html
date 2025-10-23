@@ -3,55 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتراشاپ</title>
+    <title>فروشگاه تتراشاپ - سیستم‌های نرم‌افزاری</title>
     <style>
         body {
-            font-family: Tahoma, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            line-height: 1.6;
+            font-family: Tahoma, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
         }
-        .simple-header {
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 20px;
             text-align: center;
-            margin-bottom: 50px;
         }
-        .system-list {
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0;
+        }
+        .product-features {
             list-style: none;
             padding: 0;
+            margin: 20px 0;
         }
-        .system-item {
-            background: #f8f9fa;
-            padding: 20px;
-            margin: 15px 0;
+        .product-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-right: 25px;
+        }
+        .product-features li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .btn-buy {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .btn-buy:hover {
+            background: #2980b9;
+        }
+        .roi-badge {
+            background: #f39c12;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            background: white;
+            padding: 25px;
+            margin-top: 40px;
             border-radius: 8px;
-            border-left: 4px solid #007bff;
+            text-align: center;
+            border: 1px solid #e0e0e0;
         }
     </style>
 </head>
 <body>
-    <div class="simple-header">
-        <h1>تتراشاپ</h1>
-        <p>سیستم‌های نرم‌افزاری حرفه‌ای</p>
+    <div class="header">
+        <h1>فروشگاه تتراشاپ</h1>
+        <p>سیستم‌های نرم‌افزاری کاربردی و حرفه‌ای</p>
     </div>
 
-    <ul class="system-list">
-        <li class="system-item">
-            <h3>سیستم شطرنج پیشرفته</h3>
-            <p>۱۹۰,۰۰۰ تومان | ROI: ۲۴۱٪ ماهانه</p>
-        </li>
-        <li class="system-item">
-            <h3>سیستم مدیریت محتوا</h3>
-            <p>۲۵۰,۰۰۰ تومان - ۱,۲۰۰,۰۰۰ تومان</p>
-        </li>
-        <li class="system-item">
-            <h3>سیستم مدیریت پروژه</h3>
-            <p>۴۹۰,۰۰۰ تومان</p>
-        </li>
-    </ul>
+    <div class="container">
+        <div class="products-grid">
+            <!-- سیستم شطرنج -->
+            <div class="product-card">
+                <div class="roi-badge">ROI ماهانه: ۲۴۱٪</div>
+                <h2 class="product-title">سیستم شطرنج پیشرفته</h2>
+                <div class="product-price">۱۹۰,۰۰۰ تومان</div>
+                <ul class="product-features">
+                    <li>سیستم بونوس چندلایه</li>
+                    <li>۵ جریان درآمدزایی</li>
+                    <li>تحویل فوری و نصب</li>
+                    <li>پشتیبانی دائمی</li>
+                    <li>آنالیتیکس پیشرفته</li>
+                </ul>
+                <button class="btn-buy">خرید سیستم شطرنج</button>
+            </div>
 
-    <div style="text-align: center; margin-top: 50px; color: #666;">
-        <p>لطفاً راهنمایی کنید تا دقیقاً همان‌گونه که می‌خواهید بسازم</p>
+            <!-- سیستم مدیریت محتوا -->
+            <div class="product-card">
+                <h2 class="product-title">سیستم مدیریت محتوا (CMS)</h2>
+                <div class="product-price">از ۲۵۰,۰۰۰ تومان</div>
+                <ul class="product-features">
+                    <li>پلن پایه: ۲۵۰,۰۰۰ تومان</li>
+                    <li>پلن حرفه‌ای: ۵۰۰,۰۰۰ تومان</li>
+                    <li>پلن سازمانی: ۱,۲۰۰,۰۰۰ تومان</li>
+                    <li>مدیریت محتوای پیشرفته</li>
+                    <li>سئو خودکار و هوشمند</li>
+                    <li>پشتیبانی فنی کامل</li>
+                </ul>
+                <button class="btn-buy">مشاهده پلن‌های CMS</button>
+            </div>
+
+            <!-- سیستم مدیریت پروژه -->
+            <div class="product-card">
+                <h2 class="product-title">سیستم مدیریت پروژه</h2>
+                <div class="product-price">۴۹۰,۰۰۰ تومان</div>
+                <ul class="product-features">
+                    <li>آنالیتیکس ROI پیشرفته</li>
+                    <li>مدیریت کارهای تیمی</li>
+                    <li>گزارش‌سازی حرفه‌ای</li>
+                    <li>اینتگریشن گسترده</li>
+                    <li>پشتیبانی VIP</li>
+                </ul>
+                <button class="btn-buy">خرید مدیریت پروژه</button>
+            </div>
+        </div>
+
+        <!-- اطلاعات تماس -->
+        <div class="contact-info">
+            <h3>📞 ارتباط با ما</h3>
+            <p>برای سفارش و مشاوره رایگان:</p>
+            <p><strong>تلفن:</strong> ۰۹۱۲XXXXXXX</p>
+            <p><strong>ساعات پاسخگویی:</strong> ۲۴ ساعته</p>
+            <p><strong>تحویل:</strong> فوری پس از پرداخت</p>
+        </div>
     </div>
 </body>
 </html>
