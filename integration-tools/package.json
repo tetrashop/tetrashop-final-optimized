@@ -1,0 +1,15 @@
+{
+  "name": "tetrashop-integration-tools",
+  "version": "1.0.0",
+  "description": "ابزارهای ضد چندپارگی برای تتراشاپ",
+  "main": "run-integration-check.js",
+  "scripts": {
+    "monitor": "node run-integration-check.js",
+    "sync": "node smart-sync.js",
+    "dashboard": "open integration-dashboard.html"
+  },
+  "dependencies": {},
+  "keywords": ["integration", "monitoring", "tetrashop"],
+  "author": "Tetrashop Team",
+  "license": "MIT"
+}
