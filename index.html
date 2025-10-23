@@ -1,513 +1,340 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟 تتراشاپ - پیوند تکنولوژی و معنویت</title>
+    <title>تتراشاپ - دمو سیستم‌های پیشرفته</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
         }
-
-        :root {
-            --primary: #2b6cb0;
-            --success: #38a169;
-            --warning: #dd6b20;
-            --gold: #d69e2e;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
-            color: #fff;
-            line-height: 1.8;
-            min-height: 100vh;
-        }
-
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-
         .header {
             text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--gold), #f6e05e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .quote {
-            font-size: 1.3rem;
-            color: #cbd5e0;
-            font-style: italic;
-            margin: 20px 0;
-            padding: 20px;
-            border-right: 3px solid var(--gold);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .philosophy {
-            background: linear-gradient(135deg, var(--primary), #4c51bf);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        /* بخش‌های اصلی */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin: 40px 0;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid transparent;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.3s;
+            padding: 40px 0;
             color: white;
-            backdrop-filter: blur(10px);
         }
-
-        .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-
-        .tab-btn.active {
-            background: var(--primary);
-            border-color: var(--gold);
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* کارت‌های محصول */
-        .products-grid {
+        .systems-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 25px;
-            margin: 30px 0;
+            margin-top: 30px;
         }
-
-        .product-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--success));
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: var(--gold);
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--gold);
-            color: #1a202c;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .product-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .product-description {
-            color: #cbd5e0;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .product-price {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--gold);
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .price-unit {
-            font-size: 1rem;
-            color: #a0aec0;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, var(--primary), #4c51bf);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            width: 100%;
-            transition: all 0.3s;
-            font-weight: bold;
-            margin: 10px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--success), #48bb78);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning), #ed8936);
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .wisdom {
-            font-size: 1.1rem;
-            color: var(--gold);
-            margin: 20px 0;
-            font-style: italic;
-        }
-
-        /* بخش سیستم درآمدزایی */
-        .revenue-system {
-            background: linear-gradient(135deg, var(--success), #48bb78);
-            padding: 30px;
+        .system-card {
+            background: white;
             border-radius: 15px;
-            margin: 30px 0;
-            text-align: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-
-        .revenue-stats {
+        .system-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .system-card h3 {
+            color: #4a5568;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .system-card .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 15px 0;
+        }
+        .system-card .features {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .system-card .features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .system-card .features li:before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn-demo {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+        .btn-feedback {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+        }
+        .feedback-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .feedback-form {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-top: 20px;
+            margin: 40px 0;
         }
-
         .stat-card {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 10px;
-            backdrop-filter: blur(10px);
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-
-        .stat-value {
+        .stat-number {
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 5px;
         }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .logo {
-                font-size: 2rem;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .tab-btn {
-                width: 100%;
-                text-align: center;
-            }
+        .beta-badge {
+            background: #e53e3e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- هدر با پیام معنوی -->
         <div class="header">
-            <div class="logo">🌟 تتراشاپ</div>
-            <div class="quote">
-                "لم یشکر المخلوق لم یشکر الخالق"<br>
-                <span style="font-size: 1rem; color: #a0aec0;">هر که شکر مخلوق نکرد، شکر خالق نکرد</span>
+            <h1>🚀 تتراشاپ - نسخه دمو سیستم‌های پیشرفته</h1>
+            <p>سیستم‌های کاملاً عملیاتی برای تست بتا - بازخورد شما ارزشمند است!</p>
+            <div class="beta-badge">نسخه بتا</div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">۳ سیستم</div>
+                <div>پیشرفته فعال</div>
             </div>
-            <div class="philosophy">
-                <h2>🎯 فلسفه تتراشاپ: تکنولوژی در خدمت انسانیت</h2>
-                <p>همان‌گونه که شکرگزاری از مخلوق، مقدمه‌ای برای شکر خالق است،</p>
-                <p>خدمت‌رسانی به بندگان، راهی برای خدمت به آفریدگار است</p>
+            <div class="stat-card">
+                <div class="stat-number">۹ جریان</div>
+                <div>درآمدزایی</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">۲۴۱٪</div>
+                <div>ROI ماهانه</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">۱۰۰٪</div>
+                <div>آماده تولید</div>
             </div>
         </div>
 
-        <!-- سیستم درآمدزایی -->
-        <div class="revenue-system">
-            <h2>💰 سیستم درآمدزایی معنوی - واحد پول: تومان</h2>
-            <div class="revenue-stats">
-                <div class="stat-card">
-                    <div class="stat-value">۲۹,۰۰۰</div>
-                    <div>تومان درآمد روزانه</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">فعال</div>
-                    <div>وضعیت سیستم</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">۱۰۰٪</div>
-                    <div>رضایت کاربران</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">✅</div>
-                    <div>اتصال معنوی</div>
-                </div>
+        <div class="systems-grid">
+            <!-- سیستم شطرنج -->
+            <div class="system-card">
+                <h3>🎮 سیستم شطرنج پیشرفته</h3>
+                <div class="price">۱۹۰,۰۰۰ تومان</div>
+                <ul class="features">
+                    <li>سیستم بونوس چندلایه</li>
+                    <li>۵ جریان درآمدزایی</li>
+                    <li>پنل مدیریت پیشرفته</li>
+                    <li>آنالیتیکس Real-time</li>
+                    <li>پشتیبانی ۲۴/۷</li>
+                </ul>
+                <a href="demo-systems/chess-system.html" class="btn btn-demo">مشاهده دمو</a>
+                <button onclick="openFeedback('chess')" class="btn btn-feedback">ثبت بازخورد</button>
+            </div>
+
+            <!-- سیستم مدیریت محتوا -->
+            <div class="system-card">
+                <h3>📊 سیستم مدیریت محتوا (CMS)</h3>
+                <div class="price">پلن‌های ۲۵۰K تا ۱.۲M</div>
+                <ul class="features">
+                    <li>پلن پایه: ۲۵۰,۰۰۰ تومان</li>
+                    <li>پلن حرفه‌ای: ۵۰۰,۰۰۰ تومان</li>
+                    <li>پلن سازمانی: ۱,۲۰۰,۰۰۰ تومان</li>
+                    <li>مدیریت محتوای پیشرفته</li>
+                    <li>سئو خودکار</li>
+                </ul>
+                <a href="demo-systems/cms-system.html" class="btn btn-demo">مشاهده دمو</a>
+                <button onclick="openFeedback('cms')" class="btn btn-feedback">ثبت بازخورد</button>
+            </div>
+
+            <!-- سیستم مدیریت پروژه -->
+            <div class="system-card">
+                <h3>🚀 سیستم مدیریت پروژه</h3>
+                <div class="price">۴۹۰,۰۰۰ تومان</div>
+                <ul class="features">
+                    <li>آنالیتیکس ROI پیشرفته</li>
+                    <li>مدیریت کارهای تیمی</li>
+                    <li>گزارش‌سازی حرفه‌ای</li>
+                    <li>اینتگریشن گسترده</li>
+                    <li>پشتیبانی VIP</li>
+                </ul>
+                <a href="demo-systems/project-management.html" class="btn btn-demo">مشاهده دمو</a>
+                <button onclick="openFeedback('project')" class="btn btn-feedback">ثبت بازخورد</button>
             </div>
         </div>
 
-        <!-- تب‌های اصلی -->
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('education')">🎓 آموزش معنوی</button>
-            <button class="tab-btn" onclick="showTab('projects')">🏗️ پروژه‌های الهی</button>
-            <button class="tab-btn" onclick="showTab('rental')">📦 اجاره معنوی</button>
-            <button class="tab-btn" onclick="showTab('research')">🔬 تحقیق الهیاتی</button>
-            <button class="tab-btn" onclick="showTab('charity')">🤲 بخشش و نیکوکاری</button>
+        <!-- بخش بازخورد -->
+        <div class="feedback-section">
+            <h2>📝 ثبت بازخورد تست بتا</h2>
+            <p>نظرات شما به ما در بهبود سیستم‌ها کمک می‌کند!</p>
+            
+            <form class="feedback-form" id="feedbackForm">
+                <div class="form-group">
+                    <label for="system">سیستم مورد نظر:</label>
+                    <select id="system" name="system" required>
+                        <option value="">انتخاب سیستم</option>
+                        <option value="chess">سیستم شطرنج پیشرفته</option>
+                        <option value="cms">سیستم مدیریت محتوا</option>
+                        <option value="project">سیستم مدیریت پروژه</option>
+                        <option value="general">عمومی</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">نام شما:</label>
+                    <input type="text" id="name" name="name" required placeholder="نام خود را وارد کنید">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">ایمیل (اختیاری):</label>
+                    <input type="email" id="email" name="email" placeholder="email@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rating">امتیاز (۱ تا ۵):</label>
+                    <select id="rating" name="rating" required>
+                        <option value="">انتخاب امتیاز</option>
+                        <option value="5">⭐⭐⭐⭐⭐ عالی</option>
+                        <option value="4">⭐⭐⭐⭐ خوب</option>
+                        <option value="3">⭐⭐⭐ متوسط</option>
+                        <option value="2">⭐⭐ ضعیف</option>
+                        <option value="1">⭐ بسیار ضعیف</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback">بازخورد دقیق:</label>
+                    <textarea id="feedback" name="feedback" rows="5" required placeholder="نظرات، پیشنهادات و مشکلات خود را بنویسید..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn">ارسال بازخورد</button>
+            </form>
         </div>
 
-        <!-- تب آموزش معنوی -->
-        <div id="education" class="tab-content active">
-            <h2 style="text-align: center; margin: 30px 0; color: var(--gold);">🎓 آموزش‌های معنوی در تکنولوژی</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-badge">اصول اخلاقی</div>
-                    <h3 class="product-title">🌐 اخلاق در توسعه نرم‌افزار</h3>
-                    <p class="product-description">آموزش اصول اخلاقی و ارزش‌های انسانی در توسعه تکنولوژی - چگونه برنامه‌نویسی را به عبادت تبدیل کنیم</p>
-                    <div class="product-price">۱۹۰,۰۰۰ <span class="price-unit">تومان</span></div>
-                    <button class="btn" onclick="purchaseWithPrayer('ethics-course')">🛒 خرید با نیت خیر</button>
-                    <button class="btn btn-success" onclick="researchProject('ethics')">🔬 تحقیق اخلاقی</button>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-badge">تکنولوژی مقدس</div>
-                    <h3 class="product-title">🚀 Cloudflare Workers با نیت الهی</h3>
-                    <p class="product-description">آموزش توسعه سرویس‌های ابری با توجه به مسئولیت‌های اجتماعی و اخلاقی در قبال جامعه</p>
-                    <div class="product-price">۲۹۰,۰۰۰ <span class="price-unit">تومان</span></div>
-                    <button class="btn" onclick="purchaseWithPrayer('cf-course')">🛒 خرید با نیت خیر</button>
-                    <button class="btn btn-success" onclick="researchProject('cloudflare')">🔬 تحقیق اجتماعی</button>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-badge">خدمت رسانی</div>
-                    <h3 class="product-title">🤖 هوش مصنوعی در خدمت بشریت</h3>
-                    <p class="product-description">آموزش توسعه سیستم‌های هوش مصنوعی با محوریت خدمت‌رسانی به جامعه و حل مشکلات انسانی</p>
-                    <div class="product-price">۳۵۰,۰۰۰ <span class="price-unit">تومان</span></div>
-                    <button class="btn" onclick="purchaseWithPrayer('ai-course')">🛒 خرید با نیت خیر</button>
-                    <button class="btn btn-success" onclick="researchProject('ai-ethics')">🔬 تحقیق انسانی</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- تب پروژه‌های الهی -->
-        <div id="projects" class="tab-content">
-            <h2 style="text-align: center; margin: 30px 0; color: var(--gold);">🏗️ پروژه‌های مخزن تتراشاپ - با نیت الهی</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <h3 class="product-title">🕌 سیستم مدیریت مساجد</h3>
-                    <p class="product-description">پروژه کامل برای مدیریت برنامه‌های مساجد، اوقات شرعی و فعالیت‌های فرهنگی - توسعه یافته با نیت خالص</p>
-                    <div class="product-price">۱۵۰,۰۰۰ <span class="price-unit">تومان</span></div>
-                    <button class="btn" onclick="purchaseWithPrayer('mosque-system')">🎯 دریافت پروژه</button>
-                    <button class="btn btn-warning" onclick="rentForCharity('mosque')">📦 اجاره برای خیریه</button>
-                </div>
-
-                <div class="product-card">
-                    <h3 class="product-title">📚 سامانه کتابخانه دیجیتال</h3>
-                    <p class="product-description">سیستم مدیریت کتابخانه‌های عمومی با قابلیت‌های پیشرفته - مناسب مؤسسات فرهنگی و آموزشی</p>
-                    <div class="product-price">۲۲۰,۰۰۰ <span class="price-unit">تومان</span></div>
-                    <button class="btn" onclick="purchaseWithPrayer('library-system')">🎯 دریافت پروژه</button>
-                    <button class="btn btn-warning" onclick="rentForCharity('library')">📦 اجاره برای خیریه</button>
-                </div>
-
-                <div class="product-card">
-                    <h3 class="product-title">🌱 سامانه کشاورزی هوشمند</h3>
-                    <p class="product-description">سیستم مدیریت مزارع و بهینه‌سازی مصرف آب - در راستای حفظ نعمت‌های الهی</p>
-                    <div class="product-price">۳۲۰,۰۰۰ <span class="price-unit">تومان</span></div>
-                    <button class="btn" onclick="purchaseWithPrayer('farm-system')">🎯 دریافت پروژه</button>
-                    <button class="btn btn-warning" onclick="rentForCharity('farm')">📦 اجاره برای خیریه</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- تب بخشش و نیکوکاری -->
-        <div id="charity" class="tab-content">
-            <h2 style="text-align: center; margin: 30px 0; color: var(--gold);">🤲 سیستم بخشش و نیکوکاری</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <h3 class="product-title">🎁 اهدای پروژه به نیازمندان</h3>
-                    <p class="product-description">پروژه‌های خود را به دانشجویان نیازمند و مؤسسات خیریه اهدا کنید</p>
-                    <div class="product-price">رایگان <span class="price-unit">(ثواب اخروی)</span></div>
-                    <button class="btn btn-success" onclick="donateProject()">🎁 اهدای پروژه</button>
-                </div>
-
-                <div class="product-card">
-                    <h3 class="product-title">📊 مشاوره رایگان</h3>
-                    <p class="product-description">مشاوره فنی رایگان برای دانشجویان و توسعه‌دهندگان نیازمند</p>
-                    <div class="product-price">رایگان <span class="price-unit">(خدمت به خلق)</span></div>
-                    <button class="btn btn-success" onclick="freeConsultation()">🤝 درخواست مشاوره</button>
-                </div>
-
-                <div class="product-card">
-                    <h3 class="product-title">🌍 مشارکت در پروژه‌های عام‌المنفعه</h3>
-                    <p class="product-description">همکاری در توسعه پروژه‌های نرم‌افزاری برای مؤسسات خیریه و عمومی</p>
-                    <div class="product-price">همکاری داوطلبانه</div>
-                    <button class="btn btn-success" onclick="volunteerWork()">🌍 همکاری داوطلبانه</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- پاورقی با پیام نهایی -->
-        <div class="footer">
-            <div class="wisdom">
-                "بهترین مردم کسی است که برای مردم سودمندتر باشد"<br>
-                <span style="font-size: 0.9rem; color: #a0aec0;">پیامبر اکرم (ص)</span>
-            </div>
-            <p>© ۱۴۰۳ تتراشاپ - تمام حقوق محفوظ است</p>
-            <p>🌟 شعار ما: تکنولوژی در خدمت انسانیت، انسانیت در راه خداییت</p>
-            <p>📞 پشتیبانی معنوی: spiritual@tetrashop.com</p>
+        <div style="text-align: center; margin-top: 40px; color: white; opacity: 0.8;">
+            <p>📞 برای پشتیبانی فوری: <strong>۰۹۱۲XXXXXXX</strong></p>
+            <p>⏰ زمان پاسخگویی: ۲۴ ساعته</p>
         </div>
     </div>
 
     <script>
-        // مدیریت تب‌ها
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
+        function openFeedback(system) {
+            document.getElementById('system').value = system;
+            document.getElementById('feedbackForm').scrollIntoView({ 
+                behavior: 'smooth' 
             });
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
         }
 
-        // خرید با نیت خیر
-        function purchaseWithPrayer(productId) {
-            const products = {
-                'ethics-course': 'آموزش اخلاق در توسعه نرم‌افزار',
-                'cf-course': 'دوره Cloudflare Workers با نیت الهی', 
-                'ai-course': 'هوش مصنوعی در خدمت بشریت',
-                'mosque-system': 'سیستم مدیریت مساجد',
-                'library-system': 'سامانه کتابخانه دیجیتال',
-                'farm-system': 'سامانه کشاورزی هوشمند'
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                system: document.getElementById('system').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                rating: document.getElementById('rating').value,
+                feedback: document.getElementById('feedback').value,
+                timestamp: new Date().toLocaleString('fa-IR')
             };
             
-            const productName = products[productId];
+            // ذخیره در localStorage
+            const feedbacks = JSON.parse(localStorage.getItem('tetrashop_feedbacks') || '[]');
+            feedbacks.push(formData);
+            localStorage.setItem('tetrashop_feedbacks', JSON.stringify(feedbacks));
             
-            alert(`🌙 سفارش شما با نیت خیر ثبت شد!\n\n📦 محصول: ${productName}\n🤲 نیت خرید: خدمت به خلق خدا\n📞 برای ادامه فرآیند با شما تماس گرفته خواهد شد\n\n"ما أنعم الله علیک من نعمة فمن الله"`);
-        }
+            alert('✅ بازخورد شما با موفقیت ثبت شد!\n\nاز مشارکت شما در بهبود سیستم‌ها سپاسگزاریم.');
+            
+            this.reset();
+        });
 
-        // اجاره برای امور خیریه
-        function rentForCharity(projectType) {
-            alert(`📦 درخواست اجاره برای امور خیریه ثبت شد!\n\n🎯 پروژه: ${projectType}\n🤲 این پروژه برای استفاده در مؤسسات خیریه اجاره داده خواهد شد\n📞 همکاران ما به زودی با شما تماس خواهند گرفت`);
-        }
-
-        // اهدای پروژه
-        function donateProject() {
-            alert(`🎁 درخواست اهدای پروژه ثبت شد!\n\n🌟 پروژه شما به دانشجویان نیازمند یا مؤسسات خیریه اهدا خواهد شد\n🤲 خداوند پاداش این خدمت را به شما عطا فرماید`);
-        }
-
-        // مشاوره رایگان
-        function freeConsultation() {
-            alert(`🤝 درخواست مشاوره رایگان ثبت شد!\n\n📚 ما با کمال میل به دانشجویان و توسعه‌دهندگان نیازمند مشاوره می‌دهیم\n📞 در اسرع وقت با شما تماس گرفته خواهد شد`);
-        }
-
-        // کار داوطلبانه
-        function volunteerWork() {
-            alert(`🌍 درخواست همکاری داوطلبانه ثبت شد!\n\n✨ از علاقه شما به همکاری در پروژه‌های عام‌المنفعه سپاسگزاریم\n📞 برای هماهنگی بیشتر با شما تماس گرفته خواهد شد`);
-        }
-
-        // تحقیق روی پروژه
-        function researchProject(projectType) {
-            alert(`🔬 درخواست تحقیق ثبت شد!\n\n📚 پروژه ${projectType} برای تحقیقات دانشگاهی و مطالعاتی در دسترس خواهد بود\n🎓 این امکان برای پژوهشگران و دانشجویان فراهم می‌شود`);
-        }
-
-        console.log('🌟 تتراشاپ معنوی راه‌اندازی شد');
-        console.log('🙏 شعار: خدمت به خلق، عبادت خالق');
+        window.addEventListener('load', function() {
+            const feedbacks = JSON.parse(localStorage.getItem('tetrashop_feedbacks') || '[]');
+            if (feedbacks.length > 0) {
+                console.log(`📊 تعداد بازخوردهای ثبت شده: ${feedbacks.length}`);
+            }
+        });
     </script>
 </body>
 </html>
