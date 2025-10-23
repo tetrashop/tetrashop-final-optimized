@@ -1,9 +1,12 @@
 {
   "name": "tetrashop-final-optimized",
   "version": "1.0.0",
-  "type": "module",
+  "description": "فروشگاه تتراشاپ - سیستم‌های نرم‌افزاری پیشرفته",
   "scripts": {
-    "build": "echo 'Build successful - no infinite loop' && exit 0",
-    "dev": "echo 'Dev server'"
-  }
+    "build": "echo 'No build needed for static site'",
+    "dev": "echo 'Static site - no dev server needed'"
+  },
+  "keywords": ["tetrashop", "software", "systems"],
+  "author": "Tetrashop Team",
+  "license": "MIT"
 }
