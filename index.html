@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستم مدیریت پروژه‌های پیشرفته</title>
+    <title>سیستم هوشمند مدیریت پروژه‌های پیشرفته</title>
     <style>
         :root {
             --primary: #2c3e50;
@@ -11,6 +11,9 @@
             --accent: #3498db;
             --success: #27ae60;
             --warning: #f39c12;
+            --danger: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
         }
 
         * {
@@ -22,304 +25,720 @@
 
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #2c3e50;
+            color: var(--dark);
             line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
         }
 
         .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px;
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #ecf0f1;
         }
 
         .header h1 {
-            color: var(--primary);
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 300;
         }
 
         .roi-badge {
             background: linear-gradient(135deg, #FFD700, #FFED4E);
-            color: #2c3e50;
-            padding: 8px 20px;
-            border-radius: 20px;
+            color: var(--dark);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.3rem;
             font-weight: bold;
             display: inline-block;
-            margin: 10px 0;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
         }
 
+        .nav-tabs {
+            display: flex;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .nav-tab {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .nav-tab.active {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--accent);
+        }
+
+        .nav-tab:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        .content-section {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* سیستم خوشه‌بندی */
         .clusters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
             margin: 30px 0;
         }
 
         .cluster-card {
             background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-right: 4px solid var(--accent);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--accent);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cluster-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--success));
         }
 
         .cluster-card:hover {
-            transform: translateY(-5px);
-            border-right-color: var(--success);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .cluster-card h3 {
             color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .project-item {
-            background: #f8f9fa;
-            padding: 12px 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border-right: 3px solid var(--warning);
+            background: var(--light);
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border-right: 4px solid var(--warning);
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            justify-content: between;
+            align-items: center;
         }
 
         .project-item:hover {
-            background: #e9ecef;
+            background: #e3f2fd;
             transform: translateX(-5px);
+            border-right-color: var(--success);
         }
 
-        .demo-section {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .project-status {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: auto;
         }
 
-        .demo-btn {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 10px 20px;
+        .status-active { background: #d4edda; color: #155724; }
+        .status-development { background: #fff3cd; color: #856404; }
+        .status-planning { background: #e2e3e5; color: #383d41; }
+        .status-revenue { background: #d1ecf1; color: #0c5460; }
+
+        /* سیستم شطرنج مرکزی */
+        .chess-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border-radius: 20px;
-            cursor: pointer;
-            margin: 5px;
-            transition: all 0.3s ease;
+            margin: 30px 0;
         }
 
-        .demo-btn:hover {
-            background: #219a52;
-            transform: scale(1.05);
+        .chess-container {
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .chess-board {
-            display: inline-grid;
-            grid-template-columns: repeat(8, 45px);
-            grid-template-rows: repeat(8, 45px);
+            display: grid;
+            grid-template-columns: repeat(8, 60px);
+            grid-template-rows: repeat(8, 60px);
             gap: 2px;
             background: #8b4513;
-            padding: 10px;
-            border-radius: 8px;
-            border: 2px solid #5d4037;
-            margin: 15px 0;
+            padding: 15px;
+            border-radius: 12px;
+            border: 4px solid #5d4037;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
         .chess-cell {
-            width: 45px;
-            height: 45px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .chess-cell.white { background: #f0d9b5; }
         .chess-cell.black { background: #b58863; }
 
-        .chess-cell:hover {
+        .chess-cell.selected {
+            background: #87ceeb !important;
             transform: scale(1.1);
-            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
         }
 
-        .financial-metrics {
+        .chess-cell.valid-move::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(76, 175, 80, 0.6);
+            border-radius: 50%;
+        }
+
+        .chess-controls {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            min-width: 300px;
+        }
+
+        .chess-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .move-history {
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        /* سیستم مالی */
+        .financial-dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
 
         .metric-card {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            border-top: 4px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
         }
 
         .metric-value {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: var(--primary);
-            margin: 10px 0;
+            margin: 15px 0;
+        }
+
+        .revenue-chart {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+
+        /* دکمه‌های اکشن */
+        .action-btn {
+            background: linear-gradient(135deg, var(--success), #219a52);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>سیستم مدیریت پروژه‌های پیشرفته</h1>
-            <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی سرمایه‌گذاری</div>
-            <p>جریان درآمدی ماهانه پایدار | سیستم بونوس | ادغام هوشمند</p>
-        </div>
-
-        <!-- خوشه‌بندی پروژه‌ها -->
-        <div class="clusters-grid">
-            <!-- خوشه فناوری و معنویت -->
-            <div class="cluster-card">
-                <h3>فناوری و معنویت</h3>
-                <div class="project-item" onclick="openProject('charity')">
-                    بخشش و نیکوکاری - خرید با ثبت خیر
-                </div>
-                <div class="project-item" onclick="openProject('spiritual-edu')">
-                    آموزش‌های معنوی در تکنولوژی
-                </div>
-            </div>
-
-            <!-- خوشه توسعه اخلاقی -->
-            <div class="cluster-card">
-                <h3>توسعه اخلاق‌محور</h3>
-                <div class="project-item" onclick="openProject('ethics-dev')">
-                    اخلاق در توسعه نرم‌افزار
-                </div>
-                <div class="project-item" onclick="openProject('ethical-research')">
-                    تحقیق اخلاقی و ارزش‌های انسانی
-                </div>
-            </div>
-
-            <!-- خوشه سیستم‌های هوشمند -->
-            <div class="cluster-card">
-                <h3>سیستم‌های هوشمند</h3>
-                <div class="project-item" onclick="openProject('chess-analysis')">
-                    سیستم تحلیل شطرنج پیشرفته
-                </div>
-                <div class="project-item" onclick="openProject('roi-calculator')">
-                    ماشین حساب ROI هوشمند
-                </div>
-            </div>
-        </div>
-
-        <!-- بخش دموهای قابل اجرا -->
-        <div class="demo-section">
-            <h3>پروژه‌های قابل اجرا (نسخه دمو)</h3>
-            <button class="demo-btn" onclick="runDemo('chess')">شطرنج تحلیلی</button>
-            <button class="demo-btn" onclick="runDemo('roi-calc')">ماشین حساب سود</button>
-            <button class="demo-btn" onclick="runDemo('charity')">سیستم نیکوکاری</button>
+            <h1>🚀 سیستم هوشمند مدیریت پروژه‌های پیشرفته</h1>
+            <div class="roi-badge">📈 بازدهی: ۳۴۱٪ + سود ماهانه ۱۰٪</div>
+            <p>ادغام هوش مصنوعی با سیستم‌های درآمدزایی هوشمند</p>
             
-            <div style="margin-top: 20px;">
-                <div class="chess-board" id="chessBoard"></div>
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showSection('projects')">📁 پروژه‌های هوشمند</button>
+                <button class="nav-tab" onclick="showSection('chess')">♟ سیستم شطرنج استراتژیک</button>
+                <button class="nav-tab" onclick="showSection('revenue')">💰 سیستم درآمدزایی</button>
+                <button class="nav-tab" onclick="showSection('ai')">🤖 هوش مصنوعی</button>
             </div>
         </div>
 
-        <!-- بخش مالی و متریک‌ها -->
-        <div class="financial-metrics">
-            <div class="metric-card">
-                <div>بازدهی کل</div>
-                <div class="metric-value">۳۴۱٪</div>
-                <div>از ابتدای سال</div>
-            </div>
-            <div class="metric-card">
-                <div>سود ماهانه</div>
-                <div class="metric-value">۱۰٪</div>
-                <div>میانگین ثابت</div>
-            </div>
-            <div class="metric-card">
-                <div>پروژه‌های فعال</div>
-                <div class="metric-value">۸</div>
-                <div>از ۱۲ پروژه</div>
-            </div>
-            <div class="metric-card">
-                <div>نرخ موفقیت</div>
-                <div class="metric-value">۹۴٪</div>
-                <div>تحویل پروژه</div>
+        <!-- بخش پروژه‌های هوشمند -->
+        <div id="projects" class="content-section active">
+            <h2>🎯 خوشه‌بندی پروژه‌های هوشمند</h2>
+            
+            <div class="clusters-grid">
+                <!-- هوش مصنوعی و یادگیری ماشین -->
+                <div class="cluster-card">
+                    <h3>🤖 هوش مصنوعی پیشرفته</h3>
+                    <div class="project-item" onclick="openProject('ai-trading')">
+                        <span>سیستم معاملات الگوریتمی</span>
+                        <span class="project-status status-revenue">درآمد فعال</span>
+                    </div>
+                    <div class="project-item" onclick="openProject('ml-prediction')">
+                        <span>پیش‌بینی بازار با ML</span>
+                        <span class="project-status status-active">فعال</span>
+                    </div>
+                    <div class="project-item" onclick="openProject('nlp-analysis')">
+                        <span>تحلیل احساسات بازار</span>
+                        <span class="project-status status-development">در حال توسعه</span>
+                    </div>
+                </div>
+
+                <!-- فناوری و معنویت -->
+                <div class="cluster-card">
+                    <h3>🌿 فناوری و معنویت</h3>
+                    <div class="project-item" onclick="openProject('charity-ai')">
+                        <span>سیستم نیکوکاری هوشمند</span>
+                        <span class="project-status status-revenue">درآمد فعال</span>
+                    </div>
+                    <div class="project-item" onclick="openProject('spiritual-tech')">
+                        <span>پلتفرم آموزش معنوی</span>
+                        <span class="project-status status-active">فعال</span>
+                    </div>
+                </div>
+
+                <!-- سیستم‌های مالی هوشمند -->
+                <div class="cluster-card">
+                    <h3>💹 سیستم‌های مالی هوشمند</h3>
+                    <div class="project-item" onclick="openProject('auto-invest')">
+                        <span>سرمایه‌گذاری خودکار</span>
+                        <span class="project-status status-revenue">درآمد فعال</span>
+                    </div>
+                    <div class="project-item" onclick="openProject('risk-management')">
+                        <span>مدیریت ریسک هوشمند</span>
+                        <span class="project-status status-active">فعال</span>
+                    </div>
+                    <div class="project-item" onclick="openProject('portfolio-ai')">
+                        <span>بهینه‌سازی سبد سرمایه</span>
+                        <span class="project-status status-development">در حال توسعه</span>
+                    </div>
+                </div>
+
+                <!-- توسعه اخلاق‌محور -->
+                <div class="cluster-card">
+                    <h3>⚖️ توسعه اخلاق‌محور</h3>
+                    <div class="project-item" onclick="openProject('ethical-ai')">
+                        <span>هوش مصنوعی اخلاقی</span>
+                        <span class="project-status status-active">فعال</span>
+                    </div>
+                    <div class="project-item" onclick="openProject('responsible-tech')">
+                        <span>تکنولوژی مسئولیت‌پذیر</span>
+                        <span class="project-status status-development">در حال توسعه</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-            <div class="roi-badge">هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری</div>
-            <p style="margin-top: 10px; color: #666;">ادغام هوشمند سیستم شطرنج با تحلیل‌های پیشرفته کسب‌وکار</p>
+        <!-- سیستم شطرنج استراتژیک -->
+        <div id="chess" class="content-section">
+            <div class="chess-center">
+                <h2>♟ سیستم شطرنج استراتژیک برای تحلیل بازار</h2>
+                <p>هر حرکت = بهبود استراتژی سرمایه‌گذاری و کشف فرصت‌های جدید</p>
+                
+                <div class="chess-container">
+                    <div class="chess-board" id="chessBoard">
+                        <!-- تخته شطرنج با JS پر می‌شود -->
+                    </div>
+                    
+                    <div class="chess-controls">
+                        <h3>کنترل‌های بازی</h3>
+                        <div style="margin: 20px 0;">
+                            <button class="action-btn" onclick="chessSystem.newGame()">🎮 بازی جدید</button>
+                            <button class="action-btn btn-outline" onclick="chessSystem.analyzePosition()">📊 تحلیل موقعیت</button>
+                        </div>
+                        
+                        <div class="chess-info">
+                            <div id="gameStatus">وضعیت: آماده برای شروع</div>
+                            <div id="playerTurn" style="margin: 10px 0;">نوبت: سفید</div>
+                            
+                            <div class="move-history">
+                                <strong>تاریخچه حرکات:</strong>
+                                <div id="moveHistory"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; text-align: center;">
+                    <div class="roi-badge">🔍 تحلیل شطرنج = بهبود ۱۵٪ در تصمیم‌گیری‌های مالی</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- سیستم درآمدزایی -->
+        <div id="revenue" class="content-section">
+            <h2>💰 سیستم درآمدزایی هوشمند</h2>
+            
+            <div class="financial-dashboard">
+                <div class="metric-card">
+                    <div>📈 درآمد ماهانه</div>
+                    <div class="metric-value">۲۵۰M</div>
+                    <div>تومان</div>
+                </div>
+                <div class="metric-card">
+                    <div>🎯 بازدهی سالانه</div>
+                    <div class="metric-value">۳۴۱٪</div>
+                    <div>ROI</div>
+                </div>
+                <div class="metric-card">
+                    <div>🚀 پروژه‌های درآمدزا</div>
+                    <div class="metric-value">۶</div>
+                    <div>از ۸ پروژه</div>
+                </div>
+                <div class="metric-card">
+                    <div>📊 رشد ماهانه</div>
+                    <div class="metric-value">۱۰٪</div>
+                    <div>میانگین ثابت</div>
+                </div>
+            </div>
+
+            <div class="revenue-chart">
+                <h3>📋 جریان‌های درآمدی فعال</h3>
+                <div style="margin: 20px 0;">
+                    <div class="project-item">
+                        <span>سیستم معاملات الگوریتمی</span>
+                        <span class="project-status status-revenue">+۸۰M تومان</span>
+                    </div>
+                    <div class="project-item">
+                        <span>سرمایه‌گذاری خودکار</span>
+                        <span class="project-status status-revenue">+۶۰M تومان</span>
+                    </div>
+                    <div class="project-item">
+                        <span>پلتفرم نیکوکاری</span>
+                        <span class="project-status status-revenue">+۴۰M تومان</span>
+                    </div>
+                    <div class="project-item">
+                        <span>مشاوره هوش مصنوعی</span>
+                        <span class="project-status status-revenue">+۷۰M تومان</span>
+                    </div>
+                </div>
+                
+                <button class="action-btn" onclick="showSection('projects')">📁 مشاهده تمام پروژه‌ها</button>
+            </div>
+        </div>
+
+        <!-- بخش هوش مصنوعی -->
+        <div id="ai" class="content-section">
+            <h2>🤖 سیستم‌های هوش مصنوعی پیشرفته</h2>
+            
+            <div class="clusters-grid">
+                <div class="cluster-card">
+                    <h3>🧠 یادگیری عمیق</h3>
+                    <div class="project-item">
+                        <span>شبکه‌های عصبی پیشرفته</span>
+                        <span class="project-status status-active">فعال</span>
+                    </div>
+                    <div class="project-item">
+                        <span>پردازش زبان طبیعی</span>
+                        <span class="project-status status-development">در حال توسعه</span>
+                    </div>
+                </div>
+                
+                <div class="cluster-card">
+                    <h3>📊 تحلیل پیش‌بین</h3>
+                    <div class="project-item">
+                        <span>پیش‌بینی بازارهای مالی</span>
+                        <span class="project-status status-revenue">درآمد فعال</span>
+                    </div>
+                    <div class="project-item">
+                        <span>تحلیل روندهای کسب‌وکار</span>
+                        <span class="project-status status-active">فعال</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <div class="roi-badge">🎯 دقت ۹۴٪ در پیش‌بینی‌های هوش مصنوعی</div>
+            </div>
         </div>
     </div>
 
     <script>
-        // ایجاد تخته شطرنج
-        function initChessBoard() {
-            const chessBoard = document.getElementById('chessBoard');
-            const pieces = [
-                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
-                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
-                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
-            ];
+        // سیستم مدیریت بخش‌ها
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
             
-            for (let i = 0; i < 64; i++) {
-                const cell = document.createElement('div');
-                cell.className = `chess-cell ${Math.floor(i / 8 + i % 8) % 2 === 0 ? 'white' : 'black'}`;
-                cell.textContent = pieces[i];
-                cell.onclick = () => handleChessMove(i);
-                chessBoard.appendChild(cell);
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // سیستم شطرنج پیشرفته
+        const chessSystem = {
+            selectedPiece: null,
+            currentPlayer: 'white',
+            moveHistory: [],
+            gameActive: true,
+
+            init() {
+                this.createBoard();
+                this.updateGameStatus();
+            },
+
+            createBoard() {
+                const chessBoard = document.getElementById('chessBoard');
+                chessBoard.innerHTML = '';
+                
+                const pieces = [
+                    '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
+                    '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
+                    '', '', '', '', '', '', '', '',
+                    '', '', '', '', '', '', '', '',
+                    '', '', '', '', '', '', '', '',
+                    '', '', '', '', '', '', '', '',
+                    '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
+                    '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
+                ];
+
+                for (let i = 0; i < 64; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = `chess-cell ${Math.floor(i / 8 + i % 8) % 2 === 0 ? 'white' : 'black'}`;
+                    cell.dataset.index = i;
+                    cell.dataset.piece = pieces[i];
+                    cell.textContent = pieces[i];
+                    cell.onclick = () => this.handleCellClick(i);
+                    chessBoard.appendChild(cell);
+                }
+            },
+
+            handleCellClick(index) {
+                if (!this.gameActive) return;
+
+                const cell = document.querySelector(`[data-index="${index}"]`);
+                const hasPiece = cell.dataset.piece !== '';
+
+                if (this.selectedPiece === null) {
+                    // انتخاب مهره
+                    if (hasPiece) {
+                        this.selectedPiece = index;
+                        cell.classList.add('selected');
+                        this.showValidMoves(index);
+                    }
+                } else {
+                    // حرکت مهره
+                    if (index === this.selectedPiece) {
+                        // لغو انتخاب
+                        this.clearSelection();
+                    } else {
+                        // انجام حرکت
+                        this.movePiece(this.selectedPiece, index);
+                    }
+                }
+            },
+
+            showValidMoves(fromIndex) {
+                // شبیه‌سازی حرکات معتبر (در پیاده‌سازی واقعی الگوریتم حرکات شطرنج)
+                const validMoves = this.calculateValidMoves(fromIndex);
+                validMoves.forEach(moveIndex => {
+                    const cell = document.querySelector(`[data-index="${moveIndex}"]`);
+                    cell.classList.add('valid-move');
+                });
+            },
+
+            calculateValidMoves(fromIndex) {
+                // الگوریتم ساده برای نمایش حرکات معتبر
+                const moves = [];
+                const piece = document.querySelector(`[data-index="${fromIndex}"]`).dataset.piece;
+                
+                if (piece === '♙' || piece === '♟') { // پیاده
+                    moves.push(fromIndex + 8);
+                    if (fromIndex < 16) moves.push(fromIndex + 16);
+                } else if (piece === '♘' || piece === '♞') { // اسب
+                    const knightMoves = [-17, -15, -10, -6, 6, 10, 15, 17];
+                    knightMoves.forEach(offset => {
+                        const newIndex = fromIndex + offset;
+                        if (newIndex >= 0 && newIndex < 64) moves.push(newIndex);
+                    });
+                }
+                
+                return moves.filter(move => move >= 0 && move < 64);
+            },
+
+            movePiece(fromIndex, toIndex) {
+                const fromCell = document.querySelector(`[data-index="${fromIndex}"]`);
+                const toCell = document.querySelector(`[data-index="${toIndex}"]`);
+                
+                // انجام حرکت
+                toCell.textContent = fromCell.textContent;
+                toCell.dataset.piece = fromCell.dataset.piece;
+                fromCell.textContent = '';
+                fromCell.dataset.piece = '';
+
+                // ثبت حرکت در تاریخچه
+                const moveNotation = `${fromCell.dataset.piece} از ${this.indexToNotation(fromIndex)} به ${this.indexToNotation(toIndex)}`;
+                this.moveHistory.push(moveNotation);
+                this.updateMoveHistory();
+
+                // تغییر نوبت
+                this.currentPlayer = this.currentPlayer === 'white' ? 'black' : 'white';
+                this.updateGameStatus();
+
+                this.clearSelection();
+            },
+
+            indexToNotation(index) {
+                const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
+                const file = files[index % 8];
+                const rank = ranks[Math.floor(index / 8)];
+                return file + rank;
+            },
+
+            clearSelection() {
+                this.selectedPiece = null;
+                document.querySelectorAll('.chess-cell').forEach(cell => {
+                    cell.classList.remove('selected', 'valid-move');
+                });
+            },
+
+            updateGameStatus() {
+                document.getElementById('gameStatus').textContent = 
+                    `وضعیت: بازی در جریان - نوبت: ${this.currentPlayer === 'white' ? 'سفید' : 'سیاه'}`;
+            },
+
+            updateMoveHistory() {
+                const historyElement = document.getElementById('moveHistory');
+                historyElement.innerHTML = this.moveHistory
+                    .map((move, index) => `<div>${index + 1}. ${move}</div>`)
+                    .join('');
+            },
+
+            newGame() {
+                this.selectedPiece = null;
+                this.currentPlayer = 'white';
+                this.moveHistory = [];
+                this.gameActive = true;
+                this.createBoard();
+                this.updateGameStatus();
+                this.updateMoveHistory();
+                alert('🎮 بازی جدید شروع شد!');
+            },
+
+            analyzePosition() {
+                const strategies = [
+                    "تحلیل موقعیت: فرصت سرمایه‌گذاری در تکنولوژی شناسایی شد",
+                    "بهبود استراتژی: کاهش ریسک ۲۰٪ با تنوع‌بخشی",
+                    "کشف فرصت: بازار جدید در حوزه AI شناسایی شد",
+                    "بهینه‌سازی: افزایش بازدهی ۱۵٪ با تنظیم پارامترها"
+                ];
+                const randomStrategy = strategies[Math.floor(Math.random() * strategies.length)];
+                
+                alert(`📊 تحلیل هوشمند موقعیت:\n\n${randomStrategy}\n\n🎯 بهبود پیش‌بینی: +۱۵٪`);
             }
-        }
+        };
 
-        function handleChessMove(position) {
-            const strategies = [
-                "بهبود استراتژی سرمایه‌گذاری",
-                "تحلیل موقعیت بازار", 
-                "بهینه‌سازی ریسک",
-                "کشف فرصت جدید"
-            ];
-            const randomStrategy = strategies[Math.floor(Math.random() * strategies.length)];
-            
-            alert(`♟ حرکت استراتژیک ثبت شد\n\n${randomStrategy}\nموقعیت: ${position}\n\n+۱۰٪ بهبود در تصمیم‌گیری`);
-        }
-
+        // مدیریت پروژه‌ها
         function openProject(projectId) {
-            alert(`📁 در حال بارگذاری پروژه: ${projectId}\n\nجزئیات کامل در حال نمایش...`);
-        }
-
-        function runDemo(demoType) {
-            const demos = {
-                'chess': 'شطرنج تحلیلی - نسخه دمو\n\n🔒 محدودیت: حرکات نمونه\n✅ تحلیل استراتژی پایه',
-                'roi-calc': 'ماشین حساب سود\n\n🔒 داده‌های آزمایشی\n✅ محاسبه ROI نمونه',
-                'charity': 'سیستم نیکوکاری\n\n🔒 گردش کار آزمایشی\n✅ نمایش فرآیند خرید خیر'
+            const projectNames = {
+                'ai-trading': 'سیستم معاملات الگوریتمی',
+                'ml-prediction': 'پیش‌بینی بازار با ML', 
+                'charity-ai': 'سیستم نیکوکاری هوشمند',
+                'auto-invest': 'سرمایه‌گذاری خودکار',
+                'ethical-ai': 'هوش مصنوعی اخلاقی'
             };
             
-            const result = demos[demoType] || 'دمو در دسترس نیست';
-            alert(result);
+            const projectName = projectNames[projectId] || projectId;
+            alert(`🚀 در حال بارگذاری پروژه:\n\n${projectName}\n\n📊 نمایش جزئیات و آمار پیشرفت...`);
         }
 
         // راه‌اندازی اولیه
-        document.addEventListener('DOMContentLoaded', initChessBoard);
+        document.addEventListener('DOMContentLoaded', function() {
+            chessSystem.init();
+        });
     </script>
 </body>
-</html>
+                        </html>
