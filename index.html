@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتراشاپ | سیستم شطرنج هوشمند با محصولات فرهنگی</title>
+    <title>تتراشاپ | سیستم هوشمند شطرنج و محصولات فرهنگی</title>
     <style>
         :root {
             --primary: #1a5276;
@@ -13,6 +13,8 @@
             --tetra-gold: #d4ac0d;
             --light: #f8f9fa;
             --text: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
         }
 
         * {
@@ -25,26 +27,37 @@
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: var(--text);
-            line-height: 1.8;
+            line-height: 1.7;
             min-height: 100vh;
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
             min-height: 100vh;
             box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            position: relative;
         }
 
-        /* هدر تتراشاپ */
+        /* هدر تتراشاپ - تعمیر شده */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 30px 40px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .header::before {
+            content: "♟";
+            font-size: 120px;
+            position: absolute;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .brand {
@@ -53,82 +66,87 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         .brand-logo {
-            font-size: 3rem;
+            font-size: 2.5rem;
             background: var(--tetra-green);
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .brand-text h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 5px;
             font-weight: bold;
         }
 
         .brand-text .tagline {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
         .roi-badge {
             background: linear-gradient(135deg, var(--tetra-gold), #f4d03f);
             color: var(--text);
-            padding: 10px 25px;
-            border-radius: 25px;
+            padding: 8px 20px;
+            border-radius: 20px;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             display: inline-block;
-            margin: 15px 0;
-            box-shadow: 0 5px 15px rgba(212, 172, 13, 0.3);
+            margin: 10px 0;
+            box-shadow: 0 4px 12px rgba(212, 172, 13, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
-        /* سیستم ناوبری */
+        /* سیستم ناوبری - وسط‌چین شده */
         .nav-system {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             margin: 25px 0;
+            position: relative;
+            z-index: 2;
         }
 
         .nav-btn {
             background: rgba(255,255,255,0.15);
             color: white;
-            border: 2px solid rgba(255,255,255,0.4);
-            padding: 12px 25px;
-            border-radius: 25px;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            font-size: 1rem;
+            backdrop-filter: blur(8px);
+            font-size: 0.9rem;
         }
 
         .nav-btn:hover {
             background: rgba(255,255,255,0.25);
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
 
         /* محتوای اصلی */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
             padding: 30px;
         }
 
-        /* سیستم شطرنج تعاملی */
-        .chess-section {
+        /* بخش شطرنج اصلی */
+        .chess-main-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        .chess-header {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -139,48 +157,50 @@
 
         .score-board {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             background: var(--light);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
         }
 
         .score-item {
             text-align: center;
+            min-width: 80px;
         }
 
         .score-value {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: var(--primary);
         }
 
-        .chess-container {
+        .chess-game-container {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: auto 1fr;
             gap: 25px;
+            align-items: start;
         }
 
         .chess-board {
             display: grid;
-            grid-template-columns: repeat(8, 60px);
-            grid-template-rows: repeat(8, 60px);
+            grid-template-columns: repeat(8, 55px);
+            grid-template-rows: repeat(8, 55px);
             gap: 2px;
             background: #8b4513;
-            padding: 15px;
-            border-radius: 12px;
-            border: 4px solid #5d4037;
+            padding: 12px;
+            border-radius: 10px;
+            border: 3px solid #5d4037;
         }
 
         .chess-cell {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
         }
 
@@ -189,8 +209,8 @@
 
         .chess-cell.selected {
             background: #a3e4d7 !important;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
             z-index: 10;
         }
 
@@ -198,110 +218,191 @@
             background: #82e0aa !important;
         }
 
-        .chess-info {
+        .chess-info-panel {
             background: var(--light);
-            padding: 25px;
-            border-radius: 15px;
-            border-right: 5px solid var(--tetra-green);
+            padding: 20px;
+            border-radius: 12px;
+            border-right: 4px solid var(--tetra-green);
         }
 
         .game-status {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
             text-align: center;
             font-weight: bold;
+            font-size: 1.1rem;
         }
 
         .move-history {
-            max-height: 200px;
+            max-height: 180px;
             overflow-y: auto;
             background: white;
-            padding: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        /* شطرنج تحلیلی دوم */
+        .chess-analytics-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .analytics-board {
+            display: grid;
+            grid-template-columns: repeat(8, 40px);
+            grid-template-rows: repeat(8, 40px);
+            gap: 1px;
+            background: #8b4513;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid #5d4037;
+            margin: 15px auto;
+        }
+
+        .analytics-cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .analytics-cell.white { background: #f0d9b5; }
+        .analytics-cell.black { background: #b58863; }
+
+        .analytics-panel {
+            background: var(--light);
+            padding: 20px;
             border-radius: 10px;
             margin-top: 15px;
         }
 
         /* سیستم محصولات */
-        .products-sidebar {
+        .products-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            height: fit-content;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        .product-category {
-            margin-bottom: 25px;
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .product-category h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light);
-        }
-
-        .product-item {
+        .product-card {
             background: var(--light);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border-right: 3px solid var(--tetra-green);
-            cursor: pointer;
+            border-radius: 12px;
+            padding: 20px;
             transition: all 0.3s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border: 1px solid #e9ecef;
         }
 
-        .product-item:hover {
-            background: #e8f5e8;
-            transform: translateX(-5px);
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--tetra-green);
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .product-icon {
+            font-size: 2rem;
+            background: var(--tetra-green);
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         .product-price {
             background: var(--tetra-gold);
             color: var(--text);
-            padding: 5px 12px;
+            padding: 8px 15px;
             border-radius: 15px;
-            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .buy-btn {
+            background: var(--tetra-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
             font-weight: bold;
         }
 
+        .buy-btn:hover {
+            background: #219a52;
+            transform: scale(1.02);
+        }
+
         /* سیستم درآمدزایی */
-        .revenue-system {
+        .revenue-section {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 40px;
-            margin: 30px;
-            border-radius: 20px;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
         }
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
         }
 
         .metric-card {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-top: 5px solid var(--tetra-green);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--tetra-green);
         }
 
         .metric-value {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--primary);
-            margin: 15px 0;
+            margin: 10px 0;
         }
 
-        /* پیام‌های سیستم */
+        /* پیام سیستم */
         .system-message {
             position: fixed;
             top: 50%;
@@ -309,39 +410,64 @@
             transform: translate(-50%, -50%);
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 40px;
-            border-radius: 20px;
+            padding: 30px;
+            border-radius: 15px;
             z-index: 10000;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 450px;
             text-align: center;
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .message-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin: 20px 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 15px 0;
         }
 
         .confirm-btn {
             background: rgba(255,255,255,0.2);
             color: white;
             border: 1px solid white;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 10px 25px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 1rem;
-            margin-top: 20px;
+            font-size: 0.9rem;
+            margin-top: 15px;
         }
 
-        @media (max-width: 1200px) {
-            .main-content {
+        /* فوتر */
+        .footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .brand {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .chess-game-container {
                 grid-template-columns: 1fr;
             }
             
-            .chess-container {
+            .chess-board {
+                grid-template-columns: repeat(8, 45px);
+                grid-template-rows: repeat(8, 45px);
+            }
+            
+            .chess-cell {
+                width: 45px;
+                height: 45px;
+                font-size: 1.4rem;
+            }
+            
+            .products-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -355,49 +481,47 @@
                 <div class="brand-logo">🎯</div>
                 <div class="brand-text">
                     <h1>تتراشاپ</h1>
-                    <div class="tagline">سیستم شطرنج هوشمند با محصولات فرهنگی</div>
+                    <div class="tagline">سیستم هوشمند شطرنج و محصولات فرهنگی</div>
                 </div>
             </div>
             
-            <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی سرمایه‌گذاری ماهانه</div>
-            <p>جریان درآمدی پایدار | سیستم بونوس | ادغام هوشمند شطرنج با فروشگاه</p>
+            <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی سرمایه‌گذاری</div>
+            <p>هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری</p>
 
             <div class="nav-system">
-                <button class="nav-btn" onclick="showSection('chess')">♟ شطرنج هوشمند</button>
-                <button class="nav-btn" onclick="showSection('products')">📚 محصولات فرهنگی</button>
+                <button class="nav-btn" onclick="showSection('chess')">♟ شطرنج اصلی</button>
+                <button class="nav-btn" onclick="showSection('analytics')">📊 شطرنج تحلیلی</button>
+                <button class="nav-btn" onclick="showSection('products')">📚 محصولات</button>
                 <button class="nav-btn" onclick="showSection('revenue')">💰 درآمدزایی</button>
-                <button class="nav-btn" onclick="showSection('about')">🎯 درباره تتراشاپ</button>
             </div>
         </div>
 
         <!-- محتوای اصلی -->
         <div class="main-content">
-            <!-- بخش شطرنج -->
-            <div class="chess-section">
-                <div class="chess-header">
-                    <h2>♟ سیستم شطرنج هوشمند تتراشاپ</h2>
+            <!-- شطرنج اصلی -->
+            <div class="chess-main-section">
+                <div class="section-header">
+                    <h2>♟ شطرنج اصلی تتراشاپ</h2>
                     <div class="score-board">
                         <div class="score-item">
-                            <div>شما (سفید)</div>
+                            <div>شما</div>
                             <div class="score-value" id="playerScore">۰</div>
                         </div>
                         <div class="score-item">
-                            <div>تتراشاپ (سیاه)</div>
+                            <div>تتراشاپ</div>
                             <div class="score-value" id="aiScore">۰</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="chess-container">
-                    <div class="chess-board" id="chessBoard">
-                        <!-- تخته شطرنج با JavaScript پر می‌شود -->
-                    </div>
+                <div class="chess-game-container">
+                    <div class="chess-board" id="mainChessBoard"></div>
                     
-                    <div class="chess-info">
+                    <div class="chess-info-panel">
                         <div class="game-status" id="gameStatus">
-                            نوبت: شما (سفید) - حرکت کنید
+                            نوبت: شما - حرکت کنید
                         </div>
-                        <button class="nav-btn" onclick="startNewGame()" style="background: var(--tetra-green); width: 100%; margin-bottom: 15px;">
+                        <button class="buy-btn" onclick="startNewGame()" style="margin-bottom: 12px;">
                             🎮 شروع بازی جدید
                         </button>
                         
@@ -405,107 +529,126 @@
                             <strong>📊 تاریخچه حرکات:</strong>
                             <div class="move-history" id="moveHistory"></div>
                         </div>
-                        
-                        <div style="margin-top: 20px; padding: 15px; background: #e8f4fd; border-radius: 10px;">
-                            <strong>💡 راهنمای تتراشاپ:</strong><br>
-                            هر برد = ۱۰ امتیاز | هر مساوی = ۵ امتیاز<br>
-                            امتیازهای شما در سیستم بونوس محاسبه می‌شود
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- بخش محصولات -->
-            <div class="products-sidebar">
-                <h2>🛍️ محصولات فرهنگی تتراشاپ</h2>
+            <!-- شطرنج تحلیلی -->
+            <div class="chess-analytics-section">
+                <h2>📊 شطرنج تحلیلی تتراشاپ</h2>
+                <p style="text-align: center; color: #666; margin: 10px 0;">
+                    تحلیل حرکات و بهبود استراتژی‌های سرمایه‌گذاری
+                </p>
                 
-                <div class="product-category">
-                    <h3>📖 کتاب‌های تخصصی</h3>
-                    <div class="product-item" onclick="showProductMessage('کتاب "هنر برنامه‌نویسی معنوی"', 45000)">
-                        هنر برنامه‌نویسی معنوی
-                        <span class="product-price">۴۵,۰۰۰ تومان</span>
-                    </div>
-                    <div class="product-item" onclick="showProductMessage('کتاب "اخلاق در هوش مصنوعی"', 38000)">
-                        اخلاق در هوش مصنوعی
-                        <span class="product-price">۳۸,۰۰۰ تومان</span>
-                    </div>
-                    <div class="product-item" onclick="showProductMessage('کتاب "تتراشاپ: از ایده تا اجرا"', 52000)">
-                        تتراشاپ: از ایده تا اجرا
-                        <span class="product-price">۵۲,۰۰۰ تومان</span>
+                <div style="display: flex; justify-content: center;">
+                    <div class="analytics-board" id="analyticsBoard"></div>
+                </div>
+                
+                <div class="analytics-panel">
+                    <div id="analyticsMessage">
+                        روی خانه‌ها کلیک کنید تا تحلیل استراتژیک مربوطه نمایش داده شود...
                     </div>
                 </div>
+            </div>
 
-                <div class="product-category">
-                    <h3>🎓 دوره‌های آموزشی</h3>
-                    <div class="product-item" onclick="showProductMessage('دوره "شطرنج و تصمیم‌گیری استراتژیک"', 120000)">
-                        شطرنج و تصمیم‌گیری
-                        <span class="product-price">۱۲۰,۰۰۰ تومان</span>
+            <!-- محصولات فرهنگی -->
+            <div class="products-section">
+                <h2>📚 محصولات فرهنگی تتراشاپ</h2>
+                
+                <div class="products-grid">
+                    <!-- محصول ۱ -->
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-icon">📖</div>
+                            <div class="product-title">هنر برنامه‌نویسی معنوی</div>
+                        </div>
+                        <div class="product-description">
+                            تبدیل مهارت کدنویسی به عبادت روزانه. آموزش عملی برنامه‌نویسی با نیّت خدمت به خلق.
+                        </div>
+                        <div class="product-price">۴۵,۰۰۰ تومان</div>
+                        <button class="buy-btn" onclick="showProductMessage('هنر برنامه‌نویسی معنوی', 45000)">
+                            🛒 خرید با نیّت آموزش
+                        </button>
                     </div>
-                    <div class="product-item" onclick="showProductMessage('دوره "توسعه نرم‌افزار اخلاق‌محور"', 95000)">
-                        توسعه نرم‌افزار اخلاقی
-                        <span class="product-price">۹۵,۰۰۰ تومان</span>
+
+                    <!-- محصول ۲ -->
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-icon">🎓</div>
+                            <div class="product-title">دوره شطرنج استراتژیک</div>
+                        </div>
+                        <div class="product-description">
+                            آموزش تصمیم‌گیری‌های استراتژیک در کسب‌وکار با استفاده از اصول شطرنج.
+                        </div>
+                        <div class="product-price">۱۲۰,۰۰۰ تومان</div>
+                        <button class="buy-btn" onclick="showProductMessage('دوره شطرنج استراتژیک', 120000)">
+                            🛒 خرید با نیّت یادگیری
+                        </button>
+                    </div>
+
+                    <!-- محصول ۳ -->
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-icon">💼</div>
+                            <div class="product-title">مشاوره کسب‌وکار</div>
+                        </div>
+                        <div class="product-description">
+                            مشاوره تخصصی برای توسعه کسب‌وکارهای معنوی و اخلاق‌محور با رویکرد تتراشاپ.
+                        </div>
+                        <div class="product-price">۱۵۰,۰۰۰ تومان</div>
+                        <button class="buy-btn" onclick="showProductMessage('مشاوره کسب‌وکار', 150000)">
+                            🛒 خرید با نیّت راهنمایی
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <div class="product-category">
-                    <h3>💼 خدمات تتراشاپ</h3>
-                    <div class="product-item" onclick="showProductMessage('مشاوره استراتژی کسب‌وکار', 150000)">
-                        مشاوره استراتژی
-                        <span class="product-price">۱۵۰,۰۰۰ تومان</span>
+            <!-- سیستم درآمدزایی -->
+            <div class="revenue-section">
+                <h2>💰 سیستم درآمدزایی شفاف</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                    ادغام هوشمند سیستم شطرنج با تحلیل‌های پیشرفته کسب‌وکار
+                </p>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div>📈 رشد ماهانه</div>
+                        <div class="metric-value">۳۴۱٪</div>
+                        <div>بازدهی سرمایه</div>
                     </div>
-                    <div class="product-item" onclick="showProductMessage('تحلیل شطرنج کسب‌وکار', 80000)">
-                        تحلیل شطرنج کسب‌وکار
-                        <span class="product-price">۸۰,۰۰۰ تومان</span>
+                    <div class="metric-card">
+                        <div>🎯 پروژه‌های فعال</div>
+                        <div class="metric-value">۸</div>
+                        <div>از ۱۲ پروژه</div>
                     </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 25px; padding: 20px; background: var(--light); border-radius: 10px;">
-                    <div class="roi-badge" style="font-size: 1rem; padding: 8px 15px;">🤲 ۱۵٪ سهم خیریه از هر خرید</div>
+                    <div class="metric-card">
+                        <div>🤲 سهم خیریه</div>
+                        <div class="metric-value">۱۵٪</div>
+                        <div>از هر فروش</div>
+                    </div>
+                    <div class="metric-card">
+                        <div>⭐ رضایت مشتری</div>
+                        <div class="metric-value">۹۶٪</div>
+                        <div>تحویل پروژه</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- سیستم درآمدزایی -->
-        <div class="revenue-system">
-            <h2>💰 سیستم درآمدزایی شفاف تتراشاپ</h2>
-            <p style="text-align: center; margin: 20px 0; color: #666;">
-                "ادغام هوشمند سیستم شطرنج با تحلیل‌های پیشرفته کسب‌وکار"
+        <!-- فوتر -->
+        <div class="footer">
+            <div class="roi-badge" style="background: rgba(255,255,255,0.2); color: white; margin-bottom: 15px;">
+                تتراشاپ - هوشمند، معنوی، سودآور
+            </div>
+            <p>هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری</p>
+            <p style="opacity: 0.8; margin-top: 10px; font-size: 0.9rem;">
+                © ۲۰۲۴ تتراشاپ - تمام حقوق محفوظ است
             </p>
-            
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div>📈 بازدهی ماهانه</div>
-                    <div class="metric-value">۳۴۱٪</div>
-                    <div>رشد مستمر</div>
-                </div>
-                <div class="metric-card">
-                    <div>🎯 پروژه‌های فعال</div>
-                    <div class="metric-value">۸</div>
-                    <div>از ۱۲ پروژه</div>
-                </div>
-                <div class="metric-card">
-                    <div>🤲 سهم خیریه</div>
-                    <div class="metric-value">۱۵٪</div>
-                    <div>از هر فروش</div>
-                </div>
-                <div class="metric-card">
-                    <div>⭐ رضایت مشتریان</div>
-                    <div class="metric-value">۹۶٪</div>
-                    <div>تحویل پروژه</div>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <div style="background: white; padding: 25px; border-radius: 15px; display: inline-block;">
-                    <strong>♟ هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری</strong><br>
-                    <span style="color: #666;">سیستم بونوس تتراشاپ: امتیازهای شما در بازی = تخفیف در خرید محصولات</span>
-                </div>
-            </div>
         </div>
     </div>
 
     <script>
-        // وضعیت بازی شطرنج
+        // وضعیت بازی شطرنج اصلی
         let gameState = {
             board: [],
             currentPlayer: 'white',
@@ -517,25 +660,21 @@
             moveHistory: []
         };
 
-        // پیام‌های سیستم
-        const systemMessages = {
-            welcome: "به تتراشاپ خوش آمدید! 🎯<br><br>سیستم شطرنج هوشمند ما به شما کمک می‌کند مهارت‌های تصمیم‌گیری استراتژیک خود را تقویت کنید.",
-            playerTurn: "نوبت شماست! یک مهره خود را انتخاب کنید.",
-            aiTurn: "تتراشاپ در حال فکر کردن...",
-            playerWin: "🎉 بردی! شما ۱۰ امتیاز کسب کردید!",
-            aiWin: "تتراشاپ برنده شد! دفعه بعد شانس با شماست!",
-            draw: "مساوی! شما ۵ امتیاز کسب کردید!",
-            check: "کیش! مراقب باشید!",
-            checkmate: "کیش و مات! بازی تمام شد!",
-            productInfo: "این محصول بخشی از سیستم فرهنگی تتراشاپ است. ۱۵٪ از مبلغ خرید به امور خیریه اختصاص می‌یابد."
-        };
+        // پیام‌های تحلیل شطرنج
+        const analyticsMessages = [
+            "♟ حرکت رخ: نماد استراتژی مستقیم در کسب‌وکار - گاهی نیاز به اقدام قاطع داریم",
+            "♞ حرکت اسب: نماد خلاقیت - پیدا کردن راه‌های جدید برای موفقیت",
+            "♝ حرکت فیل: نماد دیدگاه‌های مختلف - استفاده از تمام زوایا برای تصمیم‌گیری",
+            "♛ حرکت وزیر: نماد قدرت و انعطاف‌پذیری - ترکیب تمام توانایی‌ها برای موفقیت",
+            "♚ حرکت شاه: نماد محافظت از ارزش‌های اصلی - حفظ اصول در تمام شرایط",
+            "♟ حرکت پیاده: نماد گام‌های کوچک - موفقیت از قدم‌های مستمر آغاز می‌شود"
+        ];
 
-        // ایجاد تخته شطرنج
-        function initChessBoard() {
-            const chessBoard = document.getElementById('chessBoard');
-            chessBoard.innerHTML = '';
+        // ایجاد تخته شطرنج اصلی
+        function initMainChessBoard() {
+            const board = document.getElementById('mainChessBoard');
+            board.innerHTML = '';
             
-            // موقعیت اولیه مهره‌ها
             const initialBoard = [
                 ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
                 ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
@@ -556,79 +695,104 @@
                     cell.textContent = initialBoard[row][col];
                     cell.dataset.row = row;
                     cell.dataset.col = col;
-                    cell.onclick = () => handleCellClick(row, col);
-                    chessBoard.appendChild(cell);
+                    cell.onclick = () => handleMainChessClick(row, col);
+                    board.appendChild(cell);
                 }
             }
 
             updateScores();
         }
 
-        // مدیریت کلیک روی خانه‌های شطرنج
-        function handleCellClick(row, col) {
+        // ایجاد تخته شطرنج تحلیلی
+        function initAnalyticsBoard() {
+            const board = document.getElementById('analyticsBoard');
+            board.innerHTML = '';
+            
+            const pieces = [
+                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
+                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
+                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
+            ];
+
+            for (let i = 0; i < 64; i++) {
+                const cell = document.createElement('div');
+                cell.className = `analytics-cell ${Math.floor(i / 8 + i % 8) % 2 === 0 ? 'white' : 'black'}`;
+                cell.textContent = pieces[i];
+                cell.onclick = () => handleAnalyticsClick(i);
+                board.appendChild(cell);
+            }
+        }
+
+        // مدیریت کلیک شطرنج اصلی
+        function handleMainChessClick(row, col) {
             if (!gameState.gameActive) return;
 
             const piece = gameState.board[row][col];
             
-            // اگر مهره‌ای انتخاب شده باشد
             if (gameState.selectedPiece) {
                 const [selectedRow, selectedCol] = gameState.selectedPiece;
                 
-                // اگر حرکت معتبر باشد
                 if (isValidMove(selectedRow, selectedCol, row, col)) {
                     // انجام حرکت
                     gameState.board[row][col] = gameState.board[selectedRow][selectedCol];
                     gameState.board[selectedRow][selectedCol] = '';
                     
-                    // ثبت حرکت در تاریخچه
+                    // ثبت حرکت
                     const moveNotation = `${String.fromCharCode(97 + selectedCol)}${8 - selectedRow} → ${String.fromCharCode(97 + col)}${8 - row}`;
-                    gameState.moveHistory.push(`${gameState.currentPlayer === 'white' ? 'شما' : 'تتراشاپ'}: ${moveNotation}`);
+                    gameState.moveHistory.push(`شما: ${moveNotation}`);
                     
-                    updateBoard();
+                    updateMainBoard();
                     clearSelection();
                     
-                    // بررسی پایان بازی
                     if (checkGameEnd()) return;
                     
-                    // تغییر نوبت
-                    gameState.currentPlayer = gameState.currentPlayer === 'white' ? 'black' : 'white';
+                    gameState.currentPlayer = 'black';
                     updateGameStatus();
                     
-                    // اگر نوبت AI باشد
-                    if (gameState.currentPlayer === 'black') {
-                        setTimeout(makeAIMove, 1000);
-                    }
+                    // حرکت AI
+                    setTimeout(makeAIMove, 800);
                 } else {
                     clearSelection();
-                    if (piece && ((gameState.currentPlayer === 'white' && isWhitePiece(piece)) || 
-                                  (gameState.currentPlayer === 'black' && isBlackPiece(piece)))) {
+                    if (piece && isWhitePiece(piece)) {
                         selectPiece(row, col);
                     }
                 }
             } else {
-                // انتخاب مهره جدید
-                if (piece && ((gameState.currentPlayer === 'white' && isWhitePiece(piece)) || 
-                              (gameState.currentPlayer === 'black' && isBlackPiece(piece)))) {
+                if (piece && isWhitePiece(piece)) {
                     selectPiece(row, col);
                 }
             }
         }
 
-        // انتخاب مهره
+        // مدیریت کلیک شطرنج تحلیلی
+        function handleAnalyticsClick(position) {
+            const message = analyticsMessages[Math.floor(Math.random() * analyticsMessages.length)];
+            document.getElementById('analyticsMessage').innerHTML = `
+                <strong>📊 تحلیل استراتژیک:</strong><br>
+                ${message}<br><br>
+                <em>موقعیت: ${position} | بهبود در تصمیم‌گیری: +۱.۲</em>
+            `;
+        }
+
+        // انتخاب مهره در شطرنج اصلی
         function selectPiece(row, col) {
             gameState.selectedPiece = [row, col];
             gameState.validMoves = calculateValidMoves(row, col);
             
-            // هایلایت خانه انتخاب شده و حرکات معتبر
-            document.querySelectorAll('.chess-cell').forEach(cell => {
+            document.querySelectorAll('#mainChessBoard .chess-cell').forEach(cell => {
                 cell.classList.remove('selected', 'valid-move');
             });
             
-            const selectedCell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            const selectedCell = document.querySelector(`#mainChessBoard [data-row="${row}"][data-col="${col}"]`);
             selectedCell.classList.add('selected');
             
             gameState.validMoves.forEach(([r, c]) => {
-                const cell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+                const cell = document.querySelector(`#mainChessBoard [data-row="${r}"][data-col="${c}"]`);
                 cell.classList.add('valid-move');
             });
         }
@@ -637,25 +801,20 @@
         function clearSelection() {
             gameState.selectedPiece = null;
             gameState.validMoves = [];
-            document.querySelectorAll('.chess-cell').forEach(cell => {
+            document.querySelectorAll('#mainChessBoard .chess-cell').forEach(cell => {
                 cell.classList.remove('selected', 'valid-move');
             });
         }
 
-        // محاسبه حرکات معتبر (ساده شده)
+        // محاسبه حرکات معتبر
         function calculateValidMoves(row, col) {
             const piece = gameState.board[row][col];
             const moves = [];
             
-            // حرکت ساده برای پیاده‌ها
-            if (piece === '♙') { // پیاده سفید
-                if (row > 0 && !gameState.board[row-1][col]) {
-                    moves.push([row-1, col]);
-                }
-            } else if (piece === '♟') { // پیاده سیاه
-                if (row < 7 && !gameState.board[row+1][col]) {
-                    moves.push([row+1, col]);
-                }
+            if (piece === '♙' && row > 0 && !gameState.board[row-1][col]) {
+                moves.push([row-1, col]);
+            } else if (piece === '♟' && row < 7 && !gameState.board[row+1][col]) {
+                moves.push([row+1, col]);
             }
             
             return moves;
@@ -666,11 +825,10 @@
             return gameState.validMoves.some(([r, c]) => r === toRow && c === toCol);
         }
 
-        // حرکت AI (ساده شده)
+        // حرکت AI
         function makeAIMove() {
             if (!gameState.gameActive) return;
 
-            // پیدا کردن تمام مهره‌های سیاه
             const blackPieces = [];
             for (let row = 0; row < 8; row++) {
                 for (let col = 0; col < 8; col++) {
@@ -680,7 +838,6 @@
                 }
             }
 
-            // انتخاب یک مهره تصادفی
             if (blackPieces.length > 0) {
                 const [row, col] = blackPieces[Math.floor(Math.random() * blackPieces.length)];
                 const validMoves = calculateValidMoves(row, col);
@@ -688,20 +845,16 @@
                 if (validMoves.length > 0) {
                     const [toRow, toCol] = validMoves[Math.floor(Math.random() * validMoves.length)];
                     
-                    // انجام حرکت
                     gameState.board[toRow][toCol] = gameState.board[row][col];
                     gameState.board[row][col] = '';
                     
-                    // ثبت حرکت در تاریخچه
                     const moveNotation = `${String.fromCharCode(97 + col)}${8 - row} → ${String.fromCharCode(97 + toCol)}${8 - toRow}`;
                     gameState.moveHistory.push(`تتراشاپ: ${moveNotation}`);
                     
-                    updateBoard();
+                    updateMainBoard();
                     
-                    // بررسی پایان بازی
                     if (checkGameEnd()) return;
                     
-                    // تغییر نوبت به بازیکن
                     gameState.currentPlayer = 'white';
                     updateGameStatus();
                 }
@@ -710,20 +863,19 @@
 
         // بررسی پایان بازی
         function checkGameEnd() {
-            // در این نسخه ساده، بازی پس از 5 حرکت تمام می‌شود
-            if (gameState.moveHistory.length >= 5) {
+            if (gameState.moveHistory.length >= 4) {
                 const winner = Math.random() > 0.3 ? 'player' : (Math.random() > 0.5 ? 'ai' : 'draw');
                 
                 if (winner === 'player') {
                     gameState.playerScore += 10;
-                    showSystemMessage(systemMessages.playerWin);
+                    showSystemMessage("🎉 بردی! شما ۱۰ امتیاز کسب کردید!<br><br>امتیاز شما در سیستم بونوس تتراشاپ ثبت شد.");
                 } else if (winner === 'ai') {
                     gameState.aiScore += 10;
-                    showSystemMessage(systemMessages.aiWin);
+                    showSystemMessage("تتراشاپ برنده شد!<br><br>دفعه بعد شانس با شماست!");
                 } else {
                     gameState.playerScore += 5;
                     gameState.aiScore += 5;
-                    showSystemMessage(systemMessages.draw);
+                    showSystemMessage("مساوی! شما ۵ امتیاز کسب کردید!<br><br>هر دو خوب بازی کردید!");
                 }
                 
                 gameState.gameActive = false;
@@ -733,9 +885,9 @@
             return false;
         }
 
-        // بروزرسانی تخته
-        function updateBoard() {
-            const cells = document.querySelectorAll('.chess-cell');
+        // بروزرسانی تخته اصلی
+        function updateMainBoard() {
+            const cells = document.querySelectorAll('#mainChessBoard .chess-cell');
             cells.forEach(cell => {
                 const row = parseInt(cell.dataset.row);
                 const col = parseInt(cell.dataset.col);
@@ -749,14 +901,14 @@
         function updateMoveHistory() {
             const historyElement = document.getElementById('moveHistory');
             historyElement.innerHTML = gameState.moveHistory.map(move => 
-                `<div style="padding: 5px 0; border-bottom: 1px solid #eee;">${move}</div>`
+                `<div style="padding: 4px 0; border-bottom: 1px solid #eee; font-size: 0.8rem;">${move}</div>`
             ).join('');
         }
 
         // بروزرسانی وضعیت بازی
         function updateGameStatus() {
             const statusElement = document.getElementById('gameStatus');
-            statusElement.textContent = `نوبت: ${gameState.currentPlayer === 'white' ? 'شما (سفید)' : 'تتراشاپ (سیاه)'}`;
+            statusElement.textContent = `نوبت: ${gameState.currentPlayer === 'white' ? 'شما' : 'تتراشاپ'}`;
         }
 
         // بروزرسانی امتیازها
@@ -775,7 +927,7 @@
                 gameActive: true,
                 moveHistory: []
             };
-            initChessBoard();
+            initMainChessBoard();
             updateGameStatus();
             showSystemMessage("بازی جدید شروع شد! 🎮<br><br>نوبت شماست. یک مهره سفید انتخاب کنید.");
         }
@@ -785,7 +937,7 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = 'system-message';
             messageDiv.innerHTML = `
-                <div style="font-size: 3rem; margin-bottom: 20px;">🎯</div>
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🎯</div>
                 <div class="message-content">${message}</div>
                 <button class="confirm-btn" onclick="this.parentElement.remove()">تأیید</button>
             `;
@@ -798,14 +950,13 @@
                 <strong>${productName}</strong><br><br>
                 💰 قیمت: ${price.toLocaleString()} تومان<br>
                 🤲 سهم خیریه: ${Math.floor(price * 0.15).toLocaleString()} تومان<br><br>
-                ${systemMessages.productInfo}<br><br>
-                🎯 این محصول توسط تتراشاپ تولید شده است.
+                این محصول بخشی از سیستم فرهنگی تتراشاپ است.<br>
+                🎯 با خرید این محصول در توسعه محتوای معنوی سهیم می‌شوید.
             `);
         }
 
         // نمایش بخش‌های مختلف
         function showSection(sectionId) {
-            // در این نسخه ساده، همه بخش‌ها visible هستند
             showSystemMessage(`بخش ${sectionId} در حال بارگذاری...<br><br>سیستم تتراشاپ آماده خدمت‌رسانی است!`);
         }
 
@@ -820,858 +971,12 @@
 
         // راه‌اندازی اولیه
         document.addEventListener('DOMContentLoaded', function() {
-            initChessBoard();
+            initMainChessBoard();
+            initAnalyticsBoard();
+            
             setTimeout(() => {
-                showSystemMessage(systemMessages.welcome);
+                showSystemMessage("به تتراشاپ خوش آمدید! 🎯<br><br>سیستم شطرنج هوشمند ما به شما کمک می‌کند مهارت‌های تصمیم‌گیری استراتژیک خود را تقویت کنید.");
             }, 1000);
-        });
-    </script>
-</body>
-</html>            box-shadow: 0 0 50px rgba(0,0,0,0.1);
-        }
-
-        /* هدر با طراحی پیشرفته */
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: "🤲";
-            font-size: 150px;
-            position: absolute;
-            opacity: 0.1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            font-weight: 300;
-            position: relative;
-            z-index: 2;
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .spiritual-message {
-            background: rgba(255,255,255,0.2);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px auto;
-            max-width: 800px;
-            backdrop-filter: blur(10px);
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* سیستم ناوبری پیشرفته */
-        .nav-system {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 30px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .nav-btn {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.4);
-            padding: 15px 30px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            font-size: 1.1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-btn:hover::before {
-            left: 100%;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        /* سیستم شطرنج تحلیلی */
-        .chess-analytics {
-            background: white;
-            margin: 40px;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        .chess-container {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        .chess-board {
-            display: grid;
-            grid-template-columns: repeat(8, 60px);
-            grid-template-rows: repeat(8, 60px);
-            gap: 2px;
-            background: #8b4513;
-            padding: 15px;
-            border-radius: 12px;
-            border: 4px solid #5d4037;
-        }
-
-        .chess-cell {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .chess-cell.white { background: #f0d9b5; }
-        .chess-cell.black { background: #b58863; }
-
-        .chess-cell:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
-            z-index: 10;
-        }
-
-        .chess-analytics-panel {
-            background: var(--light);
-            padding: 30px;
-            border-radius: 15px;
-            border-right: 5px solid var(--accent);
-        }
-
-        .analytics-message {
-            background: white;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
-            border-right: 3px solid var(--success);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        /* سیستم محصولات پیشرفته */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            padding: 40px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 2px solid transparent;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
-            z-index: 1;
-        }
-
-        .product-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            border-color: var(--accent);
-        }
-
-        .product-icon {
-            font-size: 3.5rem;
-            margin-bottom: 25px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .product-card h3 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .product-description {
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.8;
-            position: relative;
-            z-index: 2;
-        }
-
-        .product-features {
-            list-style: none;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .product-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            position: relative;
-            padding-right: 30px;
-        }
-
-        .product-features li::before {
-            content: "✅";
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .product-price {
-            background: linear-gradient(135deg, var(--gold), #f4d03f);
-            color: var(--text);
-            padding: 15px 25px;
-            border-radius: 25px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .buy-btn {
-            background: linear-gradient(135deg, var(--success), #2ecc71);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-            font-weight: bold;
-        }
-
-        .buy-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(39, 174, 96, 0.4);
-        }
-
-        /* سیستم درآمدزایی شفاف */
-        .revenue-transparency {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 50px 40px;
-            margin: 40px;
-            border-radius: 20px;
-        }
-
-        .revenue-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 35px 0;
-        }
-
-        .revenue-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-top: 5px solid var(--accent);
-            transition: all 0.3s ease;
-        }
-
-        .revenue-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .revenue-value {
-            font-size: 2.8rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 20px 0;
-        }
-
-        .revenue-breakdown {
-            background: white;
-            border-radius: 15px;
-            padding: 35px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .breakdown-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            margin: 15px 0;
-            background: var(--light);
-            border-radius: 10px;
-            border-right: 4px solid var(--success);
-        }
-
-        /* پیام‌های معنوی پیشرفته */
-        .wisdom-system {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 60px 40px;
-            margin-top: 50px;
-        }
-
-        .wisdom-message {
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 25px auto;
-            max-width: 900px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            font-size: 1.3rem;
-            line-height: 2;
-        }
-
-        .verse {
-            font-size: 1.5rem;
-            font-style: italic;
-            margin-bottom: 30px;
-            text-align: center;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2.2rem; }
-            .chess-container { grid-template-columns: 1fr; }
-            .products-grid { padding: 20px; }
-            .revenue-transparency { margin: 20px; padding: 30px 20px; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- هدر پیشرفته -->
-        <div class="header">
-            <h1>نگارستان حکمت 🌟</h1>
-            <div class="subtitle">سیستم درآمدزایی شفاف با پیام‌های راهگشای معنوی</div>
-            
-            <div class="spiritual-message">
-                "وَتَوَکَّلْ عَلَى اللَّهِ ۚ وَكَفَىٰ بِاللَّهِ وَكِيلًا" - 
-                <strong>پیام ویژه:</strong> هر حرکت درست در زندگی، مانند حرکت درست در شطرنج، 
-                می‌تواند موقعیت شما را برای موفقیت‌های بزرگ آماده کند
-            </div>
-
-            <div class="nav-system">
-                <button class="nav-btn" onclick="showSection('products')" data-message="📚 محصولات ما راهنمای سفر معنوی شما هستند">📚 محصولات حکمت</button>
-                <button class="nav-btn" onclick="showSection('chess')" data-message="♟ هر حرکت شطرنج نماد تصمیم‌گیری درست در زندگی است">♟ شطرنج تحلیلی</button>
-                <button class="nav-btn" onclick="showSection('revenue')" data-message="💰 درآمد حلال، برکت زندگی دنیا و آخرت است">💰 شفافیت درآمدی</button>
-                <button class="nav-btn" onclick="showSection('wisdom')" data-message="🤲 خدمت به خلق، عبادت است">🤲 پیام‌های حکمت</button>
-            </div>
-        </div>
-
-        <!-- سیستم شطرنج تحلیلی -->
-        <div id="chess" class="section">
-            <div class="chess-analytics">
-                <h2>♟ سیستم شطرنج تحلیلی - نماد تصمیم‌گیری‌های استراتژیک</h2>
-                <p style="text-align: center; margin: 20px 0; color: #666; font-size: 1.1rem;">
-                    هر حرکت در شطرنج = یک تصمیم استراتژیک در زندگی = بهبود در سیستم درآمدزایی
-                </p>
-                
-                <div class="chess-container">
-                    <div class="chess-board" id="chessBoard">
-                        <!-- تخته شطرنج با JavaScript پر می‌شود -->
-                    </div>
-                    
-                    <div class="chess-analytics-panel">
-                        <h3>📊 تحلیل حرکات و ارتباط با موفقیت</h3>
-                        <div class="analytics-message" id="chessMessage">
-                            روی یک مهره کلیک کنید تا تحلیل استراتژیک مربوطه نمایش داده شود...
-                        </div>
-                        
-                        <div class="analytics-message">
-                            <strong>🔗 ارتباط حرکات شطرنج با موفقیت:</strong><br>
-                            • حرکت رخ = استراتژی مستقیم و قوی<br>
-                            • حرکت فیل = دیدگاه‌های مختلف و خلاقیت<br>
-                            • حرکت اسب = فرصت‌های غیرمنتظره<br>
-                            • حرکت وزیر = قدرت تصمیم‌گیری جامع
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- سیستم محصولات پیشرفته -->
-        <div id="products" class="section active">
-            <div class="products-grid">
-                <!-- محصول ۱: سیستم آموزشی -->
-                <div class="product-card">
-                    <div class="product-icon">🎓</div>
-                    <h3>دوره طلایی "برنامه‌نویسی با نیّت خیر"</h3>
-                    <div class="product-description">
-                        تبدیل مهارت کدنویسی به عبادت روزانه. یاد بگیرید چگونه هر خط کد را با نیّت خدمت به خلق بنویسید.
-                    </div>
-                    <ul class="product-features">
-                        <li>۱۲ جلسه آموزش عملی معنوی</li>
-                        <li>پروژه‌های واقعی با impact اجتماعی</li>
-                        <li>مشاوره مستقیم با اساتید اخلاق</li>
-                        <li>گواهینامه معتبر معنوی</li>
-                    </ul>
-                    <div class="product-price">۲۹۰,۰۰۰ تومان</div>
-                    <button class="buy-btn" onclick="addToCart('دوره برنامه‌نویسی با نیّت خیر', 290000, '🎓 هر دانش‌آموزی که آموزش ببیند، گامی در راه خدمت به جامعه برداشته‌اید')">
-                        🛒 خرید با نیّت آموزش
-                    </button>
-                </div>
-
-                <!-- محصول ۲: کتاب ویژه -->
-                <div class="product-card">
-                    <div class="product-icon">📖</div>
-                    <h3>کتاب "اخلاق در عصر هوش مصنوعی"</h3>
-                    <div class="product-description">
-                        راهنمای جامع برای حفظ ارزش‌های انسانی در دنیای تکنولوژی. چگونه هوش مصنوعی را در خدمت اخلاق قرار دهیم؟
-                    </div>
-                    <ul class="product-features">
-                        <li>۴۰۰ صفحه دانش کاربردی</li>
-                        <li>مطالعه موردی از شرکت‌های موفق</li>
-                        <li>تمرین‌های عملی روزانه</li>
-                        <li>دسترسی به جامعه متخصصان</li>
-                    </ul>
-                    <div class="product-price">۷۵,۰۰۰ تومان</div>
-                    <button class="buy-btn" onclick="addToCart('کتاب اخلاق در عصر هوش مصنوعی', 75000, '📖 کتاب خوب، دوستی است که همیشه با شما سخن می‌گوید')">
-                        🛒 خرید با نیّت دانش‌افزایی
-                    </button>
-                </div>
-
-                <!-- محصول ۳: سیستم نرم‌افزاری -->
-                <div class="product-card">
-                    <div class="product-icon">💻</div>
-                    <h3>سیستم مدیریت نیّات ماهانه</h3>
-                    <div class="product-description">
-                        نرم‌افزار هوشمند برای ثبت و پیگیری نیّات روزانه. تبدیل قصدهای خوب به اقدامات مؤثر.
-                    </div>
-                    <ul class="product-features">
-                        <li>ثبت هوشمند نیّات روزانه</li>
-                        <li>آنالیز پیشرفت معنوی</li>
-                        <li>یادآوری‌های خودکار</li>
-                        <li>گزارش‌های تحلیلی پیشرفته</li>
-                    </ul>
-                    <div class="product-price">۱۸۰,۰۰۰ تومان</div>
-                    <button class="buy-btn" onclick="addToCart('سیستم مدیریت نیّات', 180000, '💻 تکنولوژی وقتی معنوی شود، تبدیل به برکت می‌گردد')">
-                        🛒 خرید با نیّت خودسازی
-                    </button>
-                </div>
-
-                <!-- محصول ۴: دوره پیشرفته -->
-                <div class="product-card">
-                    <div class="product-icon">🚀</div>
-                    <h3>دوره "معنویت در کارآفرینی"</h3>
-                    <div class="product-description">
-                        چگونه کسب‌وکاری راه بیندازیم که هم سودآور باشد و هم خدمت به جامعه محسوب شود؟
-                    </div>
-                    <ul class="product-features">
-                        <li>۸ هفته آموزش فشرده</li>
-                        <li>مشاوره کسب‌وکار اختصاصی</li>
-                        <li>شبکه‌سازی با کارآفرینان معنوی</li>
-                        <li>پشتیبانی ۶ ماهه رایگان</li>
-                    </ul>
-                    <div class="product-price">۴۲۰,۰۰۰ تومان</div>
-                    <button class="buy-btn" onclick="addToCart('دوره معنویت در کارآفرینی', 420000, '🚀 کارآفرینی معنوی، خدمتی است که پاداش دنیا و آخرت دارد')">
-                        🛒 خرید با نیّت کارآفرینی
-                    </button>
-                </div>
-
-                <!-- محصول ۵: بسته جامع -->
-                <div class="product-card">
-                    <div class="product-icon">🎁</div>
-                    <h3>بسته طلایی "زندگی متعادل"</h3>
-                    <div class="product-description">
-                        مجموعه کامل برای ایجاد تعادل بین زندگی مادی و معنوی. چگونه ثروتمند شویم و انسانیت خود را حفظ کنیم؟
-                    </div>
-                    <ul class="product-features">
-                        <li>۵ کتاب منتخب</li>
-                        <li>دوره ویدیویی ۲۰ ساعته</li>
-                        <li>جلسات مشاوره گروهی</li>
-                        <li>ابزارهای عملی خودارزیابی</li>
-                    </ul>
-                    <div class="product-price">۵۵۰,۰۰۰ تومان</div>
-                    <button class="buy-btn" onclick="addToCart('بسته زندگی متعادل', 550000, '🎁 تعادل، راز خوشبختی در دنیا و آخرت است')">
-                        🛒 خرید با نیّت تعادل زندگی
-                    </button>
-                </div>
-
-                <!-- محصول ۶: خدمات مشاوره -->
-                <div class="product-card">
-                    <div class="product-icon">🤝</div>
-                    <h3>مشاوره اختصاصی "مسیر شغلی معنوی"</h3>
-                    <div class="product-description">
-                        پیدا کردن مسیر شغلی که هم درآمدزا باشد و هم با ارزش‌های معنوی شما هماهنگ باشد.
-                    </div>
-                    <ul class="product-features">
-                        <li>۴ جلسه مشاوره ۹۰ دقیقه‌ای</li>
-                        <li>تحلیل شخصیت و استعدادها</li>
-                        <li>راهنمای بازارکار معنوی</li>
-                        <li>پلن عملیاتی شخصی‌شده</li>
-                    </ul>
-                    <div class="product-price">۳۶۰,۰۰۰ تومان</div>
-                    <button class="buy-btn" onclick="addToCart('مشاوره مسیر شغلی معنوی', 360000, '🤝 مشاوره خوب، چراغ راه موفقیت است')">
-                        🛒 خرید با نیّت راهنمایی
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- سیستم درآمدزایی شفاف -->
-        <div id="revenue" class="section">
-            <div class="revenue-transparency">
-                <h2>💰 سیستم درآمدزایی کاملاً شفاف</h2>
-                <p style="text-align: center; margin: 20px 0; color: #666; font-size: 1.1rem;">
-                    "الْمُؤْمِنُونَ عِنْدَ شُرُوطِهِمْ" - مؤمنان به تعهدات خود پایبندند
-                </p>
-                
-                <div class="revenue-grid">
-                    <div class="revenue-card">
-                        <div>📈 رشد ماهانه</div>
-                        <div class="revenue-value">۳۴۱٪</div>
-                        <div>نسبت به سال گذشته</div>
-                    </div>
-                    <div class="revenue-card">
-                        <div>🤲 سهم خیریه</div>
-                        <div class="revenue-value">۱۵٪</div>
-                        <div>از هر فروش</div>
-                    </div>
-                    <div class="revenue-card">
-                        <div>👥 مشتریان راضی</div>
-                        <div class="revenue-value">۹۷٪</div>
-                        <div>رضایت از خدمات</div>
-                    </div>
-                    <div class="revenue-card">
-                        <div>🌱 پروژه‌های اجتماعی</div>
-                        <div class="revenue-value">۲۴</div>
-                        <div>در حال اجرا</div>
-                    </div>
-                </div>
-
-                <div class="revenue-breakdown">
-                    <h3>🔍 تجزیه و تحلیل کامل هر فروش</h3>
-                    <div class="breakdown-item">
-                        <span>💰 قیمت محصول</span>
-                        <strong>۱۰۰٪</strong>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>🎯 هزینه‌های تولید و پشتیبانی</span>
-                        <strong>۴۵٪</strong>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>🤲 سهم امور خیریه و آموزشی رایگان</span>
-                        <strong>۱۵٪</strong>
-                    </div>
-                    <div class="breakdown-item">
-                        <span>🚀 سرمایه‌گذاری مجدد برای توسعه</span>
-                        <strong>۲۵٪</strong>
-                    </div>
-                    <div class="breakdown-item" style="background: linear-gradient(135deg, #d4edda, #c3e6cb);">
-                        <span>💎 سود خالص برای توسعه‌دهندگان</span>
-                        <strong>۱۵٪</strong>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 30px;">
-                    <div class="spiritual-message" style="background: rgba(255,255,255,0.2); color: var(--text);">
-                        <strong>پیام شفافیت:</strong> "ما معتقدیم شفافیت، پایه اعتماد است. 
-                        هر تومانی که شما هزینه می‌کنید، دقیقاً می‌دانید در چه مسیری سرمایه‌گذاری می‌شود 
-                        و چگونه در خدمت اهداف معنوی قرار می‌گیرد."
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- سیستم پیام‌های حکمت -->
-        <div id="wisdom" class="section">
-            <div class="wisdom-system">
-                <div class="verse">
-                    "وَأَحْسِنُوا ۛ إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ" - 
-                    و نیکی کنید که خداوند نیکوکاران را دوست می‌دارد
-                </div>
-
-                <div class="wisdom-message">
-                    <strong>💎 پیام ویژه سیستم درآمدزایی:</strong><br>
-                    "درآمد حلال، تنها پول نیست؛ برکتی است که در زندگی جاری می‌شود. 
-                    وقتی با نیّت خیر کسب درآمد می‌کنید، نه تنها نیازهای مادی شما برطرف می‌شود، 
-                    بلکه آرامش قلبی و رضایت درونی نیز به دست می‌آورید."
-                </div>
-
-                <div class="wisdom-message">
-                    <strong>🎯 پیام ویژه محصولات:</strong><br>
-                    "هر محصولی که می‌خرید، تنها یک کالا نیست؛ سرمایه‌گذاری بر روی خودتان است. 
-                    وقتی کتاب می‌خرید، در دانش خود سرمایه‌گذاری می‌کنید. 
-                    وقتی دوره آموزشی می‌خرید، در مهارت‌های خود سرمایه‌گذاری می‌کنید. 
-                    و وقتی با نیّت خیر خرید می‌کنید، در آخرت خود سرمایه‌گذاری می‌کنید."
-                </div>
-
-                <div class="wisdom-message">
-                    <strong>🤲 پیام ویژه خدمات:</strong><br>
-                    "خدمت به مردم، عبادتی است که هیچ گاه قطع نمی‌شود. 
-                    وقتی به دیگران کمک می‌کنید تا زندگی بهتری داشته باشند، 
-                    در واقع دارید دنیایی بهتر می‌سازید - دنیایی که خودتان نیز در آن زندگی خواهید کرد."
-                </div>
-
-                <div style="text-align: center; margin-top: 40px;">
-                    <button class="buy-btn" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; max-width: 300px;">
-                        🤲 شروع سفر معنوی با خرید آگاهانه
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- سبد خرید شناور -->
-        <div id="floatingCart" style="position: fixed; bottom: 20px; left: 20px; background: var(--primary); color: white; padding: 15px 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); cursor: pointer; z-index: 1000;">
-            🛒 سبد خرید: <span id="cartCount">۰</span> قلم - <span id="cartTotal">۰</span> تومان
-        </div>
-    </div>
-
-    <script>
-        const wisdomMessages = {
-            chess: [
-                "♟ حرکت رخ: نماد استراتژی مستقیم و قوی در زندگی - همانگونه که رخ به صورت مستقیم حرکت می‌کند، در کسب‌وکار نیز گاهی نیاز به اقدام مستقیم و قاطع داریم",
-                "♞ حرکت اسب: نماد خلاقیت و پیدا کردن راه‌های جدید - مانند اسب که به شکل L حرکت می‌کند، در کارآفرینی نیز باید راه‌های غیرمتعارف را امتحان کرد",
-                "♝ حرکت فیل: نماد دیدگاه‌های مختلف - فیل فقط در یک رنگ حرکت می‌کند، به ما یادآوری می‌کند که گاهی محدودیت‌ها می‌توانند تبدیل به فرصت شوند",
-                "♛ حرکت وزیر: نماد قدرت و انعطاف‌پذیری - وزیر ترکیبی از تمام قدرت‌هاست، به ما می‌آموزد که برای موفقیت باید از تمام توانایی‌های خود استفاده کنیم",
-                "♚ حرکت شاه: نماد محافظت از ارزش‌های اصلی - همانگونه که شاه ارزشمندترین مهره است، در زندگی نیز باید ارزش‌های معنوی خود را حفظ کنیم",
-                "♟ حرکت پیاده: نماد گام‌های کوچک و مستمر - پیاده‌ها اگرچه کوچک هستند، اما قدرت تغییر بازی را دارند. موفقیت از گام‌های کوچک آغاز می‌شود"
-            ],
-            revenue: [
-                "💰 شفافیت مالی، پایه اعتماد است - وقتی مردم بدانند پولشان در چه راهی هزینه می‌شود، با اطمینان بیشتری سرمایه‌گذاری می‌کنند",
-                "🤲 اختصاص سهم خیریه از درآمد، نه تنها از سرمایه شما نمی‌کاهد، بلکه برکت آن را افزایش می‌دهد",
-                "📈 رشد ۳۴۱٪ نشان می‌دهد که کسب‌وکارهای معنوی نه تنها امکان‌پذیر هستند، بلکه می‌توانند بسیار موفق باشند",
-                "💎 وقتی ارزش آفرینی می‌کنید، جامعه قدردان شما خواهد بود - خدمات ارزشمند همیشه مشتریان وفادار دارند"
-            ],
-            general: [
-                "🌱 هر خرید شما، نه تنها یک transaction مالی، بلکه یک investment معنوی است",
-                "🎯 موفقیت واقعی زمانی حاصل می‌شود که ثروت مادی و معنوی با هم رشد کنند",
-                "🤲 خدمت به خلق، بهترین راه خدمت به خالق است",
-                "💡 دانش وقتی ارزشمند می‌شود که در مسیر خدمت به بشریت قرار گیرد",
-                "🚀 کارآفرینی معنوی، ترکیبی از هوش کسب‌وکار و حکمت زندگی است",
-                "📚 آموزش دادن به دیگران، بهترین راه برای یادگیری عمیق‌تر است"
-            ]
-        };
-
-        let cart = [];
-        let totalRevenue = 0;
-
-        // ایجاد تخته شطرنج
-        function initChessBoard() {
-            const chessBoard = document.getElementById('chessBoard');
-            const pieces = [
-                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
-                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
-                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
-            ];
-            
-            const pieceNames = [
-                'رخ سیاه', 'اسب سیاه', 'فیل سیاه', 'وزیر سیاه', 'شاه سیاه', 'فیل سیاه', 'اسب سیاه', 'رخ سیاه',
-                'پیاده سیاه', 'پیاده سیاه', 'پیاده سیاه', 'پیاده سیاه', 'پیاده سیاه', 'پیاده سیاه', 'پیاده سیاه', 'پیاده سیاه',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                'پیاده سفید', 'پیاده سفید', 'پیاده سفید', 'پیاده سفید', 'پیاده سفید', 'پیاده سفید', 'پیاده سفید', 'پیاده سفید',
-                'رخ سفید', 'اسب سفید', 'فیل سفید', 'وزیر سفید', 'شاه سفید', 'فیل سفید', 'اسب سفید', 'رخ سفید'
-            ];
-            
-            for (let i = 0; i < 64; i++) {
-                const cell = document.createElement('div');
-                cell.className = `chess-cell ${Math.floor(i / 8 + i % 8) % 2 === 0 ? 'white' : 'black'}`;
-                cell.textContent = pieces[i];
-                cell.dataset.piece = pieceNames[i];
-                cell.onclick = () => handleChessMove(i, pieceNames[i]);
-                chessBoard.appendChild(cell);
-            }
-        }
-
-        function handleChessMove(position, pieceName) {
-            if (!pieceName) {
-                showMessage("این خانه خالی است! در زندگی نیز گاهی خانه‌های خالی فرصت‌هایی برای شروع جدید هستند", "info");
-                return;
-            }
-
-            const messages = wisdomMessages.chess;
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            
-            document.getElementById('chessMessage').innerHTML = `
-                <strong>♟ حرکت با ${pieceName}:</strong><br>
-                ${randomMessage}
-            `;
-        }
-
-        // نمایش بخش‌های مختلف
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-            
-            // نمایش پیام مرتبط با بخش
-            const button = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
-            const message = button?.dataset?.message;
-            if (message) {
-                showMessage(message, "info");
-            }
-        }
-
-        // افزودن به سبد خرید
-        function addToCart(productName, price, wisdomMessage) {
-            cart.push({ name: productName, price: price });
-            updateCartDisplay();
-            
-            // نمایش پیام حکمت
-            showMessage(`
-                <strong>✅ "${productName}" به سبد خرید اضافه شد</strong><br><br>
-                💎 ${wisdomMessage}<br><br>
-                🤲 مبلغ ${price.toLocaleString()} تومان - ${Math.floor(price * 0.15).toLocaleString()} تومان سهم خیریه
-            `, "success");
-        }
-
-        // بروزرسانی نمایش سبد خرید
-        function updateCartDisplay() {
-            const cartCount = document.getElementById('cartCount');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            cartCount.textContent = cart.length;
-            cartTotal.textContent = total.toLocaleString();
-        }
-
-        // نمایش پیام
-        function showMessage(message, type = "info") {
-            const messageDiv = document.createElement('div');
-            const bgColor = type === "success" ? "linear-gradient(135deg, #27ae60, #2ecc71)" : "linear-gradient(135deg, var(--primary), var(--secondary))";
-            
-            messageDiv.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: ${bgColor};
-                color: white;
-                padding: 40px;
-                border-radius: 20px;
-                z-index: 10000;
-                text-align: center;
-                box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-                max-width: 500px;
-                backdrop-filter: blur(10px);
-                border: 2px solid rgba(255,255,255,0.3);
-                font-size: 1.1rem;
-                line-height: 1.8;
-            `;
-            messageDiv.innerHTML = `
-                <div style="font-size: 4rem; margin-bottom: 20px;">${type === "success" ? "✅" : "💡"}</div>
-                <div>${message}</div>
-                <button onclick="this.parentElement.remove()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 12px 30px; border-radius: 25px; margin-top: 25px; cursor: pointer; font-size: 1rem;">فهمیدم 🤲</button>
-            `;
-            
-            document.body.appendChild(messageDiv);
-        }
-
-        // راه‌اندازی اولیه
-        document.addEventListener('DOMContentLoaded', function() {
-            initChessBoard();
-            showSection('products');
-            
-            // نمایش پیام خوشامدگویی
-            setTimeout(() => {
-                showMessage(`
-                    <strong>به نگارستان حکمت خوش آمدید! 🌟</strong><br><br>
-                    اینجا مکانی است برای:<br>
-                    • 📚 یادگیری مهارت‌های معنوی<br>
-                    • 💰 درآمدزایی شفاف و حلال<br>
-                    • 🤲 خدمت به جامعه<br><br>
-                    "خداوند روزی‌رسان است و از جایی که فکرش را نمی‌کنید، روزی می‌رساند"
-                `, "info");
-            }, 1500);
-
-            // اضافه کردن event listener برای دکمه‌های ناوبری
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    const message = this.dataset.message;
-                    if (message) {
-                        this.title = message;
-                    }
-                });
-            });
-
-            // event listener برای سبد خرید شناور
-            document.getElementById('floatingCart').addEventListener('click', function() {
-                if (cart.length === 0) {
-                    showMessage("سبد خرید شما خالی است. محصولی انتخاب کنید تا قدمی در راه خودسازی بردارید 🤲", "info");
-                    return;
-                }
-                
-                const total = cart.reduce((sum, item) => sum + item.price, 0);
-                const charity = Math.floor(total * 0.15);
-                
-                let cartContent = "<strong>🛒 محتویات سبد خرید شما:</strong><br><br>";
-                cart.forEach(item => {
-                    cartContent += `• ${item.name} - ${item.price.toLocaleString()} تومان<br>`;
-                });
-                
-                cartContent += `<br><strong>💰 جمع کل: ${total.toLocaleString()} تومان</strong>`;
-                cartContent += `<br>🤲 سهم خیریه: ${charity.toLocaleString()} تومان`;
-                cartContent += `<br><br>💎 "هر خریدی که با نیّت خیر انجام شود، عبادت محسوب می‌شود"`;
-                
-                showMessage(cartContent, "success");
-            });
         });
     </script>
 </body>
