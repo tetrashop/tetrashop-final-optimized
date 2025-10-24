@@ -1,0 +1,15 @@
+# محیط‌های توسعه
+.env
+.env.local
+.env.production
+
+# لاگ‌ها
+*.log
+npm-debug.log*
+
+# سیستم‌عامل
+.DS_Store
+Thumbs.db
+
+# Cloudflare
+wrangler.toml

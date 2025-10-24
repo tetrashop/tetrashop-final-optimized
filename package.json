@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "tetrashop-final-optimized",
   "version": "1.0.0",
   "description": "فروشگاه تتراشاپ - سیستم‌های نرم‌افزاری پیشرفته",
@@ -7,6 +8,18 @@
     "dev": "echo 'Static site - no dev server needed'"
   },
   "keywords": ["tetrashop", "software", "systems"],
+=======
+  "name": "tetrashop-optimized",
+  "version": "2.0.0",
+  "description": "سیستم سرمایه‌گذاری هوشمند با ROI 341% + 10%",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo '✅ ساخت پروژه کامل شد'",
+    "dev": "python3 -m http.server 8000",
+    "deploy": "npx wrangler pages publish ./ --project-name=tetrashop-optimized"
+  },
+  "keywords": ["investment", "ROI", "chess", "tetrashop"],
+>>>>>>> c08f5063 (🚀 تکمیل و ترمیم نهایی تتراشاپ v2.0.0)
   "author": "Tetrashop Team",
   "license": "MIT"
 }
