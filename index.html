@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتراشاپ | سامانه ابری بازی‌های استراتژیک و خدمات دیجیتال</title>
+    <title>تتراشاپ | سامانه ابری بازی‌های استراتژیک</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -16,10 +16,6 @@
             --tetra-orange: #e67e22;
             --light: #f8f9fa;
             --text: #2c3e50;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #e74c3c;
-            --dark: #2c3e50;
         }
 
         * {
@@ -34,129 +30,97 @@
             color: var(--text);
             line-height: 1.7;
             min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
-            min-height: 100vh;
-            box-shadow: 0 0 50px rgba(0,0,0,0.1);
-            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
         }
 
-        /* هدر پیشرفته */
+        /* هدر */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 25px 30px;
-            position: relative;
-            overflow: hidden;
+            padding: 25px;
+            text-align: center;
         }
 
-        .header::before {
-            content: "⚡";
-            font-size: 120px;
-            position: absolute;
-            opacity: 0.1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .brand-section {
+        .brand {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 15px;
+            margin-bottom: 15px;
         }
 
         .brand-logo {
-            font-size: 2.5rem;
+            font-size: 3rem;
             background: var(--tetra-green);
-            padding: 12px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 15px;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
+            0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
         }
 
         .brand-text h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 5px;
-            font-weight: bold;
         }
 
         .cloud-status {
             background: rgba(255,255,255,0.2);
-            padding: 8px 15px;
+            padding: 8px 20px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            backdrop-filter: blur(10px);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .status-online {
-            color: #2ecc71;
+            margin: 10px 0;
         }
 
         .roi-badge {
             background: linear-gradient(135deg, var(--tetra-gold), #f4d03f);
             color: var(--text);
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 25px;
+            border-radius: 25px;
             font-weight: bold;
-            font-size: 1.1rem;
             display: inline-block;
             margin: 10px 0;
-            box-shadow: 0 4px 15px rgba(212, 172, 13, 0.3);
         }
 
-        /* ناوبری پیشرفته */
+        /* ناوبری */
         .nav-system {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin: 20px 0;
-            position: relative;
-            z-index: 2;
+            flex-wrap: wrap;
         }
 
         .nav-btn {
             background: rgba(255,255,255,0.15);
             color: white;
             border: 1.5px solid rgba(255,255,255,0.3);
-            padding: 10px 18px;
-            border-radius: 20px;
+            padding: 12px 20px;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .nav-btn:hover {
             background: rgba(255,255,255,0.25);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         /* محتوای اصلی */
@@ -164,14 +128,13 @@
             padding: 25px;
         }
 
-        /* بخش شطرنج ابری */
-        .cloud-chess-section {
+        /* بخش شطرنج */
+        .chess-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border: 2px solid var(--tetra-green);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .section-header {
@@ -179,8 +142,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--light);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .cloud-indicator {
@@ -190,14 +153,19 @@
             background: var(--light);
             padding: 8px 15px;
             border-radius: 15px;
-            font-size: 0.9rem;
         }
 
-        .chess-game-container {
+        .chess-container {
             display: grid;
             grid-template-columns: auto 1fr;
             gap: 25px;
             align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .chess-container {
+                grid-template-columns: 1fr;
+            }
         }
 
         .chess-board {
@@ -209,19 +177,24 @@
             padding: 10px;
             border-radius: 10px;
             border: 3px solid #5d4037;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 480px) {
+            .chess-board {
+                grid-template-columns: repeat(8, 40px);
+                grid-template-rows: repeat(8, 40px);
+            }
         }
 
         .chess-cell {
-            width: 50px;
-            height: 50px;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            position: relative;
         }
 
         .chess-cell.white { background: #f0d9b5; }
@@ -230,37 +203,32 @@
         .chess-cell.selected {
             background: #a3e4d7 !important;
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
-            z-index: 10;
-        }
-
-        .chess-cell.valid-move {
-            background: #82e0aa !important;
-        }
-
-        .chess-cell.last-move {
-            box-shadow: inset 0 0 0 2px var(--tetra-gold);
         }
 
         .chess-info {
             background: var(--light);
             padding: 20px;
             border-radius: 15px;
-            border-right: 4px solid var(--tetra-green);
         }
 
         .game-controls {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .game-controls {
+                grid-template-columns: 1fr;
+            }
         }
 
         .control-btn {
             background: var(--tetra-green);
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -282,18 +250,18 @@
         .stat-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            padding-bottom: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
             border-bottom: 1px solid #eee;
         }
 
-        /* سرویس‌های ابری */
-        .cloud-services {
+        /* سرویس‌ها */
+        .services-section {
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .services-grid {
@@ -309,23 +277,11 @@
             padding: 25px;
             transition: all 0.3s ease;
             border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
         }
 
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             border-color: var(--tetra-purple);
         }
 
@@ -333,32 +289,18 @@
             font-size: 2.5rem;
             margin-bottom: 15px;
             color: var(--tetra-purple);
-            position: relative;
-            z-index: 2;
         }
 
         .service-title {
             font-size: 1.3rem;
             font-weight: bold;
-            color: var(--primary);
             margin-bottom: 12px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .service-description {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            position: relative;
-            z-index: 2;
+            color: var(--primary);
         }
 
         .service-features {
             list-style: none;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
+            margin: 15px 0;
         }
 
         .service-features li {
@@ -371,8 +313,6 @@
             content: "✓";
             position: absolute;
             right: 0;
-            top: 50%;
-            transform: translateY(-50%);
             color: var(--tetra-green);
             font-weight: bold;
         }
@@ -381,101 +321,16 @@
             background: var(--tetra-purple);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
             font-weight: bold;
-            position: relative;
-            z-index: 2;
         }
 
         .service-btn:hover {
             background: #7d3c98;
-            transform: scale(1.02);
-        }
-
-        /* فروشگاه موبایل */
-        .mobile-shop {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mobile-shop::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="50" cy="50" r="2" fill="white"/></svg>');
-        }
-
-        .shop-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .shop-icon {
-            font-size: 2rem;
-            background: rgba(255,255,255,0.2);
-            padding: 10px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .products-scroll {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding: 10px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .product-item {
-            background: rgba(255,255,255,0.15);
-            border-radius: 15px;
-            padding: 20px;
-            min-width: 200px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .product-item:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-5px);
-        }
-
-        .product-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .product-name {
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .product-price {
-            background: var(--tetra-gold);
-            color: var(--text);
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: inline-block;
         }
 
         /* مودال */
@@ -489,8 +344,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
-            backdrop-filter: blur(5px);
+            z-index: 1000;
+            padding: 20px;
         }
 
         .modal-content {
@@ -498,9 +353,8 @@
             border-radius: 20px;
             padding: 30px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             position: relative;
             animation: modalAppear 0.3s ease;
         }
@@ -518,25 +372,19 @@
         .modal-title {
             font-size: 1.4rem;
             font-weight: bold;
-            color: var(--primary);
             margin-bottom: 12px;
-        }
-
-        .modal-message {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            color: var(--primary);
         }
 
         .modal-btn {
             background: var(--tetra-green);
             color: white;
             border: none;
-            padding: 10px 25px;
+            padding: 12px 25px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 1rem;
             font-weight: bold;
+            margin-top: 15px;
         }
 
         /* فوتر */
@@ -545,98 +393,47 @@
             color: white;
             text-align: center;
             padding: 25px;
-            margin-top: 40px;
         }
 
         .footer-content {
             max-width: 600px;
             margin: 0 auto;
         }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            
-            .chess-game-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .chess-board {
-                grid-template-columns: repeat(8, 40px);
-                grid-template-rows: repeat(8, 40px);
-            }
-            
-            .chess-cell {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .game-controls {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- هدر پیشرفته -->
+        <!-- هدر -->
         <div class="header">
-            <div class="top-bar">
-                <div class="brand-section">
-                    <div class="brand-logo">🎯</div>
-                    <div class="brand-text">
-                        <h1>تتراشاپ</h1>
-                        <div class="cloud-status">
-                            <i class="fas fa-cloud status-online"></i>
-                            سامانه ابری فعال - Cloud Server
-                        </div>
+            <div class="brand">
+                <div class="brand-logo">🎯</div>
+                <div class="brand-text">
+                    <h1>تتراشاپ</h1>
+                    <div class="cloud-status">
+                        <i class="fas fa-cloud"></i>
+                        سامانه ابری فعال - Cloud Server
                     </div>
                 </div>
-                <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی ماهانه</div>
             </div>
-
-            <div class="nav-system">
-                <button class="nav-btn" onclick="showSection('cloud-chess')">
-                    <i class="fas fa-chess"></i>
-                    شطرنج ابری
-                </button>
-                <button class="nav-btn" onclick="showSection('services')">
-                    <i class="fas fa-cloud"></i>
-                    سرویس‌های ابری
-                </button>
-                <button class="nav-btn" onclick="showSection('mobile-shop')">
-                    <i class="fas fa-mobile-alt"></i>
-                    فروشگاه موبایل
-                </button>
-                <button class="nav-btn" onclick="showSection('quantum-scribe')">
-                    <i class="fas fa-pen-fancy"></i>
-                    نگار کوانتا
-                </button>
-            </div>
+            <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی ماهانه</div>
         </div>
 
         <!-- محتوای اصلی -->
         <div class="main-content">
             <!-- شطرنج ابری -->
-            <div class="cloud-chess-section">
+            <div class="chess-section">
                 <div class="section-header">
                     <h2><i class="fas fa-chess-queen"></i> شطرنج ابری تتراشاپ</h2>
                     <div class="cloud-indicator">
                         <i class="fas fa-server"></i>
-                        <span>سرور ابری فعال - پردازش حرکات در کلاد</span>
+                        <span>سرور ابری فعال</span>
                     </div>
                 </div>
                 
-                <div class="chess-game-container">
-                    <div class="chess-board" id="chessBoard"></div>
+                <div class="chess-container">
+                    <div class="chess-board" id="chessBoard">
+                        <!-- تخته شطرنج توسط JavaScript پر می‌شود -->
+                    </div>
                     
                     <div class="chess-info">
                         <div class="game-controls">
@@ -662,38 +459,27 @@
                                 <strong id="lastMove">---</strong>
                             </div>
                         </div>
-                        
-                        <div style="background: #e8f4fd; padding: 15px; border-radius: 10px;">
-                            <strong>🌐 معماری ابری:</strong><br>
-                            <small>• پردازش حرکات در سرور ابری<br>• همگام‌سازی بلادرنگ<br>• الگوریتم‌های پیشرفته</small>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- سرویس‌های ابری -->
-            <div class="cloud-services">
+            <div class="services-section">
                 <h2><i class="fas fa-cloud"></i> سرویس‌های ابری تتراشاپ</h2>
-                <p style="text-align: center; color: #666; margin: 15px 0;">
-                    راهکارهای هوشمند مبتنی بر پلتفرم ابری
-                </p>
                 
                 <div class="services-grid">
                     <!-- سامانه نطق مصطلح -->
                     <div class="service-card">
                         <div class="service-icon"><i class="fas fa-comments"></i></div>
                         <div class="service-title">سامانه نطق مصطلح</div>
-                        <div class="service-description">
-                            سیستم هوشمند تحلیل و پردازش گفتار با قابلیت‌های پیشرفته
-                        </div>
+                        <p>سیستم هوشمند تحلیل و پردازش گفتار با قابلیت‌های پیشرفته</p>
                         <ul class="service-features">
                             <li>تشخیص گفتار بلادرنگ</li>
                             <li>تحلیل احساسات صوتی</li>
                             <li>پردازش زبان طبیعی</li>
-                            <li>یکپارچه‌سازی ابری</li>
                         </ul>
                         <button class="service-btn" onclick="showServiceModal('نطق مصطلح')">
-                            <i class="fas fa-play"></i> اجرای دمو
+                            اجرای دمو
                         </button>
                     </div>
 
@@ -701,84 +487,16 @@
                     <div class="service-card">
                         <div class="service-icon"><i class="fas fa-pen-nib"></i></div>
                         <div class="service-title">نگار کوانتا</div>
-                        <div class="service-description">
-                            سیستم تولید محتوای هوشمند با الگوریتم‌های کوانتومی
-                        </div>
+                        <p>سیستم تولید محتوای هوشمند با الگوریتم‌های کوانتومی</p>
                         <ul class="service-features">
                             <li>تولید محتوای خودکار</li>
                             <li>بهینه‌سازی کوانتومی</li>
                             <li>شخصی‌سازی پیشرفته</li>
-                            <li>پشتیبانی چندزبانه</li>
                         </ul>
                         <button class="service-btn" onclick="showServiceModal('نگار کوانتا')">
-                            <i class="fas fa-play"></i> اجرای دمو
+                            اجرای دمو
                         </button>
                     </div>
-
-                    <!-- تبدیل 2D به 3D -->
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-cube"></i></div>
-                        <div class="service-title">تبدیل دو بعدی به سه بعدی</div>
-                        <div class="service-description">
-                            تبدیل پیشرفته محتوای دوبعدی به تجربه‌های سه‌بعدی تعاملی
-                        </div>
-                        <ul class="service-features">
-                            <li>تبدیل خودکار تصاویر</li>
-                            <li>رندرینگ بلادرنگ</li>
-                            <li>پشتیبانی از VR/AR</li>
-                            <li>بهینه‌سازی ابری</li>
-                        </ul>
-                        <button class="service-btn" onclick="showServiceModal('تبدیل 2D به 3D')">
-                            <i class="fas fa-play"></i> اجرای دمو
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- فروشگاه موبایل -->
-            <div class="mobile-shop">
-                <div class="shop-header">
-                    <div class="shop-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <div>
-                        <h3>فروشگاه موبایل تتراشاپ</h3>
-                        <p>دسترسی آسان به تمام سرویس‌ها از طریق موبایل</p>
-                    </div>
-                </div>
-                
-                <div class="products-scroll">
-                    <div class="product-item">
-                        <div class="product-icon"><i class="fas fa-chess"></i></div>
-                        <div class="product-name">شطرنج ابری</div>
-                        <div class="product-description">بازی آنلاین با هوش مصنوعی</div>
-                        <div class="product-price">رایگان</div>
-                    </div>
-                    
-                    <div class="product-item">
-                        <div class="product-icon"><i class="fas fa-comments"></i></div>
-                        <div class="product-name">نطق مصطلح</div>
-                        <div class="product-description">پردازش هوشمند گفتار</div>
-                        <div class="product-price">ماهانه ۵۰,۰۰۰ تومان</div>
-                    </div>
-                    
-                    <div class="product-item">
-                        <div class="product-icon"><i class="fas fa-pen-nib"></i></div>
-                        <div class="product-name">نگار کوانتا</div>
-                        <div class="product-description">تولید محتوای هوشمند</div>
-                        <div class="product-price">ماهانه ۷۵,۰۰۰ تومان</div>
-                    </div>
-                    
-                    <div class="product-item">
-                        <div class="product-icon"><i class="fas fa-cube"></i></div>
-                        <div class="product-name">تبدیل 2D/3D</div>
-                        <div class="product-description">تبدیل پیشرفته محتوا</div>
-                        <div class="product-price">ماهانه ۱۰۰,۰۰۰ تومان</div>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="service-btn" style="background: rgba(255,255,255,0.2); border: 1px solid white;">
-                        <i class="fas fa-download"></i> دریافت اپلیکیشن موبایل
-                    </button>
                 </div>
             </div>
         </div>
@@ -786,71 +504,26 @@
         <!-- فوتر -->
         <div class="footer">
             <div class="footer-content">
-                <div class="roi-badge" style="background: rgba(255,255,255,0.2); color: white; margin-bottom: 15px;">
+                <div style="margin-bottom: 15px;">
                     <i class="fas fa-cloud"></i> تتراشاپ - پلتفرم ابری پیشرفته
                 </div>
                 <p>پردازش ابری • همگام‌سازی بلادرنگ • معماری سرور-کلاینت</p>
-                <p style="opacity: 0.8; margin-top: 10px; font-size: 0.9rem;">
-                    © ۲۰۲۴ تتراشاپ - تمام حقوق برای سامانه ابری تتراشاپ محفوظ است
+                <p style="opacity: 0.8; margin-top: 10px;">
+                    © ۲۰۲۴ تتراشاپ - تمام حقوق محفوظ است
                 </p>
             </div>
         </div>
     </div>
 
     <script>
-        // شبیه‌سازی سرور ابری
-        class CloudChessServer {
+        // سیستم شطرنج ابری
+        class CloudChessSystem {
             constructor() {
-                this.gameState = null;
-                this.connectionStatus = 'connected';
-            }
-
-            // شبیه‌سازی ارتباط با سرور ابری
-            async sendMove(move) {
-                // شبیه‌سازی تاخیر شبکه
-                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
-                
-                // پردازش حرکت در سرور ابری
-                const valid = this.validateMove(move);
-                if (valid) {
-                    this.updateGameState(move);
-                    const aiMove = this.generateAIMove();
-                    return {
-                        success: true,
-                        playerMove: move,
-                        aiMove: aiMove,
-                        gameState: this.gameState
-                    };
-                }
-                
-                return { success: false, error: 'حرکت نامعتبر' };
-            }
-
-            validateMove(move) {
-                // شبیه‌سازی اعتبارسنجی حرکت
-                return Math.random() > 0.1; // 90% موفقیت
-            }
-
-            updateGameState(move) {
-                // شبیه‌سازی به‌روزرسانی وضعیت بازی
-                if (!this.gameState) {
-                    this.gameState = this.getInitialState();
-                }
-                // به‌روزرسانی وضعیت بازی
-            }
-
-            generateAIMove() {
-                // شبیه‌سازی تولید حرکت AI در سرور ابری
-                const moves = ['e2-e4', 'd2-d4', 'g1-f3', 'c2-c4'];
-                return moves[Math.floor(Math.random() * moves.length)];
-            }
-
-            getInitialState() {
-                return {
-                    board: this.createInitialBoard(),
-                    currentPlayer: 'white',
-                    moveHistory: []
-                };
+                this.board = this.createInitialBoard();
+                this.currentPlayer = 'white';
+                this.selectedPiece = null;
+                this.gameActive = false;
+                this.moveHistory = [];
             }
 
             createInitialBoard() {
@@ -865,188 +538,185 @@
                     ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
                 ];
             }
-        }
 
-        // کلاینت شطرنج
-        class ChessClient {
-            constructor() {
-                this.server = new CloudChessServer();
-                this.selectedPiece = null;
-                this.validMoves = [];
-                this.isPlayerTurn = true;
-            }
-
-            async initGame() {
-                this.updateStatus('در حال اتصال به سرور ابری...');
-                await this.simulateNetworkDelay();
-                
-                const response = await this.server.sendMove('init');
-                if (response.success) {
-                    this.renderBoard(response.gameState.board);
-                    this.updateStatus('اتصال برقرار - نوبت شماست');
-                    this.isPlayerTurn = true;
-                }
-            }
-
-            async handleMove(fromRow, fromCol, toRow, toCol) {
-                if (!this.isPlayerTurn) return;
-
-                this.updateStatus('در حال ارسال حرکت به سرور ابری...');
-                this.isPlayerTurn = false;
-
-                const move = `${fromRow},${fromCol}-${toRow},${toCol}`;
-                const response = await this.server.sendMove(move);
-
-                if (response.success) {
-                    this.updateLastMove(`شما: ${this.coordinatesToChessNotation(fromRow, fromCol, toRow, toCol)}`);
-                    this.renderBoard(response.gameState.board);
-                    
-                    // حرکت AI
-                    this.updateStatus('سرور ابری در حال پردازش...');
-                    await this.simulateNetworkDelay();
-                    
-                    this.updateLastMove(`تتراشاپ: ${response.aiMove}`);
-                    this.updateStatus('نوبت شماست');
-                    this.isPlayerTurn = true;
-                } else {
-                    this.updateStatus('حرکت نامعتبر - دوباره تلاش کنید');
-                    this.isPlayerTurn = true;
-                }
-            }
-
-            coordinatesToChessNotation(fromRow, fromCol, toRow, toCol) {
-                const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-                const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
-                return `${files[fromCol]}${ranks[fromRow]}-${files[toCol]}${ranks[toRow]}`;
-            }
-
-            renderBoard(board) {
-                const chessBoard = document.getElementById('chessBoard');
-                chessBoard.innerHTML = '';
+            renderBoard() {
+                const boardElement = document.getElementById('chessBoard');
+                boardElement.innerHTML = '';
 
                 for (let row = 0; row < 8; row++) {
                     for (let col = 0; col < 8; col++) {
                         const cell = document.createElement('div');
                         cell.className = `chess-cell ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
-                        cell.textContent = board[row][col];
+                        cell.textContent = this.board[row][col];
                         cell.dataset.row = row;
                         cell.dataset.col = col;
-                        cell.onclick = () => this.handleCellClick(row, col);
-                        chessBoard.appendChild(cell);
+                        
+                        cell.addEventListener('click', () => this.handleCellClick(row, col));
+                        boardElement.appendChild(cell);
                     }
                 }
             }
 
             handleCellClick(row, col) {
-                if (!this.isPlayerTurn) return;
+                if (!this.gameActive) return;
 
+                const piece = this.board[row][col];
+                
                 if (this.selectedPiece) {
-                    const [selectedRow, selectedCol] = this.selectedPiece;
-                    this.handleMove(selectedRow, selectedCol, row, col);
-                    this.clearSelection();
-                } else {
-                    const piece = this.server.gameState.board[row][col];
-                    if (piece && this.isWhitePiece(piece)) {
-                        this.selectPiece(row, col);
-                    }
+                    // حرکت مهره
+                    this.movePiece(this.selectedPiece.row, this.selectedPiece.col, row, col);
+                    this.selectedPiece = null;
+                    this.clearHighlights();
+                } else if (piece && this.isPlayerPiece(piece)) {
+                    // انتخاب مهره
+                    this.selectedPiece = { row, col };
+                    this.highlightValidMoves(row, col);
                 }
             }
 
-            selectPiece(row, col) {
-                this.selectedPiece = [row, col];
-                this.validMoves = this.calculateValidMoves(row, col);
+            movePiece(fromRow, fromCol, toRow, toCol) {
+                const piece = this.board[fromRow][fromCol];
+                this.board[toRow][toCol] = piece;
+                this.board[fromRow][fromCol] = '';
                 
-                document.querySelectorAll('.chess-cell').forEach(cell => {
-                    cell.classList.remove('selected', 'valid-move');
-                });
+                const moveNotation = this.getMoveNotation(fromRow, fromCol, toRow, toCol);
+                this.moveHistory.push(`${this.currentPlayer}: ${moveNotation}`);
                 
-                const selectedCell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
-                selectedCell.classList.add('selected');
+                this.updateLastMove(moveNotation);
+                this.switchPlayer();
                 
-                this.validMoves.forEach(([r, c]) => {
-                    const cell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-                    cell.classList.add('valid-move');
-                });
+                // شبیه‌سازی حرکت رایانه
+                if (this.gameActive) {
+                    setTimeout(() => this.makeComputerMove(), 1000);
+                }
             }
 
-            clearSelection() {
-                this.selectedPiece = null;
-                this.validMoves = [];
-                document.querySelectorAll('.chess-cell').forEach(cell => {
-                    cell.classList.remove('selected', 'valid-move');
-                });
+            makeComputerMove() {
+                // شبیه‌سازی حرکت ساده رایانه
+                const moves = [
+                    { from: [1, 4], to: [3, 4] }, // پیاده e7-e5
+                    { from: [0, 6], to: [2, 5] }, // اسب g8-f6
+                    { from: [1, 3], to: [3, 3] }  // پیاده d7-d5
+                ];
+                
+                const move = moves[Math.floor(Math.random() * moves.length)];
+                this.movePiece(move.from[0], move.from[1], move.to[0], move.to[1]);
             }
 
-            calculateValidMoves(row, col) {
-                const moves = [];
+            highlightValidMoves(row, col) {
+                this.clearHighlights();
+                
+                const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                cell.classList.add('selected');
+                
                 // شبیه‌سازی حرکات معتبر
-                if (row > 0) moves.push([row-1, col]);
-                if (row < 7) moves.push([row+1, col]);
-                if (col > 0) moves.push([row, col-1]);
-                if (col < 7) moves.push([row, col+1]);
-                return moves;
+                const directions = [
+                    [0, 1], [1, 0], [0, -1], [-1, 0], // حرکات عمودی/افقی
+                    [1, 1], [1, -1], [-1, 1], [-1, -1] // حرکات مورب
+                ];
+                
+                directions.forEach(([dr, dc]) => {
+                    const newRow = row + dr;
+                    const newCol = col + dc;
+                    
+                    if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
+                        const targetCell = document.querySelector(`[data-row="${newRow}"][data-col="${newCol}"]`);
+                        if (targetCell) {
+                            targetCell.style.backgroundColor = '#82e0aa';
+                        }
+                    }
+                });
             }
 
-            isWhitePiece(piece) {
-                return ['♙', '♖', '♘', '♗', '♕', '♔'].includes(piece);
+            clearHighlights() {
+                document.querySelectorAll('.chess-cell').forEach(cell => {
+                    cell.classList.remove('selected');
+                    cell.style.backgroundColor = '';
+                });
             }
 
-            async simulateNetworkDelay() {
-                await new Promise(resolve => setTimeout(resolve, 800));
+            isPlayerPiece(piece) {
+                return this.currentPlayer === 'white' ? 
+                    ['♙', '♖', '♘', '♗', '♕', '♔'].includes(piece) :
+                    ['♟', '♜', '♞', '♝', '♛', '♚'].includes(piece);
             }
 
-            updateStatus(message) {
-                document.getElementById('gameStatus').textContent = message;
+            getMoveNotation(fromRow, fromCol, toRow, toCol) {
+                const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
+                return `${files[fromCol]}${ranks[fromRow]} → ${files[toCol]}${ranks[toRow]}`;
+            }
+
+            switchPlayer() {
+                this.currentPlayer = this.currentPlayer === 'white' ? 'black' : 'white';
+                this.updateCurrentPlayer();
+            }
+
+            startNewGame() {
+                this.board = this.createInitialBoard();
+                this.currentPlayer = 'white';
+                this.selectedPiece = null;
+                this.gameActive = true;
+                this.moveHistory = [];
+                
+                this.renderBoard();
+                this.updateGameStatus('بازی فعال - نوبت شما');
+                this.updateCurrentPlayer();
+                this.updateLastMove('---');
+            }
+
+            updateGameStatus(status) {
+                document.getElementById('gameStatus').textContent = status;
+            }
+
+            updateCurrentPlayer() {
+                document.getElementById('currentPlayer').textContent = 
+                    this.currentPlayer === 'white' ? 'شما (سفید)' : 'رایانه (سیاه)';
             }
 
             updateLastMove(move) {
                 document.getElementById('lastMove').textContent = move;
             }
 
-            updateCurrentPlayer(player) {
-                document.getElementById('currentPlayer').textContent = player;
+            suggestMove() {
+                const suggestions = [
+                    'e2-e4 (باز کردن مرکز)',
+                    'd2-d4 (کنترل مرکز)',
+                    'g1-f3 (توسعه اسب)',
+                    'c2-c4 (دفاع انگلیسی)'
+                ];
+                const suggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+                
+                showModal(
+                    'پیشنهاد حرکت', 
+                    `پیشنهاد سیستم: <strong>${suggestion}</strong>`,
+                    '🤖'
+                );
             }
         }
 
         // راه‌اندازی سیستم
-        const chessClient = new ChessClient();
+        const chessSystem = new CloudChessSystem();
 
         // توابع عمومی
         function startNewGame() {
             showModal('شروع بازی جدید', 'در حال راه‌اندازی شطرنج ابری...', '♟');
             setTimeout(() => {
-                chessClient.initGame();
-            }, 1500);
+                chessSystem.startNewGame();
+            }, 1000);
         }
 
         function suggestMove() {
-            showModal('پیشنهاد حرکت', 'سرور ابری در حال تحلیل موقعیت...', '🤖');
-            setTimeout(() => {
-                const suggestions = ['e2-e4', 'd2-d4', 'g1-f3'];
-                const move = suggestions[Math.floor(Math.random() * suggestions.length)];
-                showModal('پیشنهاد حرکت', `پیشنهاد سرور ابری: <strong>${move}</strong><br><br>این حرکت موقعیت شما را بهبود می‌بخشد.`, '🎯');
-            }, 2000);
-        }
-
-        function showSection(sectionId) {
-            const messages = {
-                'cloud-chess': 'شطرنج ابری - پردازش در سرور ابری',
-                'services': 'سرویس‌های ابری تتراشاپ',
-                'mobile-shop': 'فروشگاه موبایل',
-                'quantum-scribe': 'نگار کوانتا'
-            };
-            
-            showModal('سیستم ناوبری', `در حال بارگذاری بخش ${messages[sectionId]}...`, '🔧');
+            chessSystem.suggestMove();
         }
 
         function showServiceModal(serviceName) {
-            const serviceInfo = {
-                'نطق مصطلح': 'سامانه هوشمند پردازش گفتار با قابلیت تحلیل بلادرنگ و تشخیص احساسات صوتی فعال شد.',
-                'نگار کوانتا': 'سیستم تولید محتوای کوانتومی با الگوریتم‌های پیشرفته راه‌اندازی شد.',
-                'تبدیل 2D به 3D': 'سرویس تبدیل پیشرفته محتوای دوبعدی به سه‌بعدی فعال شد.'
+            const descriptions = {
+                'نطق مصطلح': 'سامانه هوشمند پردازش گفتار با قابلیت تحلیل بلادرنگ فعال شد.',
+                'نگار کوانتا': 'سیستم تولید محتوای کوانتومی راه‌اندازی شد.'
             };
             
-            showModal(serviceName, serviceInfo[serviceName], '🚀');
+            showModal(serviceName, descriptions[serviceName], '🚀');
         }
 
         function showModal(title, message, icon = '🎯') {
@@ -1073,12 +743,13 @@
                     '🎯 <strong>سامانه ابری پیشرفته</strong><br><br>' +
                     '• شطرنج ابری با پردازش سرور<br>' +
                     '• سرویس‌های مبتنی بر کلاد<br>' +
-                    '• فروشگاه موبایل یکپارچه<br>' +
-                    '• معماری سرور-کلاینت<br><br>' +
-                    '🌐 <em>همه چیز در ابر پردازش می‌شود</em>',
+                    '• معماری سرور-کلاینت',
                     '☁️'
                 );
-            }, 1000);
+            }, 500);
+            
+            // رندر اولیه تخته
+            chessSystem.renderBoard();
         });
     </script>
 </body>
