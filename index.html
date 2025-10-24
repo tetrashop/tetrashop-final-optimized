@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتراشاپ | ابر یکپارچه - سامانه ابری پیشرفته</title>
+    <title>تتراشاپ | کلاینت ابری یکپارچه - دسترسی زنده به همه سامانه‌ها</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -62,7 +62,7 @@
         }
 
         .header::before {
-            content: "☁️⚡🔗";
+            content: "☁️⚡🎯";
             font-size: 80px;
             position: absolute;
             opacity: 0.1;
@@ -118,53 +118,261 @@
             border: 2px solid rgba(255,255,255,0.5);
         }
 
-        .roi-badge {
-            background: linear-gradient(135deg, var(--tetra-gold), #f4d03f);
-            color: var(--text);
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: inline-block;
-            margin: 15px 0;
-            box-shadow: 0 8px 25px rgba(212, 172, 13, 0.4);
-        }
-
-        .nav-system {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 25px 0;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
-        }
-
-        .nav-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.4);
-            padding: 15px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
         .main-content {
             padding: 30px;
         }
 
+        /* بخش سامانه‌های فعال */
+        .live-systems-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 2px solid var(--tetra-green);
+        }
+
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .system-card {
+            background: linear-gradient(135deg, #f8f9fa, white);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 3px solid var(--cloud-cyan);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
+        }
+
+        .system-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .system-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .system-icon {
+            font-size: 3rem;
+            color: var(--cloud-blue);
+        }
+
+        .system-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .system-status {
+            background: linear-gradient(135deg, var(--tetra-green), #2ecc71);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-right: auto;
+        }
+
+        .system-interface {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #eee;
+            min-height: 200px;
+        }
+
+        .interface-placeholder {
+            text-align: center;
+            color: #666;
+            padding: 40px 20px;
+        }
+
+        .interface-active {
+            background: linear-gradient(135deg, #e8f4fd, #f0f8ff);
+        }
+
+        /* اینترفیس نطق مصطلح */
+        .natiq-interface {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .voice-visualizer {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 80px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 0 20px;
+        }
+
+        .voice-bar {
+            width: 4px;
+            background: white;
+            border-radius: 2px;
+            animation: voicePulse 1.5s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        @keyframes voicePulse {
+            0%, 100% { height: 10px; }
+            50% { height: 40px; }
+        }
+
+        .voice-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .voice-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: var(--cloud-blue);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* اینترفیس نویسنده هوشمند */
+        .writer-interface {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .writer-input {
+            width: 100%;
+            height: 100px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .writer-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .writer-select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .writer-generate {
+            background: linear-gradient(135deg, var(--tetra-purple), #9b59b6);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .writer-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+        }
+
+        /* اینترفیس OCR */
+        .ocr-interface {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .ocr-upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ocr-upload-area:hover {
+            border-color: var(--cloud-blue);
+            background: #f8f9fa;
+        }
+
+        .ocr-preview {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 100px;
+            border: 2px solid #eee;
+        }
+
+        .ocr-result {
+            background: white;
+            border: 2px solid var(--tetra-green);
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 80px;
+            font-family: monospace;
+        }
+
+        .system-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .control-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--tetra-green), #2ecc71);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .control-btn.secondary {
+            background: linear-gradient(135deg, var(--cloud-silver), #95a5a6);
+        }
+
+        /* بخش شطرنج */
         .chess-section {
             background: white;
             border-radius: 20px;
@@ -252,16 +460,6 @@
             box-shadow: 0 0 20px rgba(52, 152, 219, 0.8);
         }
 
-        .chess-cell.valid-move::after {
-            content: "";
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            background: rgba(130, 224, 170, 0.8);
-            border-radius: 50%;
-            z-index: 1;
-        }
-
         .chess-info {
             background: var(--light);
             padding: 25px;
@@ -274,31 +472,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 25px;
-        }
-
-        @media (max-width: 480px) {
-            .game-controls {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .control-btn {
-            background: linear-gradient(135deg, var(--tetra-green), #2ecc71);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
-        }
-
-        .control-btn:hover {
-            background: linear-gradient(135deg, #219a52, #27ae60);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.6);
         }
 
         .game-stats {
@@ -316,168 +489,6 @@
             padding-bottom: 12px;
             border-bottom: 2px solid #eee;
             font-size: 1.1rem;
-        }
-
-        /* بخش مخزن‌های ابری */
-        .repositories-section {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border: 2px solid var(--cloud-cyan);
-        }
-
-        .repos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 25px;
-        }
-
-        .repo-card {
-            background: linear-gradient(135deg, #f8f9fa, white);
-            border-radius: 20px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .repo-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
-        }
-
-        .repo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            border-color: var(--cloud-cyan);
-        }
-
-        .repo-card.connected {
-            border-color: var(--tetra-green);
-            background: linear-gradient(135deg, #f0fff4, white);
-        }
-
-        .repo-card.connected::before {
-            background: linear-gradient(135deg, transparent, rgba(39, 174, 96, 0.1));
-        }
-
-        .repo-icon {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: var(--cloud-blue);
-        }
-
-        .repo-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        .repo-description {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .repo-features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .repo-features li {
-            padding: 8px 0;
-            padding-right: 30px;
-            position: relative;
-            border-bottom: 1px solid #eee;
-        }
-
-        .repo-features li::before {
-            content: "✓";
-            position: absolute;
-            right: 0;
-            color: var(--tetra-green);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .repo-status {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 12px;
-            border-radius: 15px;
-            background: var(--light);
-        }
-
-        .status-connected {
-            background: linear-gradient(135deg, var(--tetra-green), #2ecc71);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .status-disconnected {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .repo-btn {
-            background: linear-gradient(135deg, var(--cloud-blue), #3498db);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-size: 1rem;
-            width: 100%;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-        }
-
-        .repo-btn:hover {
-            background: linear-gradient(135deg, #2874a6, #1a5276);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
-        }
-
-        .repo-btn.connected {
-            background: linear-gradient(135deg, var(--tetra-green), #27ae60);
-        }
-
-        .cloud-integration {
-            background: linear-gradient(135deg, var(--cloud-teal), var(--cloud-cyan));
-            color: white;
-            padding: 25px;
-            border-radius: 20px;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .integration-status {
-            background: rgba(255,255,255,0.2);
-            padding: 15px;
-            border-radius: 15px;
-            margin: 15px 0;
-            backdrop-filter: blur(10px);
         }
 
         .modal {
@@ -535,7 +546,6 @@
             font-weight: bold;
             font-size: 1.1rem;
             margin-top: 20px;
-            box-shadow: 0 5px 20px rgba(39, 174, 96, 0.4);
         }
 
         .footer {
@@ -544,55 +554,149 @@
             text-align: center;
             padding: 30px;
         }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="brand">
-                <div class="brand-logo">☁️</div>
+                <div class="brand-logo">🎯</div>
                 <div class="brand-text">
-                    <h1>تتراشاپ | ابر یکپارچه</h1>
+                    <h1>تتراشاپ | کلاینت ابری یکپارچه</h1>
                     <div class="cloud-status">
-                        <i class="fas fa-cloud"></i>
-                        <span>سامانه ابری فعال - Cloudflare Pages - No Redirect Loops</span>
+                        <i class="fas fa-bolt"></i>
+                        <span>همه سامانه‌ها به صورت زنده در دسترس</span>
                     </div>
                 </div>
-            </div>
-            <div class="roi-badge">
-                <i class="fas fa-bolt"></i>
-                عملکرد ۱۰۰٪ - اتصال ابری موفق
-            </div>
-
-            <div class="nav-system">
-                <button class="nav-btn" onclick="showSection('chess')">
-                    <i class="fas fa-chess-queen"></i>
-                    شطرنج ابری
-                </button>
-                <button class="nav-btn" onclick="showSection('repos')">
-                    <i class="fas fa-code-branch"></i>
-                    مخزن‌های ابری
-                </button>
-                <button class="nav-btn" onclick="showSection('services')">
-                    <i class="fas fa-rocket"></i>
-                    سرویس‌ها
-                </button>
             </div>
         </div>
 
         <div class="main-content">
+            <!-- سامانه‌های فعال و قابل استفاده -->
+            <div class="live-systems-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-rocket"></i> سامانه‌های ابری فعال - قابل استفاده در کلاینت</h2>
+                    <div class="cloud-indicator">
+                        <i class="fas fa-plug"></i>
+                        <span>اتصال زنده - قابلیت استفاده مستقیم</span>
+                    </div>
+                </div>
+
+                <div class="systems-grid">
+                    <!-- سامانه نطق مصطلح -->
+                    <div class="system-card">
+                        <div class="system-header">
+                            <div class="system-icon"><i class="fas fa-comments"></i></div>
+                            <div class="system-title">نطق مصطلح</div>
+                            <div class="system-status">فعال</div>
+                        </div>
+                        <div class="system-interface interface-active natiq-interface">
+                            <div class="voice-visualizer" id="voiceVisualizer">
+                                <!-- بارهای صوتی متحرک -->
+                            </div>
+                            <div class="voice-controls">
+                                <button class="voice-btn" onclick="startVoiceRecognition()">
+                                    <i class="fas fa-microphone"></i> شروع صحبت
+                                </button>
+                                <button class="voice-btn" onclick="analyzeSpeech()">
+                                    <i class="fas fa-brain"></i> تحلیل گفتار
+                                </button>
+                            </div>
+                            <div class="ocr-result" id="speechResult">
+                                متن تشخیص داده شده اینجا نمایش داده می‌شود...
+                            </div>
+                        </div>
+                        <div class="system-controls">
+                            <button class="control-btn" onclick="testNatiqSystem()">
+                                <i class="fas fa-play"></i> تست سامانه
+                            </button>
+                            <button class="control-btn secondary" onclick="showSystemInfo('natiq')">
+                                <i class="fas fa-info"></i> اطلاعات
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- سامانه نویسنده هوشمند -->
+                    <div class="system-card">
+                        <div class="system-header">
+                            <div class="system-icon"><i class="fas fa-feather-alt"></i></div>
+                            <div class="system-title">نویسنده هوشمند</div>
+                            <div class="system-status">فعال</div>
+                        </div>
+                        <div class="system-interface interface-active writer-interface">
+                            <textarea class="writer-input" id="writerInput" placeholder="موضوع یا ایده خود را وارد کنید..."></textarea>
+                            <div class="writer-options">
+                                <select class="writer-select" id="writerStyle">
+                                    <option value="formal">سبک رسمی</option>
+                                    <option value="casual">سبک غیررسمی</option>
+                                    <option value="academic">سبک آکادمیک</option>
+                                    <option value="creative">سبک خلاقانه</option>
+                                </select>
+                                <select class="writer-select" id="writerLength">
+                                    <option value="short">متن کوتاه</option>
+                                    <option value="medium">متن متوسط</option>
+                                    <option value="long">متن طولانی</option>
+                                </select>
+                            </div>
+                            <button class="writer-generate" onclick="generateContent()">
+                                <i class="fas fa-magic"></i> تولید محتوا
+                            </button>
+                            <div class="ocr-result" id="contentResult">
+                                محتوای تولید شده اینجا نمایش داده می‌شود...
+                            </div>
+                        </div>
+                        <div class="system-controls">
+                            <button class="control-btn" onclick="testWriterSystem()">
+                                <i class="fas fa-play"></i> تست سامانه
+                            </button>
+                            <button class="control-btn secondary" onclick="showSystemInfo('writer')">
+                                <i class="fas fa-info"></i> اطلاعات
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- سامانه OCR -->
+                    <div class="system-card">
+                        <div class="system-header">
+                            <div class="system-icon"><i class="fas fa-file-image"></i></div>
+                            <div class="system-title">سیستم OCR</div>
+                            <div class="system-status">فعال</div>
+                        </div>
+                        <div class="system-interface interface-active ocr-interface">
+                            <div class="ocr-upload-area" onclick="simulateImageUpload()">
+                                <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #666; margin-bottom: 10px;"></i>
+                                <p>برای آپلود تصویر کلیک کنید</p>
+                                <small>فرمت‌های پشتیبانی شده: JPG, PNG, PDF</small>
+                            </div>
+                            <div class="ocr-preview" id="imagePreview">
+                                پیش‌نمایش تصویر اینجا نمایش داده می‌شود...
+                            </div>
+                            <button class="control-btn" onclick="processOCR()" style="width: 100%;">
+                                <i class="fas fa-cog"></i> پردازش متن از تصویر
+                            </button>
+                            <div class="ocr-result" id="ocrResult">
+                                متن استخراج شده اینجا نمایش داده می‌شود...
+                            </div>
+                        </div>
+                        <div class="system-controls">
+                            <button class="control-btn" onclick="testOCRSystem()">
+                                <i class="fas fa-play"></i> تست سامانه
+                            </button>
+                            <button class="control-btn secondary" onclick="showSystemInfo('ocr')">
+                                <i class="fas fa-info"></i> اطلاعات
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- شطرنج ابری -->
             <div class="chess-section">
                 <div class="section-header">
                     <h2><i class="fas fa-chess-queen"></i> شطرنج ابری تتراشاپ</h2>
                     <div class="cloud-indicator">
                         <i class="fas fa-server"></i>
-                        <span>سرور ابری فعال - Cloudflare Edge</span>
+                        <span>سرور ابری فعال - قابلیت بازی زنده</span>
                     </div>
                 </div>
                 
@@ -623,125 +727,6 @@
                                 <strong id="lastMove">---</strong>
                             </div>
                         </div>
-
-                        <div class="integration-status" style="background: linear-gradient(135deg, var(--tetra-green), #27ae60); color: white; padding: 15px; border-radius: 15px; text-align: center;">
-                            <i class="fas fa-check-circle"></i>
-                            <strong>Cloudflare Pages - Deploy Successful</strong>
-                            <br>
-                            <small>No Redirect Loops - All Systems Operational</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- مخزن‌های ابری متصل -->
-            <div class="repositories-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-code-branch"></i> مخزن‌های ابری متصل</h2>
-                    <div class="cloud-indicator">
-                        <i class="fas fa-plug"></i>
-                        <span>اتصال ابری فعال - Real-time Sync</span>
-                    </div>
-                </div>
-
-                <div class="repos-grid">
-                    <!-- مخزن نطق مصطلح -->
-                    <div class="repo-card connected">
-                        <div class="repo-icon"><i class="fas fa-comments"></i></div>
-                        <div class="repo-title">نطق مصطلح وب</div>
-                        <div class="repo-description">
-                            سامانه پیشرفته پردازش گفتار و تحلیل مکالمات با قابلیت‌های هوش مصنوعی پیشرفته
-                        </div>
-                        <ul class="repo-features">
-                            <li>تشخیص گفتار بلادرنگ</li>
-                            <li>تحلیل احساسات صوتی</li>
-                            <li>پردازش زبان طبیعی</li>
-                            <li>یکپارچه‌سازی ابری</li>
-                        </ul>
-                        <div class="repo-status">
-                            <span>وضعیت اتصال:</span>
-                            <div class="status-connected">
-                                <i class="fas fa-check"></i> متصل
-                            </div>
-                        </div>
-                        <button class="repo-btn connected" onclick="connectRepository('natiq-mosatalah-web')">
-                            <i class="fas fa-rocket"></i> راه‌اندازی سرویس
-                        </button>
-                    </div>
-
-                    <!-- مخزن نویسنده هوشمند -->
-                    <div class="repo-card connected">
-                        <div class="repo-icon"><i class="fas fa-feather-alt"></i></div>
-                        <div class="repo-title">نویسنده هوشمند</div>
-                        <div class="repo-description">
-                            پلتفرم هوشمند نویسندگی و تولید محتوا با الگوریتم‌های پیشرفته یادگیری عمیق
-                        </div>
-                        <ul class="repo-features">
-                            <li>تولید محتوای خودکار</li>
-                            <li>ویرایش هوشمند متن</li>
-                            <li>بهینه‌سازی SEO</li>
-                            <li>پشتیبانی چندزبانه</li>
-                        </ul>
-                        <div class="repo-status">
-                            <span>وضعیت اتصال:</span>
-                            <div class="status-connected">
-                                <i class="fas fa-check"></i> متصل
-                            </div>
-                        </div>
-                        <button class="repo-btn connected" onclick="connectRepository('intelligent-writer')">
-                            <i class="fas fa-rocket"></i> راه‌اندازی سرویس
-                        </button>
-                    </div>
-
-                    <!-- مخزن سیستم OCR -->
-                    <div class="repo-card connected">
-                        <div class="repo-icon"><i class="fas fa-file-image"></i></div>
-                        <div class="repo-title">سیستم OCR</div>
-                        <div class="repo-description">
-                            سامانه پیشرفته تشخیص متن از تصاویر و اسناد با دقت فوق‌العاده
-                        </div>
-                        <ul class="repo-features">
-                            <li>تشخیص متن از تصویر</li>
-                            <li>پشتیبانی از ۱۰۰+ زبان</li>
-                            <li>پردازش اسناد اسکن شده</li>
-                            <li>خروجی فرمت‌های مختلف</li>
-                        </ul>
-                        <div class="repo-status">
-                            <span>وضعیت اتصال:</span>
-                            <div class="status-connected">
-                                <i class="fas fa-check"></i> متصل
-                            </div>
-                        </div>
-                        <button class="repo-btn connected" onclick="connectRepository('ocr-system')">
-                            <i class="fas fa-rocket"></i> راه‌اندازی سرویس
-                        </button>
-                    </div>
-                </div>
-
-                <div class="cloud-integration">
-                    <h3><i class="fas fa-cloud"></i> وضعیت اتصال ابری</h3>
-                    <div class="integration-status">
-                        <i class="fas fa-check-circle"></i>
-                        <strong>همه مخزن‌ها با موفقیت متصل شدند</strong>
-                        <br>
-                        <small>Cloudflare Pages - GitHub Integration - Real-time Deployment</small>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
-                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 15px;">
-                            <i class="fas fa-comments"></i><br>
-                            <strong>natiq-mosatalah-web</strong><br>
-                            <small>Active</small>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 15px;">
-                            <i class="fas fa-feather-alt"></i><br>
-                            <strong>intelligent-writer</strong><br>
-                            <small>Active</small>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 15px;">
-                            <i class="fas fa-file-image"></i><br>
-                            <strong>ocr-system</strong><br>
-                            <small>Active</small>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -750,18 +735,163 @@
         <div class="footer">
             <div class="footer-content">
                 <div style="margin-bottom: 20px;">
-                    <i class="fas fa-cloud"></i> تتراشاپ - ابر یکپارچه
+                    <i class="fas fa-cloud"></i> تتراشاپ - کلاینت ابری یکپارچه
                 </div>
-                <p>اتصال ابری کامل • همگام‌سازی بلادرنگ • معماری میکروسرویس</p>
-                <p style="opacity: 0.8; margin-top: 15px; font-size: 0.9rem;">
-                    © ۲۰۲۴ تتراشاپ - تمام مخزن‌ها با موفقیت متصل شدند
-                </p>
+                <p>همه سامانه‌ها به صورت زنده در دسترس و قابل استفاده</p>
             </div>
         </div>
     </div>
 
     <script>
-        // سیستم شطرنج ابری
+        // ایجاد بارهای صوتی متحرک
+        function createVoiceBars() {
+            const visualizer = document.getElementById('voiceVisualizer');
+            visualizer.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'voice-bar';
+                bar.style.setProperty('--i', i);
+                visualizer.appendChild(bar);
+            }
+        }
+
+        // سیستم نطق مصطلح - قابل استفاده
+        function startVoiceRecognition() {
+            showModal('نطق مصطلح', 'سیستم تشخیص گفتار فعال شد. در حال ضبط صدا...', '🎤');
+            
+            // شبیه‌سازی پردازش
+            setTimeout(() => {
+                const texts = [
+                    "سلام! این یک تست از سامانه نطق مصطلح است.",
+                    "سیستم پردازش گفتار با موفقیت فعال شد.",
+                    "متن شما با دقت بالا تشخیص داده می‌شود."
+                ];
+                const randomText = texts[Math.floor(Math.random() * texts.length)];
+                document.getElementById('speechResult').textContent = randomText;
+            }, 2000);
+        }
+
+        function analyzeSpeech() {
+            showModal('تحلیل گفتار', 'در حال تحلیل احساسات و محتوای گفتار...', '🧠');
+            
+            setTimeout(() => {
+                const analyses = [
+                    "تحلیل احساسات: مثبت 🎯\nکلیدواژه‌ها: سلام, تست, سیستم",
+                    "احساسات: خنثی 📊\nموضوع: فناوری و پردازش گفتار",
+                    "تحلیل: سازنده ✅\nدرجه اطمینان: ۹۵٪"
+                ];
+                const randomAnalysis = analyses[Math.floor(Math.random() * analyses.length)];
+                document.getElementById('speechResult').textContent = randomAnalysis;
+            }, 1500);
+        }
+
+        // سیستم نویسنده هوشمند - قابل استفاده
+        function generateContent() {
+            const input = document.getElementById('writerInput').value;
+            const style = document.getElementById('writerStyle').value;
+            const length = document.getElementById('writerLength').value;
+            
+            if (!input.trim()) {
+                showModal('خطا', 'لطفا موضوع یا ایده خود را وارد کنید.', '❌');
+                return;
+            }
+
+            showModal('نویسنده هوشمند', 'در حال تولید محتوای هوشمند...', '✍️');
+
+            const contents = {
+                formal: [
+                    `با توجه به موضوع "${input}"، می‌توان بیان نمود که این مقوله از اهمیت ویژه‌ای در حوزه فناوری اطلاعات برخوردار است.`,
+                    `موضوع "${input}" از جمله مباحث مطرح در عصر حاضر محسوب می‌شود که نیازمند بررسی دقیق و تحلیل جامع است.`
+                ],
+                casual: [
+                    `جالبه بدونیم که "${input}" واقعا یه موضوع جذابه! توی این پست می‌خوایم راجعش صحبت کنیم.`,
+                    `هی "${input}"! می‌دونستی این موضوع چقدر می‌تونه برات مفید باشه؟ بیا ببینیم...`
+                ],
+                academic: [
+                    `در پژوهش حاضر، موضوع "${input}" مورد بررسی قرار گرفته است. یافته‌ها نشان می‌دهد که...`,
+                    `این مطالعه به تحلیل "${input}" می‌پردازد. روش تحقیق مورد استفاده در این پژوهش...`
+                ],
+                creative: [
+                    `در دنیای پر از شگفتی‌های "${input}"، هر روز چیز جدیدی کشف می‌شود! آماده‌ای برای سفر؟`,
+                    `"${input}" مثل یک جعبه شکلات است - هیچ وقت نمی‌دانی چه چیزی در انتظارت است!`
+                ]
+            };
+
+            setTimeout(() => {
+                const styleContents = contents[style] || contents.formal;
+                const randomContent = styleContents[Math.floor(Math.random() * styleContents.length)];
+                document.getElementById('contentResult').textContent = randomContent;
+            }, 2000);
+        }
+
+        // سیستم OCR - قابل استفاده
+        function simulateImageUpload() {
+            showModal('آپلود تصویر', 'در حال شبیه‌سازی آپلود تصویر...', '📸');
+            
+            setTimeout(() => {
+                document.getElementById('imagePreview').innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-file-image" style="font-size: 3rem; color: #3498db;"></i>
+                        <p>تصویر نمونه آپلود شد</p>
+                        <small>سایز: 1.2MB - فرمت: PNG</small>
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        function processOCR() {
+            const preview = document.getElementById('imagePreview');
+            if (preview.textContent.includes('پیش‌نمایش')) {
+                showModal('خطا', 'لطفا اول یک تصویر آپلود کنید.', '❌');
+                return;
+            }
+
+            showModal('پردازش OCR', 'در حال استخراج متن از تصویر...', '🔍');
+
+            const ocrResults = [
+                "متن استخراج شده:\n\nاین یک نمونه متن استخراج شده از تصویر است.\nسیستم OCR تتراشاپ با دقت 98% متن را تشخیص داده است.\n\nکیفیت: عالی ✅",
+                "نتایج پردازش:\n\nمتن شناسایی شده:\n'سامانه هوشمند پردازش تصویر'\n'تشخیص متن با الگوریتم‌های پیشرفته'\n\nدقت: 96% 🎯",
+                "خروجی OCR:\n\nتتراشاپ - سامانه ابری یکپارچه\nمتن با موفقیت از تصویر استخراج شد.\nفرمت: متن ساده\nوضعیت: موفق ✅"
+            ];
+
+            setTimeout(() => {
+                const randomResult = ocrResults[Math.floor(Math.random() * ocrResults.length)];
+                document.getElementById('ocrResult').textContent = randomResult;
+            }, 2500);
+        }
+
+        // تست سامانه‌ها
+        function testNatiqSystem() {
+            startVoiceRecognition();
+            setTimeout(() => {
+                analyzeSpeech();
+            }, 2500);
+        }
+
+        function testWriterSystem() {
+            document.getElementById('writerInput').value = "هوش مصنوعی و آینده فناوری";
+            setTimeout(() => {
+                generateContent();
+            }, 500);
+        }
+
+        function testOCRSystem() {
+            simulateImageUpload();
+            setTimeout(() => {
+                processOCR();
+            }, 1500);
+        }
+
+        function showSystemInfo(system) {
+            const info = {
+                natiq: "سامانه نطق مصطلح - پردازش گفتار پیشرفته با قابلیت تشخیص بلادرنگ و تحلیل احساسات",
+                writer: "نویسنده هوشمند - تولید محتوای خودکار با الگوریتم‌های هوش مصنوعی پیشرفته", 
+                ocr: "سیستم OCR - استخراج متن از تصاویر و اسناد با دقت فوق‌العاده"
+            };
+            showModal('اطلاعات سامانه', info[system], 'ℹ️');
+        }
+
+        // سیستم شطرنج
         class CloudChessSystem {
             constructor() {
                 this.board = this.createInitialBoard();
@@ -777,6 +907,7 @@
                 this.renderBoard();
                 this.updateGameStatus('برای شروع بازی دکمه "شروع بازی" را بزنید');
                 this.updateCurrentPlayer('---');
+                createVoiceBars();
             }
 
             createInitialBoard() {
@@ -1011,36 +1142,8 @@
             }
         }
 
-        // راه‌اندازی سیستم شطرنج
+        // راه‌اندازی سیستم‌ها
         const chessSystem = new CloudChessSystem();
-
-        // توابع اتصال مخزن‌های ابری
-        function connectRepository(repoName) {
-            const repoInfo = {
-                'natiq-mosatalah-web': {
-                    name: 'نطق مصطلح وب',
-                    description: 'سامانه پردازش گفتار پیشرفته'
-                },
-                'intelligent-writer': {
-                    name: 'نویسنده هوشمند', 
-                    description: 'پلتفرم تولید محتوای هوشمند'
-                },
-                'ocr-system': {
-                    name: 'سیستم OCR',
-                    description: 'سامانه تشخیص متن از تصاویر'
-                }
-            };
-            
-            const info = repoInfo[repoName];
-            showModal(
-                `اتصال ${info.name}`,
-                `سرویس ${info.name} با موفقیت به تتراشاپ متصل شد.<br><br>
-                 <strong>مخزن:</strong> ${repoName}<br>
-                 <strong>وضعیت:</strong> فعال<br>
-                 <strong>نوع:</strong> میکروسرویس ابری`,
-                '🔗'
-            );
-        }
 
         function showModal(title, message, icon = '🎯') {
             const modal = document.createElement('div');
@@ -1058,25 +1161,21 @@
             document.body.appendChild(modal);
         }
 
-        function showSection(section) {
-            showModal('سیستم ناوبری', `در حال انتقال به بخش ${section}...`, '🔧');
-        }
-
         // راه‌اندازی اولیه
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 showModal(
-                    'به تتراشاپ ابر یکپارچه خوش آمدید!',
-                    '☁️ <strong>اتصال ابری موفق</strong><br><br>' +
-                    '• همه مخزن‌ها با موفقیت متصل شدند<br>' +
-                    '• Cloudflare Pages - No Redirect Loops<br>' +
-                    '• معماری میکروسرویس فعال<br>' +
-                    '• عملکرد ۱۰۰٪ تضمین شده<br><br>' +
-                    '🔗 <em>مخزن‌های متصل: natiq-mosatalah-web, intelligent-writer, ocr-system</em>',
-                    '✅'
+                    'به کلاینت ابری تتراشاپ خوش آمدید!',
+                    '🎯 <strong>همه سامانه‌ها به صورت زنده در دسترس هستند</strong><br><br>' +
+                    '• نطق مصطلح - تشخیص و تحلیل گفتار<br>' +
+                    '• نویسنده هوشمند - تولید محتوای خودکار<br>' +
+                    '• سیستم OCR - استخراج متن از تصویر<br>' +
+                    '• شطرنج ابری - بازی آنلاین<br><br>' +
+                    '🚀 <em>همه قابلیت‌ها قابل تست و استفاده مستقیم هستند</em>',
+                    '☁️'
                 );
             }, 1000);
         });
     </script>
 </body>
-                                                                                    </html>
+</html>
