@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتراشاپ | سامانه هوشمند بازی‌های استراتژیک و خدمات دیجیتال</title>
+    <title>تتراشاپ | سامانه ابری بازی‌های استراتژیک و خدمات دیجیتال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #1a5276;
@@ -12,11 +13,13 @@
             --tetra-green: #27ae60;
             --tetra-gold: #d4ac0d;
             --tetra-purple: #8e44ad;
+            --tetra-orange: #e67e22;
             --light: #f8f9fa;
             --text: #2c3e50;
             --success: #27ae60;
             --warning: #f39c12;
             --danger: #e74c3c;
+            --dark: #2c3e50;
         }
 
         * {
@@ -39,21 +42,21 @@
             background: rgba(255, 255, 255, 0.98);
             min-height: 100vh;
             box-shadow: 0 0 50px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         /* هدر پیشرفته */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 30px;
-            text-align: center;
+            padding: 25px 30px;
             position: relative;
             overflow: hidden;
         }
 
         .header::before {
-            content: "♟";
-            font-size: 150px;
+            content: "⚡";
+            font-size: 120px;
             position: absolute;
             opacity: 0.1;
             top: 50%;
@@ -61,22 +64,27 @@
             transform: translate(-50%, -50%);
         }
 
-        .brand-section {
+        .top-bar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
             margin-bottom: 20px;
             position: relative;
             z-index: 2;
         }
 
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .brand-logo {
-            font-size: 3rem;
+            font-size: 2.5rem;
             background: var(--tetra-green);
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             animation: pulse 2s infinite;
         }
 
@@ -87,33 +95,36 @@
         }
 
         .brand-text h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 5px;
             font-weight: bold;
         }
 
-        .license-badge {
+        .cloud-status {
             background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 15px;
+            padding: 8px 15px;
+            border-radius: 20px;
             font-size: 0.8rem;
-            margin-top: 5px;
             backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-online {
+            color: #2ecc71;
         }
 
         .roi-badge {
             background: linear-gradient(135deg, var(--tetra-gold), #f4d03f);
             color: var(--text);
-            padding: 10px 25px;
-            border-radius: 25px;
+            padding: 8px 20px;
+            border-radius: 20px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: inline-block;
-            margin: 15px 0;
-            box-shadow: 0 5px 15px rgba(212, 172, 13, 0.3);
-            position: relative;
-            z-index: 2;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(212, 172, 13, 0.3);
         }
 
         /* ناوبری پیشرفته */
@@ -121,8 +132,8 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 25px 0;
+            gap: 8px;
+            margin: 20px 0;
             position: relative;
             z-index: 2;
         }
@@ -131,15 +142,15 @@
             background: rgba(255,255,255,0.15);
             color: white;
             border: 1.5px solid rgba(255,255,255,0.3);
-            padding: 12px 20px;
-            border-radius: 25px;
+            padding: 10px 18px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(8px);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .nav-btn:hover {
@@ -150,110 +161,42 @@
 
         /* محتوای اصلی */
         .main-content {
-            padding: 30px;
-        }
-
-        /* بخش دموهای قابل اجرا */
-        .demo-section {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .demo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .demo-card {
-            background: linear-gradient(135deg, var(--light), white);
-            border-radius: 15px;
             padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
 
-        .demo-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
-            z-index: 1;
-        }
-
-        .demo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-color: var(--tetra-green);
-        }
-
-        .demo-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .demo-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .demo-description {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .demo-btn {
-            background: var(--tetra-green);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            position: relative;
-            z-index: 2;
-        }
-
-        .demo-btn:hover {
-            background: #219a52;
-            transform: scale(1.05);
-        }
-
-        /* سیستم شطرنج با اندازه مناسب */
-        .chess-section {
+        /* بخش شطرنج ابری */
+        .cloud-chess-section {
             background: white;
             border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 2px solid var(--tetra-green);
         }
 
-        .chess-container {
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .cloud-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .chess-game-container {
             display: grid;
             grid-template-columns: auto 1fr;
-            gap: 30px;
+            gap: 25px;
             align-items: start;
         }
 
@@ -266,6 +209,7 @@
             padding: 10px;
             border-radius: 10px;
             border: 3px solid #5d4037;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         .chess-cell {
@@ -294,68 +238,73 @@
             background: #82e0aa !important;
         }
 
+        .chess-cell.last-move {
+            box-shadow: inset 0 0 0 2px var(--tetra-gold);
+        }
+
         .chess-info {
             background: var(--light);
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             border-right: 4px solid var(--tetra-green);
         }
 
-        /* بخش خدمات پیشرفته */
-        .services-section {
+        .game-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .control-btn {
+            background: var(--tetra-green);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .control-btn:hover {
+            background: #219a52;
+            transform: scale(1.05);
+        }
+
+        .game-stats {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* سرویس‌های ابری */
+        .cloud-services {
             background: white;
             border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .service-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--tetra-purple);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--tetra-purple);
-        }
-
-        /* سیستم محصولات */
-        .products-section {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .product-card {
-            background: var(--light);
+            background: linear-gradient(135deg, #f8f9fa, white);
             border-radius: 15px;
             padding: 25px;
             transition: all 0.3s ease;
@@ -364,58 +313,40 @@
             overflow: hidden;
         }
 
-        .product-card::before {
+        .service-card::before {
             content: "";
             position: absolute;
             top: 0;
             right: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(39, 174, 96, 0.05));
+            background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.05));
         }
 
-        .product-card:hover {
+        .service-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border-color: var(--tetra-green);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: var(--tetra-purple);
         }
 
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--tetra-gold);
-            color: var(--text);
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .product-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .service-icon {
+            font-size: 2.5rem;
             margin-bottom: 15px;
+            color: var(--tetra-purple);
             position: relative;
             z-index: 2;
         }
 
-        .product-icon {
-            font-size: 2rem;
-            background: var(--tetra-green);
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .product-title {
-            font-size: 1.2rem;
+        .service-title {
+            font-size: 1.3rem;
             font-weight: bold;
             color: var(--primary);
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
         }
 
-        .product-description {
+        .service-description {
             color: #666;
             margin-bottom: 20px;
             line-height: 1.6;
@@ -423,24 +354,35 @@
             z-index: 2;
         }
 
-        .product-price {
-            background: linear-gradient(135deg, var(--tetra-gold), #f4d03f);
-            color: var(--text);
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
+        .service-features {
+            list-style: none;
+            margin-bottom: 20px;
             position: relative;
             z-index: 2;
         }
 
-        .buy-btn {
-            background: var(--tetra-green);
+        .service-features li {
+            padding: 5px 0;
+            padding-right: 25px;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--tetra-green);
+            font-weight: bold;
+        }
+
+        .service-btn {
+            background: var(--tetra-purple);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
@@ -449,13 +391,95 @@
             z-index: 2;
         }
 
-        .buy-btn:hover {
-            background: #219a52;
+        .service-btn:hover {
+            background: #7d3c98;
             transform: scale(1.02);
         }
 
-        /* پیام سیستم */
-        .system-modal {
+        /* فروشگاه موبایل */
+        .mobile-shop {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-shop::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="50" cy="50" r="2" fill="white"/></svg>');
+        }
+
+        .shop-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .shop-icon {
+            font-size: 2rem;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .products-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-item {
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+
+        .product-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            background: var(--tetra-gold);
+            color: var(--text);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* مودال */
+        .modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -472,7 +496,7 @@
         .modal-content {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px;
             max-width: 500px;
             width: 90%;
             text-align: center;
@@ -487,29 +511,29 @@
         }
 
         .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            margin-bottom: 15px;
         }
 
         .modal-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .modal-message {
             color: #666;
-            line-height: 1.7;
-            margin-bottom: 25px;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .modal-btn {
             background: var(--tetra-green);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 10px 25px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: bold;
@@ -520,8 +544,8 @@
             background: var(--primary);
             color: white;
             text-align: center;
-            padding: 30px;
-            margin-top: 50px;
+            padding: 25px;
+            margin-top: 40px;
         }
 
         .footer-content {
@@ -530,12 +554,13 @@
         }
 
         @media (max-width: 768px) {
-            .brand-section {
+            .top-bar {
                 flex-direction: column;
                 gap: 15px;
+                text-align: center;
             }
             
-            .chess-container {
+            .chess-game-container {
                 grid-template-columns: 1fr;
             }
             
@@ -550,7 +575,11 @@
                 font-size: 1.2rem;
             }
             
-            .demo-grid, .services-grid, .products-grid {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-controls {
                 grid-template-columns: 1fr;
             }
         }
@@ -560,241 +589,196 @@
     <div class="container">
         <!-- هدر پیشرفته -->
         <div class="header">
-            <div class="brand-section">
-                <div class="brand-logo">🎯</div>
-                <div class="brand-text">
-                    <h1>تتراشاپ</h1>
-                    <div class="license-badge">مجوز رسمی - سامانه هوشمند بازی‌های استراتژیک</div>
+            <div class="top-bar">
+                <div class="brand-section">
+                    <div class="brand-logo">🎯</div>
+                    <div class="brand-text">
+                        <h1>تتراشاپ</h1>
+                        <div class="cloud-status">
+                            <i class="fas fa-cloud status-online"></i>
+                            سامانه ابری فعال - Cloud Server
+                        </div>
+                    </div>
                 </div>
+                <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی ماهانه</div>
             </div>
-            
-            <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی سرمایه‌گذاری ماهانه</div>
-            <p>سامانه یکپارچه بازی‌های استراتژیک و خدمات دیجیتال پیشرفته</p>
 
             <div class="nav-system">
-                <button class="nav-btn" onclick="showSection('demos')">
-                    🎮 دموهای قابل اجرا
-                </button>
-                <button class="nav-btn" onclick="showSection('chess')">
-                    ♟ شطرنج هوشمند
+                <button class="nav-btn" onclick="showSection('cloud-chess')">
+                    <i class="fas fa-chess"></i>
+                    شطرنج ابری
                 </button>
                 <button class="nav-btn" onclick="showSection('services')">
-                    🛠 خدمات پیشرفته
+                    <i class="fas fa-cloud"></i>
+                    سرویس‌های ابری
                 </button>
-                <button class="nav-btn" onclick="showSection('products')">
-                    📚 محصولات فرهنگی
+                <button class="nav-btn" onclick="showSection('mobile-shop')">
+                    <i class="fas fa-mobile-alt"></i>
+                    فروشگاه موبایل
+                </button>
+                <button class="nav-btn" onclick="showSection('quantum-scribe')">
+                    <i class="fas fa-pen-fancy"></i>
+                    نگار کوانتا
                 </button>
             </div>
         </div>
 
         <!-- محتوای اصلی -->
         <div class="main-content">
-            <!-- دموهای قابل اجرا -->
-            <div class="demo-section">
-                <h2>🎮 پروژه‌های قابل اجرا (نسخه دمو)</h2>
-                <p style="text-align: center; color: #666; margin: 15px 0;">
-                    تجربه مستقیم سرویس‌های پیشرفته تتراشاپ
-                </p>
-                
-                <div class="demo-grid">
-                    <!-- دمو شطرنج تحلیلی -->
-                    <div class="demo-card" onclick="runDemo('chess-analytics')">
-                        <div class="demo-icon">♟</div>
-                        <div class="demo-title">شطرنج تحلیلی</div>
-                        <div class="demo-description">
-                            سیستم هوشمند تحلیل حرکات شطرنج با الگوریتم‌های پیشرفته
-                        </div>
-                        <button class="demo-btn">اجرای دمو</button>
-                    </div>
-
-                    <!-- دمو ماشین حساب سود -->
-                    <div class="demo-card" onclick="runDemo('profit-calculator')">
-                        <div class="demo-icon">💰</div>
-                        <div class="demo-title">ماشین حساب سود</div>
-                        <div class="demo-description">
-                            محاسبه هوشمند سود و بازدهی سرمایه‌گذاری با داده‌های واقعی
-                        </div>
-                        <button class="demo-btn">اجرای دمو</button>
-                    </div>
-
-                    <!-- دمو سیستم نیکوکاری -->
-                    <div class="demo-card" onclick="runDemo('charity-system')">
-                        <div class="demo-icon">🤲</div>
-                        <div class="demo-title">سیستم نیکوکاری</div>
-                        <div class="demo-description">
-                            سامانه هوشمند مدیریت کمک‌های خیریه و پیگیری تأثیر اجتماعی
-                        </div>
-                        <button class="demo-btn">اجرای دمو</button>
-                    </div>
-
-                    <!-- دمو تبدیل 2D به 3D -->
-                    <div class="demo-card" onclick="runDemo('2d-to-3d')">
-                        <div class="demo-icon">🔄</div>
-                        <div class="demo-title">تبدیل دو بعدی به سه بعدی</div>
-                        <div class="demo-description">
-                            تبدیل پیشرفته محتوای دوبعدی به تجربه‌های سه‌بعدی تعاملی
-                        </div>
-                        <button class="demo-btn">اجرای دمو</button>
-                    </div>
-
-                    <!-- دمو OCR پیشرفته -->
-                    <div class="demo-card" onclick="runDemo('advanced-ocr')">
-                        <div class="demo-icon">🔍</div>
-                        <div class="demo-title">OCR پیشرفته</div>
-                        <div class="demo-description">
-                            تشخیص متن و استخراج اطلاعات از تصاویر با دقت بالا
-                        </div>
-                        <button class="demo-btn">اجرای دمو</button>
-                    </div>
-
-                    <!-- دمو نگار کوانتا -->
-                    <div class="demo-card" onclick="runDemo('quantum-scribe')">
-                        <div class="demo-icon">⚛️</div>
-                        <div class="demo-title">نگار کوانتا</div>
-                        <div class="demo-description">
-                            سیستم هوشمند تولید محتوا با الگوریتم‌های کوانتومی
-                        </div>
-                        <button class="demo-btn">اجرای دمو</button>
+            <!-- شطرنج ابری -->
+            <div class="cloud-chess-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chess-queen"></i> شطرنج ابری تتراشاپ</h2>
+                    <div class="cloud-indicator">
+                        <i class="fas fa-server"></i>
+                        <span>سرور ابری فعال - پردازش حرکات در کلاد</span>
                     </div>
                 </div>
-            </div>
-
-            <!-- سیستم شطرنج -->
-            <div class="chess-section">
-                <h2>♟ سیستم شطرنج هوشمند تتراشاپ</h2>
-                <p style="text-align: center; color: #666; margin: 15px 0;">
-                    هر حرکت = بهبود استراتژی سرمایه‌گذاری و تصمیم‌گیری
-                </p>
                 
-                <div class="chess-container">
+                <div class="chess-game-container">
                     <div class="chess-board" id="chessBoard"></div>
                     
                     <div class="chess-info">
-                        <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; text-align: center;">
-                            <strong>🎯 وضعیت بازی:</strong>
-                            <div id="gameStatus" style="margin-top: 10px; font-weight: bold;">
-                                نوبت: شما - حرکت کنید
+                        <div class="game-controls">
+                            <button class="control-btn" onclick="startNewGame()">
+                                <i class="fas fa-play"></i> شروع بازی
+                            </button>
+                            <button class="control-btn" onclick="suggestMove()">
+                                <i class="fas fa-robot"></i> پیشنهاد حرکت
+                            </button>
+                        </div>
+                        
+                        <div class="game-stats">
+                            <div class="stat-item">
+                                <span>وضعیت:</span>
+                                <strong id="gameStatus">منتظر شروع بازی</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>نوبت:</span>
+                                <strong id="currentPlayer">شما (سفید)</strong>
+                            </div>
+                            <div class="stat-item">
+                                <span>حرکت آخر:</span>
+                                <strong id="lastMove">---</strong>
                             </div>
                         </div>
                         
-                        <button class="buy-btn" onclick="startNewGame()" style="margin-bottom: 15px;">
-                            🎮 شروع بازی جدید
-                        </button>
-                        
-                        <div style="background: white; padding: 15px; border-radius: 10px;">
-                            <strong>📊 امتیازها:</strong>
-                            <div style="display: flex; justify-content: space-around; margin-top: 10px;">
-                                <div style="text-align: center;">
-                                    <div>شما</div>
-                                    <div style="font-size: 1.5rem; font-weight: bold;" id="playerScore">۰</div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <div>تتراشاپ</div>
-                                    <div style="font-size: 1.5rem; font-weight: bold;" id="aiScore">۰</div>
-                                </div>
-                            </div>
+                        <div style="background: #e8f4fd; padding: 15px; border-radius: 10px;">
+                            <strong>🌐 معماری ابری:</strong><br>
+                            <small>• پردازش حرکات در سرور ابری<br>• همگام‌سازی بلادرنگ<br>• الگوریتم‌های پیشرفته</small>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- خدمات پیشرفته -->
-            <div class="services-section">
-                <h2>🛠 خدمات پیشرفته تتراشاپ</h2>
+            <!-- سرویس‌های ابری -->
+            <div class="cloud-services">
+                <h2><i class="fas fa-cloud"></i> سرویس‌های ابری تتراشاپ</h2>
                 <p style="text-align: center; color: #666; margin: 15px 0;">
-                    راهکارهای هوشمند برای کسب‌وکارهای دیجیتال
+                    راهکارهای هوشمند مبتنی بر پلتفرم ابری
                 </p>
                 
                 <div class="services-grid">
+                    <!-- سامانه نطق مصطلح -->
                     <div class="service-card">
-                        <div class="service-icon">⚛️</div>
-                        <div class="demo-title">نگار کوانتا</div>
-                        <div class="demo-description">
+                        <div class="service-icon"><i class="fas fa-comments"></i></div>
+                        <div class="service-title">سامانه نطق مصطلح</div>
+                        <div class="service-description">
+                            سیستم هوشمند تحلیل و پردازش گفتار با قابلیت‌های پیشرفته
+                        </div>
+                        <ul class="service-features">
+                            <li>تشخیص گفتار بلادرنگ</li>
+                            <li>تحلیل احساسات صوتی</li>
+                            <li>پردازش زبان طبیعی</li>
+                            <li>یکپارچه‌سازی ابری</li>
+                        </ul>
+                        <button class="service-btn" onclick="showServiceModal('نطق مصطلح')">
+                            <i class="fas fa-play"></i> اجرای دمو
+                        </button>
+                    </div>
+
+                    <!-- نگار کوانتا -->
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-pen-nib"></i></div>
+                        <div class="service-title">نگار کوانتا</div>
+                        <div class="service-description">
                             سیستم تولید محتوای هوشمند با الگوریتم‌های کوانتومی
                         </div>
+                        <ul class="service-features">
+                            <li>تولید محتوای خودکار</li>
+                            <li>بهینه‌سازی کوانتومی</li>
+                            <li>شخصی‌سازی پیشرفته</li>
+                            <li>پشتیبانی چندزبانه</li>
+                        </ul>
+                        <button class="service-btn" onclick="showServiceModal('نگار کوانتا')">
+                            <i class="fas fa-play"></i> اجرای دمو
+                        </button>
                     </div>
-                    
+
+                    <!-- تبدیل 2D به 3D -->
                     <div class="service-card">
-                        <div class="service-icon">🔄</div>
-                        <div class="demo-title">تبدیل 2D به 3D</div>
-                        <div class="demo-description">
-                            تبدیل محتوای دوبعدی به تجربه‌های سه‌بعدی تعاملی
+                        <div class="service-icon"><i class="fas fa-cube"></i></div>
+                        <div class="service-title">تبدیل دو بعدی به سه بعدی</div>
+                        <div class="service-description">
+                            تبدیل پیشرفته محتوای دوبعدی به تجربه‌های سه‌بعدی تعاملی
                         </div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">🔍</div>
-                        <div class="demo-title">OCR پیشرفته</div>
-                        <div class="demo-description">
-                            تشخیص متن و استخراج اطلاعات از تصاویر
-                        </div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">🤖</div>
-                        <div class="demo-title">هوش مصنوعی</div>
-                        <div class="demo-description">
-                            راهکارهای هوش مصنوعی برای کسب‌وکارها
-                        </div>
+                        <ul class="service-features">
+                            <li>تبدیل خودکار تصاویر</li>
+                            <li>رندرینگ بلادرنگ</li>
+                            <li>پشتیبانی از VR/AR</li>
+                            <li>بهینه‌سازی ابری</li>
+                        </ul>
+                        <button class="service-btn" onclick="showServiceModal('تبدیل 2D به 3D')">
+                            <i class="fas fa-play"></i> اجرای دمو
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- محصولات فرهنگی -->
-            <div class="products-section">
-                <h2>📚 محصولات فرهنگی و آموزشی</h2>
-                <p style="text-align: center; color: #666; margin: 15px 0;">
-                    منابع آموزشی و فرهنگی برای توسعه مهارت‌های استراتژیک
-                </p>
+            <!-- فروشگاه موبایل -->
+            <div class="mobile-shop">
+                <div class="shop-header">
+                    <div class="shop-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div>
+                        <h3>فروشگاه موبایل تتراشاپ</h3>
+                        <p>دسترسی آسان به تمام سرویس‌ها از طریق موبایل</p>
+                    </div>
+                </div>
                 
-                <div class="products-grid">
-                    <!-- محصول ۱ -->
-                    <div class="product-card">
-                        <div class="product-badge">پرفروش</div>
-                        <div class="product-header">
-                            <div class="product-icon">📖</div>
-                            <div class="product-title">استراتژی شطرنج در کسب‌وکار</div>
-                        </div>
-                        <div class="product-description">
-                            آموزش اصول تصمیم‌گیری استراتژیک با استفاده از مفاهیم شطرنج برای موفقیت در کسب‌وکار
-                        </div>
-                        <div class="product-price">۷۵,۰۰۰ تومان</div>
-                        <button class="buy-btn" onclick="showProductModal('استراتژی شطرنج در کسب‌وکار', 75000)">
-                            🛒 افزودن به سبد خرید
-                        </button>
+                <div class="products-scroll">
+                    <div class="product-item">
+                        <div class="product-icon"><i class="fas fa-chess"></i></div>
+                        <div class="product-name">شطرنج ابری</div>
+                        <div class="product-description">بازی آنلاین با هوش مصنوعی</div>
+                        <div class="product-price">رایگان</div>
                     </div>
-
-                    <!-- محصول ۲ -->
-                    <div class="product-card">
-                        <div class="product-badge">جدید</div>
-                        <div class="product-header">
-                            <div class="product-icon">🎓</div>
-                            <div class="product-title">دوره هوش مصنوعی اخلاق‌محور</div>
-                        </div>
-                        <div class="product-description">
-                            آموزش توسعه سیستم‌های هوش مصنوعی با رویکرد اخلاقی و ارزش‌محور
-                        </div>
-                        <div class="product-price">۱۲۰,۰۰۰ تومان</div>
-                        <button class="buy-btn" onclick="showProductModal('دوره هوش مصنوعی اخلاق‌محور', 120000)">
-                            🛒 افزودن به سبد خرید
-                        </button>
+                    
+                    <div class="product-item">
+                        <div class="product-icon"><i class="fas fa-comments"></i></div>
+                        <div class="product-name">نطق مصطلح</div>
+                        <div class="product-description">پردازش هوشمند گفتار</div>
+                        <div class="product-price">ماهانه ۵۰,۰۰۰ تومان</div>
                     </div>
-
-                    <!-- محصول ۳ -->
-                    <div class="product-card">
-                        <div class="product-badge">ویژه</div>
-                        <div class="product-header">
-                            <div class="product-icon">💼</div>
-                            <div class="product-title">مشاوره استراتژی دیجیتال</div>
-                        </div>
-                        <div class="product-description">
-                            مشاوره تخصصی برای توسعه استراتژی‌های دیجیتال و تحول کسب‌وکار
-                        </div>
-                        <div class="product-price">۲۰۰,۰۰۰ تومان</div>
-                        <button class="buy-btn" onclick="showProductModal('مشاوره استراتژی دیجیتال', 200000)">
-                            🛒 درخواست مشاوره
-                        </button>
+                    
+                    <div class="product-item">
+                        <div class="product-icon"><i class="fas fa-pen-nib"></i></div>
+                        <div class="product-name">نگار کوانتا</div>
+                        <div class="product-description">تولید محتوای هوشمند</div>
+                        <div class="product-price">ماهانه ۷۵,۰۰۰ تومان</div>
                     </div>
+                    
+                    <div class="product-item">
+                        <div class="product-icon"><i class="fas fa-cube"></i></div>
+                        <div class="product-name">تبدیل 2D/3D</div>
+                        <div class="product-description">تبدیل پیشرفته محتوا</div>
+                        <div class="product-price">ماهانه ۱۰۰,۰۰۰ تومان</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="service-btn" style="background: rgba(255,255,255,0.2); border: 1px solid white;">
+                        <i class="fas fa-download"></i> دریافت اپلیکیشن موبایل
+                    </button>
                 </div>
             </div>
         </div>
@@ -803,282 +787,277 @@
         <div class="footer">
             <div class="footer-content">
                 <div class="roi-badge" style="background: rgba(255,255,255,0.2); color: white; margin-bottom: 15px;">
-                    تتراشاپ - مجوز رسمی سامانه‌های هوشمند
+                    <i class="fas fa-cloud"></i> تتراشاپ - پلتفرم ابری پیشرفته
                 </div>
-                <p>هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری و تصمیم‌گیری</p>
+                <p>پردازش ابری • همگام‌سازی بلادرنگ • معماری سرور-کلاینت</p>
                 <p style="opacity: 0.8; margin-top: 10px; font-size: 0.9rem;">
-                    © ۲۰۲۴ تتراشاپ - تمام حقوق برای سامانه هوشمند تتراشاپ محفوظ است
+                    © ۲۰۲۴ تتراشاپ - تمام حقوق برای سامانه ابری تتراشاپ محفوظ است
                 </p>
             </div>
         </div>
     </div>
 
     <script>
-        // وضعیت بازی شطرنج
-        let gameState = {
-            board: [],
-            currentPlayer: 'white',
-            selectedPiece: null,
-            validMoves: [],
-            playerScore: 0,
-            aiScore: 0,
-            gameActive: true
-        };
-
-        // پیام‌های دمو
-        const demoMessages = {
-            'chess-analytics': {
-                title: 'شطرنج تحلیلی',
-                message: 'سیستم هوشمند تحلیل حرکات شطرنج فعال شد!<br><br>♟ این سیستم با الگوریتم‌های پیشرفته، حرکات شما را تحلیل و راهکارهای استراتژیک ارائه می‌دهد.<br><br>📊 <strong>تحلیل فعلی:</strong> موقعیت مهره‌ها مطلوب است - بهبود ۱.۲+ در تصمیم‌گیری'
-            },
-            'profit-calculator': {
-                title: 'ماشین حساب سود',
-                message: 'سیستم محاسبه سود هوشمند فعال شد!<br><br>💰 <strong>محاسبه نمونه:</strong><br>سرمایه اولیه: ۱۰۰,۰۰۰ تومان<br>بازدهی ماهانه: ۳۴۱٪<br>سود خالص: ۳۴۱,۰۰۰ تومان<br><br>🎯 این محاسبات بر اساس الگوریتم‌های تتراشاپ انجام می‌شود'
-            },
-            'charity-system': {
-                title: 'سیستم نیکوکاری',
-                message: 'سامانه مدیریت کمک‌های خیریه فعال شد!<br><br>🤲 <strong>گردش کار نمونه:</strong><br>۱. انتخاب پروژه خیریه<br>۲. تعیین مبلغ کمک<br>۳. پیگیری تأثیر اجتماعی<br>۴. گزارش شفاف عملکرد<br><br>📈 ۱۵٪ از هر خرید به امور خیریه اختصاص می‌یابد'
-            },
-            '2d-to-3d': {
-                title: 'تبدیل دو بعدی به سه بعدی',
-                message: 'سیستم تبدیل پیشرفته فعال شد!<br><br>🔄 <strong>قابلیت‌ها:</strong><br>• تبدیل تصاویر 2D به مدل‌های 3D<br>• ایجاد تجربه‌های تعاملی<br>• پشتیبانی از Real-time rendering<br><br>🎮 این تکنولوژی در بازی‌های استراتژیک کاربرد دارد'
-            },
-            'advanced-ocr': {
-                title: 'OCR پیشرفته',
-                message: 'سیستم تشخیص متن پیشرفته فعال شد!<br><br>🔍 <strong>امکانات:</strong><br>• تشخیص متن از تصاویر با دقت ۹۸٪<br>• پشتیبانی از زبان فارسی<br>• استخراج خودکار اطلاعات<br>• یکپارچه‌سازی با سیستم‌های موجود'
-            },
-            'quantum-scribe': {
-                title: 'نگار کوانتا',
-                message: 'سیستم تولید محتوای کوانتومی فعال شد!<br><br>⚛️ <strong>ویژگی‌ها:</strong><br>• تولید محتوای هوشمند با AI<br>• بهینه‌سازی برای سئو<br>• شخصی‌سازی براساس کاربر<br>• تحلیل احساسات و تن نوشتار'
-            }
-        };
-
-        // ایجاد تخته شطرنج
-        function initChessBoard() {
-            const board = document.getElementById('chessBoard');
-            board.innerHTML = '';
-            
-            const initialBoard = [
-                ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-                ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-                ['', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', ''],
-                ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-                ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
-            ];
-
-            gameState.board = JSON.parse(JSON.stringify(initialBoard));
-
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    const cell = document.createElement('div');
-                    cell.className = `chess-cell ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
-                    cell.textContent = initialBoard[row][col];
-                    cell.dataset.row = row;
-                    cell.dataset.col = col;
-                    cell.onclick = () => handleChessClick(row, col);
-                    board.appendChild(cell);
-                }
+        // شبیه‌سازی سرور ابری
+        class CloudChessServer {
+            constructor() {
+                this.gameState = null;
+                this.connectionStatus = 'connected';
             }
 
-            updateScores();
-        }
-
-        // مدیریت کلیک شطرنج
-        function handleChessClick(row, col) {
-            if (!gameState.gameActive) return;
-
-            const piece = gameState.board[row][col];
-            
-            if (gameState.selectedPiece) {
-                const [selectedRow, selectedCol] = gameState.selectedPiece;
+            // شبیه‌سازی ارتباط با سرور ابری
+            async sendMove(move) {
+                // شبیه‌سازی تاخیر شبکه
+                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
                 
-                if (isValidMove(selectedRow, selectedCol, row, col)) {
-                    // انجام حرکت
-                    gameState.board[row][col] = gameState.board[selectedRow][selectedCol];
-                    gameState.board[selectedRow][selectedCol] = '';
+                // پردازش حرکت در سرور ابری
+                const valid = this.validateMove(move);
+                if (valid) {
+                    this.updateGameState(move);
+                    const aiMove = this.generateAIMove();
+                    return {
+                        success: true,
+                        playerMove: move,
+                        aiMove: aiMove,
+                        gameState: this.gameState
+                    };
+                }
+                
+                return { success: false, error: 'حرکت نامعتبر' };
+            }
+
+            validateMove(move) {
+                // شبیه‌سازی اعتبارسنجی حرکت
+                return Math.random() > 0.1; // 90% موفقیت
+            }
+
+            updateGameState(move) {
+                // شبیه‌سازی به‌روزرسانی وضعیت بازی
+                if (!this.gameState) {
+                    this.gameState = this.getInitialState();
+                }
+                // به‌روزرسانی وضعیت بازی
+            }
+
+            generateAIMove() {
+                // شبیه‌سازی تولید حرکت AI در سرور ابری
+                const moves = ['e2-e4', 'd2-d4', 'g1-f3', 'c2-c4'];
+                return moves[Math.floor(Math.random() * moves.length)];
+            }
+
+            getInitialState() {
+                return {
+                    board: this.createInitialBoard(),
+                    currentPlayer: 'white',
+                    moveHistory: []
+                };
+            }
+
+            createInitialBoard() {
+                return [
+                    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                    ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+                    ['', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', ''],
+                    ['', '', '', '', '', '', '', ''],
+                    ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+                    ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+                ];
+            }
+        }
+
+        // کلاینت شطرنج
+        class ChessClient {
+            constructor() {
+                this.server = new CloudChessServer();
+                this.selectedPiece = null;
+                this.validMoves = [];
+                this.isPlayerTurn = true;
+            }
+
+            async initGame() {
+                this.updateStatus('در حال اتصال به سرور ابری...');
+                await this.simulateNetworkDelay();
+                
+                const response = await this.server.sendMove('init');
+                if (response.success) {
+                    this.renderBoard(response.gameState.board);
+                    this.updateStatus('اتصال برقرار - نوبت شماست');
+                    this.isPlayerTurn = true;
+                }
+            }
+
+            async handleMove(fromRow, fromCol, toRow, toCol) {
+                if (!this.isPlayerTurn) return;
+
+                this.updateStatus('در حال ارسال حرکت به سرور ابری...');
+                this.isPlayerTurn = false;
+
+                const move = `${fromRow},${fromCol}-${toRow},${toCol}`;
+                const response = await this.server.sendMove(move);
+
+                if (response.success) {
+                    this.updateLastMove(`شما: ${this.coordinatesToChessNotation(fromRow, fromCol, toRow, toCol)}`);
+                    this.renderBoard(response.gameState.board);
                     
-                    updateBoard();
-                    clearSelection();
+                    // حرکت AI
+                    this.updateStatus('سرور ابری در حال پردازش...');
+                    await this.simulateNetworkDelay();
                     
-                    if (checkGameEnd()) return;
-                    
-                    gameState.currentPlayer = 'black';
-                    updateGameStatus();
-                    
-                    setTimeout(makeAIMove, 800);
+                    this.updateLastMove(`تتراشاپ: ${response.aiMove}`);
+                    this.updateStatus('نوبت شماست');
+                    this.isPlayerTurn = true;
                 } else {
-                    clearSelection();
-                    if (piece && isWhitePiece(piece)) {
-                        selectPiece(row, col);
-                    }
-                }
-            } else {
-                if (piece && isWhitePiece(piece)) {
-                    selectPiece(row, col);
+                    this.updateStatus('حرکت نامعتبر - دوباره تلاش کنید');
+                    this.isPlayerTurn = true;
                 }
             }
-        }
 
-        // انتخاب مهره
-        function selectPiece(row, col) {
-            gameState.selectedPiece = [row, col];
-            gameState.validMoves = calculateValidMoves(row, col);
-            
-            document.querySelectorAll('.chess-cell').forEach(cell => {
-                cell.classList.remove('selected', 'valid-move');
-            });
-            
-            const selectedCell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
-            selectedCell.classList.add('selected');
-            
-            gameState.validMoves.forEach(([r, c]) => {
-                const cell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-                cell.classList.add('valid-move');
-            });
-        }
-
-        // پاک کردن انتخاب
-        function clearSelection() {
-            gameState.selectedPiece = null;
-            gameState.validMoves = [];
-            document.querySelectorAll('.chess-cell').forEach(cell => {
-                cell.classList.remove('selected', 'valid-move');
-            });
-        }
-
-        // محاسبه حرکات معتبر
-        function calculateValidMoves(row, col) {
-            const piece = gameState.board[row][col];
-            const moves = [];
-            
-            if (piece === '♙' && row > 0 && !gameState.board[row-1][col]) {
-                moves.push([row-1, col]);
-            } else if (piece === '♟' && row < 7 && !gameState.board[row+1][col]) {
-                moves.push([row+1, col]);
+            coordinatesToChessNotation(fromRow, fromCol, toRow, toCol) {
+                const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
+                return `${files[fromCol]}${ranks[fromRow]}-${files[toCol]}${ranks[toRow]}`;
             }
-            
-            return moves;
-        }
 
-        // بررسی معتبر بودن حرکت
-        function isValidMove(fromRow, fromCol, toRow, toCol) {
-            return gameState.validMoves.some(([r, c]) => r === toRow && c === toCol);
-        }
+            renderBoard(board) {
+                const chessBoard = document.getElementById('chessBoard');
+                chessBoard.innerHTML = '';
 
-        // حرکت AI
-        function makeAIMove() {
-            if (!gameState.gameActive) return;
-
-            const blackPieces = [];
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    if (isBlackPiece(gameState.board[row][col])) {
-                        blackPieces.push([row, col]);
+                for (let row = 0; row < 8; row++) {
+                    for (let col = 0; col < 8; col++) {
+                        const cell = document.createElement('div');
+                        cell.className = `chess-cell ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
+                        cell.textContent = board[row][col];
+                        cell.dataset.row = row;
+                        cell.dataset.col = col;
+                        cell.onclick = () => this.handleCellClick(row, col);
+                        chessBoard.appendChild(cell);
                     }
                 }
             }
 
-            if (blackPieces.length > 0) {
-                const [row, col] = blackPieces[Math.floor(Math.random() * blackPieces.length)];
-                const validMoves = calculateValidMoves(row, col);
-                
-                if (validMoves.length > 0) {
-                    const [toRow, toCol] = validMoves[Math.floor(Math.random() * validMoves.length)];
-                    
-                    gameState.board[toRow][toCol] = gameState.board[row][col];
-                    gameState.board[row][col] = '';
-                    
-                    updateBoard();
-                    
-                    if (checkGameEnd()) return;
-                    
-                    gameState.currentPlayer = 'white';
-                    updateGameStatus();
-                }
-            }
-        }
+            handleCellClick(row, col) {
+                if (!this.isPlayerTurn) return;
 
-        // بررسی پایان بازی
-        function checkGameEnd() {
-            if (Math.random() > 0.7) {
-                const winner = Math.random() > 0.4 ? 'player' : (Math.random() > 0.5 ? 'ai' : 'draw');
-                
-                if (winner === 'player') {
-                    gameState.playerScore += 10;
-                    showModal('بردی! 🎉', 'شما ۱۰ امتیاز کسب کردید!<br>امتیاز شما در سیستم بونوس تتراشاپ ثبت شد.', '🎯');
-                } else if (winner === 'ai') {
-                    gameState.aiScore += 10;
-                    showModal('تتراشاپ برنده شد', 'دفعه بعد شانس با شماست!', '♟');
+                if (this.selectedPiece) {
+                    const [selectedRow, selectedCol] = this.selectedPiece;
+                    this.handleMove(selectedRow, selectedCol, row, col);
+                    this.clearSelection();
                 } else {
-                    gameState.playerScore += 5;
-                    gameState.aiScore += 5;
-                    showModal('مساوی!', 'شما ۵ امتیاز کسب کردید!<br>هر دو خوب بازی کردید!', '🤝');
+                    const piece = this.server.gameState.board[row][col];
+                    if (piece && this.isWhitePiece(piece)) {
+                        this.selectPiece(row, col);
+                    }
                 }
-                
-                gameState.gameActive = false;
-                updateScores();
-                return true;
             }
-            return false;
+
+            selectPiece(row, col) {
+                this.selectedPiece = [row, col];
+                this.validMoves = this.calculateValidMoves(row, col);
+                
+                document.querySelectorAll('.chess-cell').forEach(cell => {
+                    cell.classList.remove('selected', 'valid-move');
+                });
+                
+                const selectedCell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                selectedCell.classList.add('selected');
+                
+                this.validMoves.forEach(([r, c]) => {
+                    const cell = document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+                    cell.classList.add('valid-move');
+                });
+            }
+
+            clearSelection() {
+                this.selectedPiece = null;
+                this.validMoves = [];
+                document.querySelectorAll('.chess-cell').forEach(cell => {
+                    cell.classList.remove('selected', 'valid-move');
+                });
+            }
+
+            calculateValidMoves(row, col) {
+                const moves = [];
+                // شبیه‌سازی حرکات معتبر
+                if (row > 0) moves.push([row-1, col]);
+                if (row < 7) moves.push([row+1, col]);
+                if (col > 0) moves.push([row, col-1]);
+                if (col < 7) moves.push([row, col+1]);
+                return moves;
+            }
+
+            isWhitePiece(piece) {
+                return ['♙', '♖', '♘', '♗', '♕', '♔'].includes(piece);
+            }
+
+            async simulateNetworkDelay() {
+                await new Promise(resolve => setTimeout(resolve, 800));
+            }
+
+            updateStatus(message) {
+                document.getElementById('gameStatus').textContent = message;
+            }
+
+            updateLastMove(move) {
+                document.getElementById('lastMove').textContent = move;
+            }
+
+            updateCurrentPlayer(player) {
+                document.getElementById('currentPlayer').textContent = player;
+            }
         }
 
-        // بروزرسانی تخته
-        function updateBoard() {
-            const cells = document.querySelectorAll('.chess-cell');
-            cells.forEach(cell => {
-                const row = parseInt(cell.dataset.row);
-                const col = parseInt(cell.dataset.col);
-                cell.textContent = gameState.board[row][col];
-            });
-        }
+        // راه‌اندازی سیستم
+        const chessClient = new ChessClient();
 
-        // بروزرسانی وضعیت بازی
-        function updateGameStatus() {
-            const statusElement = document.getElementById('gameStatus');
-            statusElement.textContent = `نوبت: ${gameState.currentPlayer === 'white' ? 'شما' : 'تتراشاپ'}`;
-        }
-
-        // بروزرسانی امتیازها
-        function updateScores() {
-            document.getElementById('playerScore').textContent = gameState.playerScore;
-            document.getElementById('aiScore').textContent = gameState.aiScore;
-        }
-
-        // شروع بازی جدید
+        // توابع عمومی
         function startNewGame() {
-            gameState = {
-                board: [],
-                currentPlayer: 'white',
-                selectedPiece: null,
-                validMoves: [],
-                gameActive: true
+            showModal('شروع بازی جدید', 'در حال راه‌اندازی شطرنج ابری...', '♟');
+            setTimeout(() => {
+                chessClient.initGame();
+            }, 1500);
+        }
+
+        function suggestMove() {
+            showModal('پیشنهاد حرکت', 'سرور ابری در حال تحلیل موقعیت...', '🤖');
+            setTimeout(() => {
+                const suggestions = ['e2-e4', 'd2-d4', 'g1-f3'];
+                const move = suggestions[Math.floor(Math.random() * suggestions.length)];
+                showModal('پیشنهاد حرکت', `پیشنهاد سرور ابری: <strong>${move}</strong><br><br>این حرکت موقعیت شما را بهبود می‌بخشد.`, '🎯');
+            }, 2000);
+        }
+
+        function showSection(sectionId) {
+            const messages = {
+                'cloud-chess': 'شطرنج ابری - پردازش در سرور ابری',
+                'services': 'سرویس‌های ابری تتراشاپ',
+                'mobile-shop': 'فروشگاه موبایل',
+                'quantum-scribe': 'نگار کوانتا'
             };
-            initChessBoard();
-            updateGameStatus();
-            showModal('بازی جدید', 'بازی جدید شروع شد! 🎮<br>نوبت شماست. یک مهره سفید انتخاب کنید.', '♟');
+            
+            showModal('سیستم ناوبری', `در حال بارگذاری بخش ${messages[sectionId]}...`, '🔧');
         }
 
-        // اجرای دمو
-        function runDemo(demoId) {
-            const demo = demoMessages[demoId];
-            if (demo) {
-                showModal(demo.title, demo.message, '🚀');
-            }
+        function showServiceModal(serviceName) {
+            const serviceInfo = {
+                'نطق مصطلح': 'سامانه هوشمند پردازش گفتار با قابلیت تحلیل بلادرنگ و تشخیص احساسات صوتی فعال شد.',
+                'نگار کوانتا': 'سیستم تولید محتوای کوانتومی با الگوریتم‌های پیشرفته راه‌اندازی شد.',
+                'تبدیل 2D به 3D': 'سرویس تبدیل پیشرفته محتوای دوبعدی به سه‌بعدی فعال شد.'
+            };
+            
+            showModal(serviceName, serviceInfo[serviceName], '🚀');
         }
 
-        // نمایش مودال
         function showModal(title, message, icon = '🎯') {
             const modal = document.createElement('div');
-            modal.className = 'system-modal';
+            modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content">
                     <div class="modal-icon">${icon}</div>
                     <div class="modal-title">${title}</div>
                     <div class="modal-message">${message}</div>
-                    <button class="modal-btn" onclick="this.closest('.system-modal').remove()">
+                    <button class="modal-btn" onclick="this.closest('.modal').remove()">
                         تأیید
                     </button>
                 </div>
@@ -1086,971 +1065,19 @@
             document.body.appendChild(modal);
         }
 
-        // نمایش مودال محصول
-        function showProductModal(productName, price) {
-            showModal(
-                productName,
-                `💰 قیمت: ${price.toLocaleString()} تومان<br>
-                 🤲 سهم خیریه: ${Math.floor(price * 0.15).toLocaleString()} تومان<br><br>
-                 🎯 این محصول به سبد خرید شما افزوده شد.<br>
-                 📞 برای تکمیل خرید با پشتیبانی تتراشاپ تماس بگیرید.`,
-                '📚'
-            );
-        }
-
-        // نمایش بخش‌های مختلف
-        function showSection(sectionId) {
-            showModal(
-                'سیستم ناوبری تتراشاپ',
-                `بخش ${sectionId} در حال بارگذاری...<br><br>
-                 🎯 سامانه هوشمند تتراشاپ آماده خدمت‌رسانی است!`,
-                '🔧'
-            );
-        }
-
-        // بررسی رنگ مهره
-        function isWhitePiece(piece) {
-            return ['♙', '♖', '♘', '♗', '♕', '♔'].includes(piece);
-        }
-
-        function isBlackPiece(piece) {
-            return ['♟', '♜', '♞', '♝', '♛', '♚'].includes(piece);
-        }
-
         // راه‌اندازی اولیه
         document.addEventListener('DOMContentLoaded', function() {
-            initChessBoard();
-            
             setTimeout(() => {
                 showModal(
                     'به تتراشاپ خوش آمدید!',
-                    '🎯 سامانه هوشمند بازی‌های استراتژیک و خدمات دیجیتال<br><br>
-                     • شطرنج تحلیلی پیشرفته<br>
-                     • خدمات تبدیل 2D به 3D<br>
-                     • سیستم OCR پیشرفته<br>
-                     • نگار کوانتا<br><br>
-                     📊 <strong>مجوز رسمی تتراشاپ</strong>',
-                    '🎯'
+                    '🎯 <strong>سامانه ابری پیشرفته</strong><br><br>' +
+                    '• شطرنج ابری با پردازش سرور<br>' +
+                    '• سرویس‌های مبتنی بر کلاد<br>' +
+                    '• فروشگاه موبایل یکپارچه<br>' +
+                    '• معماری سرور-کلاینت<br><br>' +
+                    '🌐 <em>همه چیز در ابر پردازش می‌شود</em>',
+                    '☁️'
                 );
-            }, 1000);
-        });
-    </script>
-</body>
-</html>            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .brand-logo {
-            font-size: 2.5rem;
-            background: var(--tetra-green);
-            padding: 12px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .brand-text h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .brand-text .tagline {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .roi-badge {
-            background: linear-gradient(135deg, var(--tetra-gold), #f4d03f);
-            color: var(--text);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: inline-block;
-            margin: 10px 0;
-            box-shadow: 0 4px 12px rgba(212, 172, 13, 0.3);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* سیستم ناوبری - وسط‌چین شده */
-        .nav-system {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 25px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .nav-btn {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 1.5px solid rgba(255,255,255,0.3);
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-            font-size: 0.9rem;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-
-        /* محتوای اصلی */
-        .main-content {
-            padding: 30px;
-        }
-
-        /* بخش شطرنج اصلی */
-        .chess-main-section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--light);
-        }
-
-        .score-board {
-            display: flex;
-            gap: 15px;
-            background: var(--light);
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .score-item {
-            text-align: center;
-            min-width: 80px;
-        }
-
-        .score-value {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .chess-game-container {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 25px;
-            align-items: start;
-        }
-
-        .chess-board {
-            display: grid;
-            grid-template-columns: repeat(8, 55px);
-            grid-template-rows: repeat(8, 55px);
-            gap: 2px;
-            background: #8b4513;
-            padding: 12px;
-            border-radius: 10px;
-            border: 3px solid #5d4037;
-        }
-
-        .chess-cell {
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .chess-cell.white { background: #f0d9b5; }
-        .chess-cell.black { background: #b58863; }
-
-        .chess-cell.selected {
-            background: #a3e4d7 !important;
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
-            z-index: 10;
-        }
-
-        .chess-cell.valid-move {
-            background: #82e0aa !important;
-        }
-
-        .chess-info-panel {
-            background: var(--light);
-            padding: 20px;
-            border-radius: 12px;
-            border-right: 4px solid var(--tetra-green);
-        }
-
-        .game-status {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .move-history {
-            max-height: 180px;
-            overflow-y: auto;
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-size: 0.9rem;
-        }
-
-        /* شطرنج تحلیلی دوم */
-        .chess-analytics-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .analytics-board {
-            display: grid;
-            grid-template-columns: repeat(8, 40px);
-            grid-template-rows: repeat(8, 40px);
-            gap: 1px;
-            background: #8b4513;
-            padding: 8px;
-            border-radius: 8px;
-            border: 2px solid #5d4037;
-            margin: 15px auto;
-        }
-
-        .analytics-cell {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .analytics-cell.white { background: #f0d9b5; }
-        .analytics-cell.black { background: #b58863; }
-
-        .analytics-panel {
-            background: var(--light);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-
-        /* سیستم محصولات */
-        .products-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .product-card {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            border: 1px solid #e9ecef;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: var(--tetra-green);
-        }
-
-        .product-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .product-icon {
-            font-size: 2rem;
-            background: var(--tetra-green);
-            color: white;
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        .product-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .product-description {
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .product-price {
-            background: var(--tetra-gold);
-            color: var(--text);
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .buy-btn {
-            background: var(--tetra-green);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-weight: bold;
-        }
-
-        .buy-btn:hover {
-            background: #219a52;
-            transform: scale(1.02);
-        }
-
-        /* سیستم درآمدزایی */
-        .revenue-section {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .metric-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-top: 4px solid var(--tetra-green);
-        }
-
-        .metric-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 10px 0;
-        }
-
-        /* پیام سیستم */
-        .system-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            z-index: 10000;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            max-width: 450px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .message-content {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin: 15px 0;
-        }
-
-        .confirm-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid white;
-            padding: 10px 25px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 15px;
-        }
-
-        /* فوتر */
-        .footer {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .brand {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .chess-game-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .chess-board {
-                grid-template-columns: repeat(8, 45px);
-                grid-template-rows: repeat(8, 45px);
-            }
-            
-            .chess-cell {
-                width: 45px;
-                height: 45px;
-                font-size: 1.4rem;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- هدر تتراشاپ -->
-        <div class="header">
-            <div class="brand">
-                <div class="brand-logo">🎯</div>
-                <div class="brand-text">
-                    <h1>تتراشاپ</h1>
-                    <div class="tagline">سیستم هوشمند شطرنج و محصولات فرهنگی</div>
-                </div>
-            </div>
-            
-            <div class="roi-badge">۱۰٪ + ۳۴۱٪ بازدهی سرمایه‌گذاری</div>
-            <p>هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری</p>
-
-            <div class="nav-system">
-                <button class="nav-btn" onclick="showSection('chess')">♟ شطرنج اصلی</button>
-                <button class="nav-btn" onclick="showSection('analytics')">📊 شطرنج تحلیلی</button>
-                <button class="nav-btn" onclick="showSection('products')">📚 محصولات</button>
-                <button class="nav-btn" onclick="showSection('revenue')">💰 درآمدزایی</button>
-            </div>
-        </div>
-
-        <!-- محتوای اصلی -->
-        <div class="main-content">
-            <!-- شطرنج اصلی -->
-            <div class="chess-main-section">
-                <div class="section-header">
-                    <h2>♟ شطرنج اصلی تتراشاپ</h2>
-                    <div class="score-board">
-                        <div class="score-item">
-                            <div>شما</div>
-                            <div class="score-value" id="playerScore">۰</div>
-                        </div>
-                        <div class="score-item">
-                            <div>تتراشاپ</div>
-                            <div class="score-value" id="aiScore">۰</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="chess-game-container">
-                    <div class="chess-board" id="mainChessBoard"></div>
-                    
-                    <div class="chess-info-panel">
-                        <div class="game-status" id="gameStatus">
-                            نوبت: شما - حرکت کنید
-                        </div>
-                        <button class="buy-btn" onclick="startNewGame()" style="margin-bottom: 12px;">
-                            🎮 شروع بازی جدید
-                        </button>
-                        
-                        <div>
-                            <strong>📊 تاریخچه حرکات:</strong>
-                            <div class="move-history" id="moveHistory"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- شطرنج تحلیلی -->
-            <div class="chess-analytics-section">
-                <h2>📊 شطرنج تحلیلی تتراشاپ</h2>
-                <p style="text-align: center; color: #666; margin: 10px 0;">
-                    تحلیل حرکات و بهبود استراتژی‌های سرمایه‌گذاری
-                </p>
-                
-                <div style="display: flex; justify-content: center;">
-                    <div class="analytics-board" id="analyticsBoard"></div>
-                </div>
-                
-                <div class="analytics-panel">
-                    <div id="analyticsMessage">
-                        روی خانه‌ها کلیک کنید تا تحلیل استراتژیک مربوطه نمایش داده شود...
-                    </div>
-                </div>
-            </div>
-
-            <!-- محصولات فرهنگی -->
-            <div class="products-section">
-                <h2>📚 محصولات فرهنگی تتراشاپ</h2>
-                
-                <div class="products-grid">
-                    <!-- محصول ۱ -->
-                    <div class="product-card">
-                        <div class="product-header">
-                            <div class="product-icon">📖</div>
-                            <div class="product-title">هنر برنامه‌نویسی معنوی</div>
-                        </div>
-                        <div class="product-description">
-                            تبدیل مهارت کدنویسی به عبادت روزانه. آموزش عملی برنامه‌نویسی با نیّت خدمت به خلق.
-                        </div>
-                        <div class="product-price">۴۵,۰۰۰ تومان</div>
-                        <button class="buy-btn" onclick="showProductMessage('هنر برنامه‌نویسی معنوی', 45000)">
-                            🛒 خرید با نیّت آموزش
-                        </button>
-                    </div>
-
-                    <!-- محصول ۲ -->
-                    <div class="product-card">
-                        <div class="product-header">
-                            <div class="product-icon">🎓</div>
-                            <div class="product-title">دوره شطرنج استراتژیک</div>
-                        </div>
-                        <div class="product-description">
-                            آموزش تصمیم‌گیری‌های استراتژیک در کسب‌وکار با استفاده از اصول شطرنج.
-                        </div>
-                        <div class="product-price">۱۲۰,۰۰۰ تومان</div>
-                        <button class="buy-btn" onclick="showProductMessage('دوره شطرنج استراتژیک', 120000)">
-                            🛒 خرید با نیّت یادگیری
-                        </button>
-                    </div>
-
-                    <!-- محصول ۳ -->
-                    <div class="product-card">
-                        <div class="product-header">
-                            <div class="product-icon">💼</div>
-                            <div class="product-title">مشاوره کسب‌وکار</div>
-                        </div>
-                        <div class="product-description">
-                            مشاوره تخصصی برای توسعه کسب‌وکارهای معنوی و اخلاق‌محور با رویکرد تتراشاپ.
-                        </div>
-                        <div class="product-price">۱۵۰,۰۰۰ تومان</div>
-                        <button class="buy-btn" onclick="showProductMessage('مشاوره کسب‌وکار', 150000)">
-                            🛒 خرید با نیّت راهنمایی
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- سیستم درآمدزایی -->
-            <div class="revenue-section">
-                <h2>💰 سیستم درآمدزایی شفاف</h2>
-                <p style="text-align: center; color: #666; margin-bottom: 20px;">
-                    ادغام هوشمند سیستم شطرنج با تحلیل‌های پیشرفته کسب‌وکار
-                </p>
-                
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div>📈 رشد ماهانه</div>
-                        <div class="metric-value">۳۴۱٪</div>
-                        <div>بازدهی سرمایه</div>
-                    </div>
-                    <div class="metric-card">
-                        <div>🎯 پروژه‌های فعال</div>
-                        <div class="metric-value">۸</div>
-                        <div>از ۱۲ پروژه</div>
-                    </div>
-                    <div class="metric-card">
-                        <div>🤲 سهم خیریه</div>
-                        <div class="metric-value">۱۵٪</div>
-                        <div>از هر فروش</div>
-                    </div>
-                    <div class="metric-card">
-                        <div>⭐ رضایت مشتری</div>
-                        <div class="metric-value">۹۶٪</div>
-                        <div>تحویل پروژه</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- فوتر -->
-        <div class="footer">
-            <div class="roi-badge" style="background: rgba(255,255,255,0.2); color: white; margin-bottom: 15px;">
-                تتراشاپ - هوشمند، معنوی، سودآور
-            </div>
-            <p>هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری</p>
-            <p style="opacity: 0.8; margin-top: 10px; font-size: 0.9rem;">
-                © ۲۰۲۴ تتراشاپ - تمام حقوق محفوظ است
-            </p>
-        </div>
-    </div>
-
-    <script>
-        // وضعیت بازی شطرنج اصلی
-        let gameState = {
-            board: [],
-            currentPlayer: 'white',
-            selectedPiece: null,
-            validMoves: [],
-            playerScore: 0,
-            aiScore: 0,
-            gameActive: true,
-            moveHistory: []
-        };
-
-        // پیام‌های تحلیل شطرنج
-        const analyticsMessages = [
-            "♟ حرکت رخ: نماد استراتژی مستقیم در کسب‌وکار - گاهی نیاز به اقدام قاطع داریم",
-            "♞ حرکت اسب: نماد خلاقیت - پیدا کردن راه‌های جدید برای موفقیت",
-            "♝ حرکت فیل: نماد دیدگاه‌های مختلف - استفاده از تمام زوایا برای تصمیم‌گیری",
-            "♛ حرکت وزیر: نماد قدرت و انعطاف‌پذیری - ترکیب تمام توانایی‌ها برای موفقیت",
-            "♚ حرکت شاه: نماد محافظت از ارزش‌های اصلی - حفظ اصول در تمام شرایط",
-            "♟ حرکت پیاده: نماد گام‌های کوچک - موفقیت از قدم‌های مستمر آغاز می‌شود"
-        ];
-
-        // ایجاد تخته شطرنج اصلی
-        function initMainChessBoard() {
-            const board = document.getElementById('mainChessBoard');
-            board.innerHTML = '';
-            
-            const initialBoard = [
-                ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-                ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-                ['', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', ''],
-                ['', '', '', '', '', '', '', ''],
-                ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-                ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
-            ];
-
-            gameState.board = JSON.parse(JSON.stringify(initialBoard));
-
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    const cell = document.createElement('div');
-                    cell.className = `chess-cell ${(row + col) % 2 === 0 ? 'white' : 'black'}`;
-                    cell.textContent = initialBoard[row][col];
-                    cell.dataset.row = row;
-                    cell.dataset.col = col;
-                    cell.onclick = () => handleMainChessClick(row, col);
-                    board.appendChild(cell);
-                }
-            }
-
-            updateScores();
-        }
-
-        // ایجاد تخته شطرنج تحلیلی
-        function initAnalyticsBoard() {
-            const board = document.getElementById('analyticsBoard');
-            board.innerHTML = '';
-            
-            const pieces = [
-                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
-                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '', '', '', '', '', '', '', '',
-                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
-                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
-            ];
-
-            for (let i = 0; i < 64; i++) {
-                const cell = document.createElement('div');
-                cell.className = `analytics-cell ${Math.floor(i / 8 + i % 8) % 2 === 0 ? 'white' : 'black'}`;
-                cell.textContent = pieces[i];
-                cell.onclick = () => handleAnalyticsClick(i);
-                board.appendChild(cell);
-            }
-        }
-
-        // مدیریت کلیک شطرنج اصلی
-        function handleMainChessClick(row, col) {
-            if (!gameState.gameActive) return;
-
-            const piece = gameState.board[row][col];
-            
-            if (gameState.selectedPiece) {
-                const [selectedRow, selectedCol] = gameState.selectedPiece;
-                
-                if (isValidMove(selectedRow, selectedCol, row, col)) {
-                    // انجام حرکت
-                    gameState.board[row][col] = gameState.board[selectedRow][selectedCol];
-                    gameState.board[selectedRow][selectedCol] = '';
-                    
-                    // ثبت حرکت
-                    const moveNotation = `${String.fromCharCode(97 + selectedCol)}${8 - selectedRow} → ${String.fromCharCode(97 + col)}${8 - row}`;
-                    gameState.moveHistory.push(`شما: ${moveNotation}`);
-                    
-                    updateMainBoard();
-                    clearSelection();
-                    
-                    if (checkGameEnd()) return;
-                    
-                    gameState.currentPlayer = 'black';
-                    updateGameStatus();
-                    
-                    // حرکت AI
-                    setTimeout(makeAIMove, 800);
-                } else {
-                    clearSelection();
-                    if (piece && isWhitePiece(piece)) {
-                        selectPiece(row, col);
-                    }
-                }
-            } else {
-                if (piece && isWhitePiece(piece)) {
-                    selectPiece(row, col);
-                }
-            }
-        }
-
-        // مدیریت کلیک شطرنج تحلیلی
-        function handleAnalyticsClick(position) {
-            const message = analyticsMessages[Math.floor(Math.random() * analyticsMessages.length)];
-            document.getElementById('analyticsMessage').innerHTML = `
-                <strong>📊 تحلیل استراتژیک:</strong><br>
-                ${message}<br><br>
-                <em>موقعیت: ${position} | بهبود در تصمیم‌گیری: +۱.۲</em>
-            `;
-        }
-
-        // انتخاب مهره در شطرنج اصلی
-        function selectPiece(row, col) {
-            gameState.selectedPiece = [row, col];
-            gameState.validMoves = calculateValidMoves(row, col);
-            
-            document.querySelectorAll('#mainChessBoard .chess-cell').forEach(cell => {
-                cell.classList.remove('selected', 'valid-move');
-            });
-            
-            const selectedCell = document.querySelector(`#mainChessBoard [data-row="${row}"][data-col="${col}"]`);
-            selectedCell.classList.add('selected');
-            
-            gameState.validMoves.forEach(([r, c]) => {
-                const cell = document.querySelector(`#mainChessBoard [data-row="${r}"][data-col="${c}"]`);
-                cell.classList.add('valid-move');
-            });
-        }
-
-        // پاک کردن انتخاب
-        function clearSelection() {
-            gameState.selectedPiece = null;
-            gameState.validMoves = [];
-            document.querySelectorAll('#mainChessBoard .chess-cell').forEach(cell => {
-                cell.classList.remove('selected', 'valid-move');
-            });
-        }
-
-        // محاسبه حرکات معتبر
-        function calculateValidMoves(row, col) {
-            const piece = gameState.board[row][col];
-            const moves = [];
-            
-            if (piece === '♙' && row > 0 && !gameState.board[row-1][col]) {
-                moves.push([row-1, col]);
-            } else if (piece === '♟' && row < 7 && !gameState.board[row+1][col]) {
-                moves.push([row+1, col]);
-            }
-            
-            return moves;
-        }
-
-        // بررسی معتبر بودن حرکت
-        function isValidMove(fromRow, fromCol, toRow, toCol) {
-            return gameState.validMoves.some(([r, c]) => r === toRow && c === toCol);
-        }
-
-        // حرکت AI
-        function makeAIMove() {
-            if (!gameState.gameActive) return;
-
-            const blackPieces = [];
-            for (let row = 0; row < 8; row++) {
-                for (let col = 0; col < 8; col++) {
-                    if (isBlackPiece(gameState.board[row][col])) {
-                        blackPieces.push([row, col]);
-                    }
-                }
-            }
-
-            if (blackPieces.length > 0) {
-                const [row, col] = blackPieces[Math.floor(Math.random() * blackPieces.length)];
-                const validMoves = calculateValidMoves(row, col);
-                
-                if (validMoves.length > 0) {
-                    const [toRow, toCol] = validMoves[Math.floor(Math.random() * validMoves.length)];
-                    
-                    gameState.board[toRow][toCol] = gameState.board[row][col];
-                    gameState.board[row][col] = '';
-                    
-                    const moveNotation = `${String.fromCharCode(97 + col)}${8 - row} → ${String.fromCharCode(97 + toCol)}${8 - toRow}`;
-                    gameState.moveHistory.push(`تتراشاپ: ${moveNotation}`);
-                    
-                    updateMainBoard();
-                    
-                    if (checkGameEnd()) return;
-                    
-                    gameState.currentPlayer = 'white';
-                    updateGameStatus();
-                }
-            }
-        }
-
-        // بررسی پایان بازی
-        function checkGameEnd() {
-            if (gameState.moveHistory.length >= 4) {
-                const winner = Math.random() > 0.3 ? 'player' : (Math.random() > 0.5 ? 'ai' : 'draw');
-                
-                if (winner === 'player') {
-                    gameState.playerScore += 10;
-                    showSystemMessage("🎉 بردی! شما ۱۰ امتیاز کسب کردید!<br><br>امتیاز شما در سیستم بونوس تتراشاپ ثبت شد.");
-                } else if (winner === 'ai') {
-                    gameState.aiScore += 10;
-                    showSystemMessage("تتراشاپ برنده شد!<br><br>دفعه بعد شانس با شماست!");
-                } else {
-                    gameState.playerScore += 5;
-                    gameState.aiScore += 5;
-                    showSystemMessage("مساوی! شما ۵ امتیاز کسب کردید!<br><br>هر دو خوب بازی کردید!");
-                }
-                
-                gameState.gameActive = false;
-                updateScores();
-                return true;
-            }
-            return false;
-        }
-
-        // بروزرسانی تخته اصلی
-        function updateMainBoard() {
-            const cells = document.querySelectorAll('#mainChessBoard .chess-cell');
-            cells.forEach(cell => {
-                const row = parseInt(cell.dataset.row);
-                const col = parseInt(cell.dataset.col);
-                cell.textContent = gameState.board[row][col];
-            });
-            
-            updateMoveHistory();
-        }
-
-        // بروزرسانی تاریخچه حرکات
-        function updateMoveHistory() {
-            const historyElement = document.getElementById('moveHistory');
-            historyElement.innerHTML = gameState.moveHistory.map(move => 
-                `<div style="padding: 4px 0; border-bottom: 1px solid #eee; font-size: 0.8rem;">${move}</div>`
-            ).join('');
-        }
-
-        // بروزرسانی وضعیت بازی
-        function updateGameStatus() {
-            const statusElement = document.getElementById('gameStatus');
-            statusElement.textContent = `نوبت: ${gameState.currentPlayer === 'white' ? 'شما' : 'تتراشاپ'}`;
-        }
-
-        // بروزرسانی امتیازها
-        function updateScores() {
-            document.getElementById('playerScore').textContent = gameState.playerScore;
-            document.getElementById('aiScore').textContent = gameState.aiScore;
-        }
-
-        // شروع بازی جدید
-        function startNewGame() {
-            gameState = {
-                board: [],
-                currentPlayer: 'white',
-                selectedPiece: null,
-                validMoves: [],
-                gameActive: true,
-                moveHistory: []
-            };
-            initMainChessBoard();
-            updateGameStatus();
-            showSystemMessage("بازی جدید شروع شد! 🎮<br><br>نوبت شماست. یک مهره سفید انتخاب کنید.");
-        }
-
-        // نمایش پیام سیستم
-        function showSystemMessage(message) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'system-message';
-            messageDiv.innerHTML = `
-                <div style="font-size: 2.5rem; margin-bottom: 15px;">🎯</div>
-                <div class="message-content">${message}</div>
-                <button class="confirm-btn" onclick="this.parentElement.remove()">تأیید</button>
-            `;
-            document.body.appendChild(messageDiv);
-        }
-
-        // نمایش پیام محصول
-        function showProductMessage(productName, price) {
-            showSystemMessage(`
-                <strong>${productName}</strong><br><br>
-                💰 قیمت: ${price.toLocaleString()} تومان<br>
-                🤲 سهم خیریه: ${Math.floor(price * 0.15).toLocaleString()} تومان<br><br>
-                این محصول بخشی از سیستم فرهنگی تتراشاپ است.<br>
-                🎯 با خرید این محصول در توسعه محتوای معنوی سهیم می‌شوید.
-            `);
-        }
-
-        // نمایش بخش‌های مختلف
-        function showSection(sectionId) {
-            showSystemMessage(`بخش ${sectionId} در حال بارگذاری...<br><br>سیستم تتراشاپ آماده خدمت‌رسانی است!`);
-        }
-
-        // بررسی رنگ مهره
-        function isWhitePiece(piece) {
-            return ['♙', '♖', '♘', '♗', '♕', '♔'].includes(piece);
-        }
-
-        function isBlackPiece(piece) {
-            return ['♟', '♜', '♞', '♝', '♛', '♚'].includes(piece);
-        }
-
-        // راه‌اندازی اولیه
-        document.addEventListener('DOMContentLoaded', function() {
-            initMainChessBoard();
-            initAnalyticsBoard();
-            
-            setTimeout(() => {
-                showSystemMessage("به تتراشاپ خوش آمدید! 🎯<br><br>سیستم شطرنج هوشمند ما به شما کمک می‌کند مهارت‌های تصمیم‌گیری استراتژیک خود را تقویت کنید.");
             }, 1000);
         });
     </script>
