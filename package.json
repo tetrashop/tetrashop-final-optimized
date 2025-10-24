@@ -1,0 +1,14 @@
+{
+  "name": "tetrashop-optimized",
+  "version": "2.0.0",
+  "description": "سیستم سرمایه‌گذاری هوشمند با ROI 341% + 10%",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo '✅ ساخت پروژه کامل شد'",
+    "dev": "python3 -m http.server 8000",
+    "deploy": "npx wrangler pages publish ./ --project-name=tetrashop-optimized"
+  },
+  "keywords": ["investment", "ROI", "chess", "tetrashop"],
+  "author": "Tetrashop Team",
+  "license": "MIT"
+}

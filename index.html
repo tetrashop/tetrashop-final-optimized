@@ -32,7 +32,6 @@
             padding: 20px;
         }
         
-        /* هدر اصلی */
         .main-header {
             text-align: center;
             padding: 60px 0 40px;
@@ -43,7 +42,6 @@
             border: 2px solid rgba(255,255,255,0.2);
         }
         
-        /* سیستم ROI */
         .roi-system {
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
             padding: 50px 30px;
@@ -69,7 +67,6 @@
             background-clip: text;
         }
         
-        /* ماشین حساب سود */
         .calculator {
             background: rgba(255,255,255,0.1);
             padding: 40px;
@@ -95,7 +92,6 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         
-        /* سیستم شطرنج */
         .chess-container {
             background: rgba(255,255,255,0.15);
             padding: 30px;
@@ -140,20 +136,17 @@
 </head>
 <body>
     <div class="container">
-        <!-- هدر اصلی -->
         <header class="main-header">
             <h1 style="font-size: 3em; margin-bottom: 20px;">🎯 تتراشاپ</h1>
             <p style="font-size: 1.4em; opacity: 0.9;">سیستم یکپارچه سرمایه‌گذاری هوشمند با تحلیل شطرنج</p>
         </header>
 
-        <!-- سیستم ROI -->
         <section class="roi-system">
             <h2 style="font-size: 2em; margin-bottom: 20px;">💰 بازدهی تضمینی ماهانه</h2>
             <div class="roi-display">۳۴۱٪ + ۱۰٪</div>
             <p style="font-size: 1.2em; margin-top: 20px;">سیستم ترکیبی شطرنج استراتژیک و سرمایه‌گذاری الگوریتمی</p>
         </section>
 
-        <!-- ماشین حساب سود -->
         <section class="calculator">
             <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px;">🧮 ماشین حساب سود</h2>
             <div style="text-align: center;">
@@ -168,13 +161,10 @@
             </div>
         </section>
 
-        <!-- سیستم شطرنج -->
         <section class="chess-container">
             <h2 style="text-align: center; font-size: 2em; margin-bottom: 20px;">♟️ سیستم شطرنج هوشمند</h2>
             <p style="text-align: center; margin-bottom: 20px;">هر حرکت شطرنج = یک استراتژی سرمایه‌گذاری جدید</p>
-            <div id="chessboard" class="chess-board">
-                <!-- تخته شطرنج -->
-            </div>
+            <div id="chessboard" class="chess-board"></div>
             <div style="text-align: center; margin-top: 20px;">
                 <button class="btn-primary" onclick="analyzeStrategy()">
                     تحلیل استراتژی
@@ -182,15 +172,13 @@
             </div>
         </section>
 
-        <!-- اطلاعات تماس -->
         <footer style="text-align: center; padding: 40px 0; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.2);">
             <p>تتراشاپ - سیستم سرمایه‌گذاری هوشمند</p>
-            <p>ROI: 341% + 10% ماهانه</p>
+            <p>ROI: 341% + 10% ماهانه | نسخه: 2.0.0</p>
         </footer>
     </div>
 
     <script>
-        // سیستم شطرنج
         function initializeChessboard() {
             const board = document.getElementById('chessboard');
             const pieces = [
@@ -213,7 +201,6 @@
                 square.className = `chess-square ${isWhite ? 'white' : 'black'}`;
                 square.textContent = pieces[i];
                 square.onclick = () => handleChessMove(i, pieces[i]);
-                
                 board.appendChild(square);
             }
         }
@@ -230,14 +217,9 @@
                 '♛': 9, '♜': 5, '♝': 3, '♞': 3, '♟': 1,
                 '♕': 9, '♖': 5, '♗': 3, '♘': 3, '♙': 1
             };
-            
             const centerPositions = [27, 28, 35, 36];
             let bonus = pieceValues[piece] || 0;
-            
-            if (centerPositions.includes(position)) {
-                bonus += 2;
-            }
-            
+            if (centerPositions.includes(position)) bonus += 2;
             return Math.min(bonus * 0.5, 5);
         }
 
@@ -254,10 +236,9 @@
                 "گامبی وزیر - ریسک بالا، بازدهی بالا"
             ];
             const randomStrategy = strategies[Math.floor(Math.random() * strategies.length)];
-            alert(`🧠 تحلیل استراتژی:\n${randomStrategy}\n\nسود پیش‌بینیشده: ${(341 + 10 + Math.random() * 10).toFixed(1)}%`);
+            alert(`🧠 تحلیل استراتژی:\n${randomStrategy}`);
         }
 
-        // ماشین حساب ROI
         function calculateROI() {
             const amount = document.getElementById('investmentAmount').value;
             if (!amount || amount <= 0) {
@@ -265,10 +246,9 @@
                 return;
             }
             
-            const baseROI = 3.41; // 341%
-            const bonusROI = 0.10; // 10%
+            const baseROI = 3.41;
+            const bonusROI = 0.10;
             const totalROI = baseROI + bonusROI;
-            
             const monthlyProfit = amount * totalROI;
             const yearlyProfit = monthlyProfit * 12;
             
@@ -283,7 +263,6 @@
             `;
         }
 
-        // راه‌اندازی
         document.addEventListener('DOMContentLoaded', function() {
             initializeChessboard();
             console.log('🚀 تتراشاپ راه‌اندازی شد - ROI: 341% + 10%');
