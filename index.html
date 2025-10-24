@@ -1,1 +1,319 @@
-[کد HTML بالا اینجا قرار می‌گیرد]
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بپوند تکنولوژی و معنویت - تتراشاپ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 500px;
+        }
+
+        .clusters-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-left: 3px solid #e9ecef;
+        }
+
+        .chess-section {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cluster-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-right: 5px solid #4CAF50;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cluster-card:hover {
+            transform: translateX(-5px);
+            border-right-color: #2196F3;
+        }
+
+        .cluster-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .cluster-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .buy-button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .chess-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .chess-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #FFD700, #FFED4E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .roi-display {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #FFD700, #FFED4E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+
+        .bonus-system {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .chess-board {
+            display: grid;
+            grid-template-columns: repeat(8, 40px);
+            grid-template-rows: repeat(8, 40px);
+            gap: 2px;
+            background: #8b4513;
+            padding: 10px;
+            border-radius: 10px;
+            border: 3px solid #5d4037;
+            margin: 20px 0;
+        }
+
+        .chess-cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chess-cell.white { background: #f0d9b5; }
+        .chess-cell.black { background: #b58863; }
+
+        .chess-cell:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(255,215,0,0.6);
+        }
+
+        .integration-info {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .clusters-section {
+                border-left: none;
+                border-bottom: 3px solid #e9ecef;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>بپوند تکنولوژی و معنویت - تتراشاپ</h1>
+            <div class="subtitle">سیستم یکپارچه با حداکثر پربه‌وری</div>
+        </div>
+
+        <div class="main-content">
+            <!-- بخش سمت راست: خوشه‌های محتوا -->
+            <div class="clusters-section">
+                <div class="cluster-card">
+                    <h3>بخشش و نیکوکاری</h3>
+                    <p>خرید با ثبت خیر - تبدیل مصرف به عبادت</p>
+                    <button class="buy-button">خرید با نیّت خیر</button>
+                </div>
+
+                <div class="cluster-card">
+                    <h3>آموزش‌های معنوی در تکنولوژی</h3>
+                    <p>چگونه برنامه‌نویسی را به عبادت تبدیل کنیم</p>
+                    <button class="buy-button">شروع آموزش</button>
+                </div>
+
+                <div class="cluster-card">
+                    <h3>اخلاق در توسعه نرم‌افزار</h3>
+                    <p>توسعه نرم‌افزار اخلاق‌محور و ارزش‌بنیان</p>
+                    <button class="buy-button">مشاهده اصول</button>
+                </div>
+
+                <div class="cluster-card">
+                    <h3>تحقیق اخلاقی</h3>
+                    <p>آموزش اصول اخلاقی و ارزش‌های انسانی در توسعه تکنولوژی</p>
+                    <button class="buy-button">ورود به تحقیق</button>
+                </div>
+            </div>
+
+            <!-- بخش سمت چپ: سیستم شطرنج -->
+            <div class="chess-section">
+                <div class="chess-header">
+                    <h2>سیستم شطرنج 🌟</h2>
+                    <div class="roi-display">۳۴۱% + ۱۰%</div>
+                    <p>آماده تولید جریان درآمدی ماهانه ROI</p>
+                </div>
+
+                <div class="bonus-system">
+                    <h3>سیستم بونوس</h3>
+                    <p>ادغام هوشمند سیستم شطرنج پیشرفته با فروشگاه اصلی</p>
+                </div>
+
+                <div class="chess-board" id="chessBoard">
+                    <!-- تخته شطرنج با JavaScript پر می‌شود -->
+                </div>
+
+                <div class="integration-info">
+                    ♟ هر حرکت در شطرنج = بهبود استراتژی سرمایه‌گذاری
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ایجاد تخته شطرنج
+        function initChessBoard() {
+            const chessBoard = document.getElementById('chessBoard');
+            const pieces = [
+                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
+                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
+                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
+            ];
+            
+            for (let i = 0; i < 64; i++) {
+                const cell = document.createElement('div');
+                cell.className = `chess-cell ${Math.floor(i / 8 + i % 8) % 2 === 0 ? 'white' : 'black'}`;
+                cell.textContent = pieces[i];
+                cell.onclick = () => handleChessMove(i);
+                chessBoard.appendChild(cell);
+            }
+        }
+
+        function handleChessMove(position) {
+            alert(`♟ حرکت استراتژیک در موقعیت ${position} ثبت شد!\n\nسیستم در حال بهینه‌سازی سوددهی...`);
+            
+            // نمایش ROI بهبود یافته
+            const roiElement = document.querySelector('.roi-display');
+            roiElement.textContent = '۳۴۲% + ۱۱%';
+            roiElement.style.animation = 'pulse 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                roiElement.style.animation = '';
+            }, 500);
+        }
+
+        // راه‌اندازی سیستم
+        document.addEventListener('DOMContentLoaded', function() {
+            initChessBoard();
+            
+            // اضافه کردن انیمیشن پالس
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.1); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // مدیریت کلیک روی دکمه‌های خرید
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const clusterTitle = this.closest('.cluster-card').querySelector('h3').textContent;
+                alert(`🛍️ درخواست خرید برای: ${clusterTitle}\n\nاین خرید با نیّت خیر ثبت خواهد شد.`);
+            });
+        });
+    </script>
+</body>
+</html>
