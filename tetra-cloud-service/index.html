@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتراشاپ | سرویس ابری هوشمند</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2874a6;
+            --success: #27ae60;
+            --warning: #e67e22;
+            --danger: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            border: 2px solid #27ae60;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .status-active { background: var(--success); }
+        .status-processing { background: var(--warning); }
+        .status-error { background: var(--danger); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 تتراشاپ - سرویس ابری هوشمند</h1>
+        <p>معماری کلاینت-سرور با ارتباط Real-time</p>
+
+        <!-- سرویس نطق مصطلح -->
+        <div class="service-card" id="speechService">
+            <h3>🎤 نطق مصطلح (Speech Recognition)</h3>
+            <div class="input-group">
+                <button class="btn" onclick="startSpeechRecognition()">
+                    <span class="status-indicator status-active"></span>
+                    شروع ضبط صدا
+                </button>
+                <textarea class="input-field" id="speechInput" placeholder="متن ورودی برای تحلیل...">تست سرویس نطق مصطلح تتراشاپ</textarea>
+                <button class="btn" onclick="processSpeech()">پردازش در ابر</button>
+            </div>
+            <div class="result-box" id="speechResult">
+                🟢 سرویس آماده - منتظر ورودی...
+            </div>
+        </div>
+
+        <!-- سرویس نویسنده هوشمند -->
+        <div class="service-card" id="writerService">
+            <h3>✍️ نویسنده هوشمند (AI Writer)</h3>
+            <div class="input-group">
+                <input type="text" class="input-field" id="writerTopic" placeholder="موضوع محتوا..." value="هوش مصنوعی در کسب و کار">
+                <select class="input-field" id="writerStyle">
+                    <option value="formal">سبک رسمی</option>
+                    <option value="casual">سبک غیررسمی</option>
+                    <option value="academic">سبک آکادمیک</option>
+                </select>
+                <button class="btn" onclick="generateContent()">تولید محتوا در ابر</button>
+            </div>
+            <div class="result-box" id="writerResult">
+                🟢 سرویس نویسنده هوشمند آماده
+            </div>
+        </div>
+
+        <!-- سرویس پردازش تصویر -->
+        <div class="service-card" id="visionService">
+            <h3>👁️ پردازش بینایی (Computer Vision)</h3>
+            <div class="input-group">
+                <input type="file" class="input-field" id="imageInput" accept="image/*">
+                <button class="btn" onclick="processImage()">آنالیز تصویر در ابر</button>
+            </div>
+            <div class="result-box" id="visionResult">
+                🟢 سرویس پردازش تصویر آماده
+            </div>
+        </div>
+
+        <!-- پنل مدیریت ارتباط -->
+        <div class="service-card">
+            <h3>🔗 وضعیت ارتباط با ابر</h3>
+            <div id="connectionStatus">
+                <p>🟢 ارتباط با سرور ابری برقرار</p>
+                <p>🟢 سرویس‌های هوش مصنوعی فعال</p>
+                <p>🟢 ارتباط Real-time برقرار</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // پایگاه‌های ارتباطی با سرور ابری
+        const CLOUD_SERVICES = {
+            SPEECH: 'https://api.teterashop.cloud/speech',
+            WRITER: 'https://api.teterashop.cloud/writer', 
+            VISION: 'https://api.teterashop.cloud/vision',
+            CHESS: 'https://api.teterashop.cloud/chess'
+        };
+
+        // وضعیت‌های سرویس
+        const ServiceStatus = {
+            READY: 'ready',
+            PROCESSING: 'processing',
+            COMPLETED: 'completed',
+            ERROR: 'error'
+        };
+
+        // مدیریت وضعیت سرویس‌ها
+        class ServiceManager {
+            constructor() {
+                this.services = {
+                    speech: ServiceStatus.READY,
+                    writer: ServiceStatus.READY,
+                    vision: ServiceStatus.READY
+                };
+            }
+
+            updateServiceStatus(service, status) {
+                this.services[service] = status;
+                this.updateUI(service, status);
+            }
+
+            updateUI(service, status) {
+                const indicator = document.querySelector(`#${service}Service .status-indicator`);
+                const resultBox = document.getElementById(`${service}Result`);
+                
+                indicator.className = `status-indicator status-${status}`;
+                
+                switch(status) {
+                    case ServiceStatus.PROCESSING:
+                        resultBox.innerHTML = '🟡 در حال پردازش در ابر...';
+                        break;
+                    case ServiceStatus.COMPLETED:
+                        resultBox.innerHTML = '🟢 پردازش با موفقیت انجام شد';
+                        break;
+                    case ServiceStatus.ERROR:
+                        resultBox.innerHTML = '🔴 خطا در ارتباط با ابر';
+                        break;
+                }
+            }
+        }
+
+        const serviceManager = new ServiceManager();
+
+        // شبیه‌سازی ارتباط با سرور ابری
+        async function callCloudService(endpoint, data, serviceName) {
+            serviceManager.updateServiceStatus(serviceName, ServiceStatus.PROCESSING);
+            
+            try {
+                // شبیه‌سازی تاخیر شبکه
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // شبیه‌سازی پاسخ سرور ابری
+                const mockResponse = await simulateCloudProcessing(endpoint, data);
+                
+                serviceManager.updateServiceStatus(serviceName, ServiceStatus.COMPLETED);
+                return mockResponse;
+                
+            } catch (error) {
+                serviceManager.updateServiceStatus(serviceName, ServiceStatus.ERROR);
+                throw error;
+            }
+        }
+
+        // شبیه‌سازی پردازش در ابر
+        async function simulateCloudProcessing(endpoint, data) {
+            // اینجا در حالت واقعی به سرور واقعی متصل می‌شود
+            const responses = {
+                speech: `✅ پردازش ابری نطق مصطلح\n\nورودی: "${data.text}"\n\nنتایج:\n- تشخیص احساس: مثبت\n- کلیدواژه‌ها: تتراشاپ, سرویس, نطق\n- دقت: ۹۵٪\n- زمان پردازش: ۱.۲ثانیه\n\n🎯 امتیاز هوش مصنوعی: ۱۹/۲۰`,
+                
+                writer: `✅ محتوای تولید شده توسط ابر\n\nموضوع: "${data.topic}"\nسبک: ${data.style}\n\nمحتوا:\n"${data.topic}" از مباحث مهم در عصر حاضر است. تتراشاپ با ارائه سرویس‌های ابری پیشرفته، راهکارهای هوشمندی برای بهینه‌سازی فرآیندها ارائه می‌دهد.\n\nویژگی‌ها:\n• پردازش ابری\n• هوش مصنوعی پیشرفته\n• مقیاس‌پذیری بالا\n• امنیت تضمینی\n\n🎯 امتیاز تولید: ۱۹/۲۰`,
+                
+                vision: `✅ پردازش تصویر در ابر\n\nورودی: تصویر آپلود شده\n\nنتایج تحلیل:\n• ابعاد: 1200x800 پیکسل\n• کیفیت: عالی\n• شناسایی المان‌ها: ۱۲ مورد\n• زمان پردازش: ۰.۸ثانیه\n• دقت: ۹۸٪\n\n🎯 امتیاز بینایی کامپیوتری: ۱۹/۲۰`
+            };
+
+            return responses[endpoint.split('/').pop()] || 'پردازش انجام شد';
+        }
+
+        // کنترلر سرویس نطق مصطلح
+        async function startSpeechRecognition() {
+            console.log('🟣 شروع ضبط صدا - ارتباط با میکروفون');
+            // در حالت واقعی اینجا Web Speech API فراخوانی می‌شود
+        }
+
+        async function processSpeech() {
+            const inputText = document.getElementById('speechInput').value;
+            
+            const result = await callCloudService(CLOUD_SERVICES.SPEECH, {
+                text: inputText,
+                language: 'fa',
+                mode: 'analysis'
+            }, 'speech');
+            
+            document.getElementById('speechResult').textContent = result;
+        }
+
+        // کنترلر سرویس نویسنده هوشمند
+        async function generateContent() {
+            const topic = document.getElementById('writerTopic').value;
+            const style = document.getElementById('writerStyle').value;
+            
+            const result = await callCloudService(CLOUD_SERVICES.WRITER, {
+                topic: topic,
+                style: style,
+                length: 'medium'
+            }, 'writer');
+            
+            document.getElementById('writerResult').textContent = result;
+        }
+
+        // کنترلر سرویس پردازش تصویر
+        async function processImage() {
+            const fileInput = document.getElementById('imageInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('لطفا یک تصویر انتخاب کنید');
+                return;
+            }
+            
+            // شبیه‌سازی آپلود فایل
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            const result = await callCloudService(CLOUD_SERVICES.VISION, {
+                fileName: file.name,
+                fileSize: file.size,
+                fileType: file.type
+            }, 'vision');
+            
+            document.getElementById('visionResult').textContent = result;
+        }
+
+        // مانیتورینگ ارتباط
+        function monitorConnection() {
+            setInterval(() => {
+                const statusDiv = document.getElementById('connectionStatus');
+                const isOnline = Math.random() > 0.1; // شبیه‌سازی وضعیت شبکه
+                
+                if (isOnline) {
+                    statusDiv.innerHTML = `
+                        <p>🟢 ارتباط با سرور ابری برقرار</p>
+                        <p>🟢 سرویس‌های هوش مصنوعی فعال</p>
+                        <p>🟢 ارتباط Real-time برقرار</p>
+                        <p>📊 پینگ: ${Math.floor(Math.random() * 50) + 20}ms</p>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <p>🔴 ارتباط با سرور ابری قطع</p>
+                        <p>🟡 تلاش برای اتصال مجدد...</p>
+                    `;
+                }
+            }, 5000);
+        }
+
+        // راه‌اندازی سیستم
+        document.addEventListener('DOMContentLoaded', function() {
+            monitorConnection();
+            console.log('🚀 سامانه ابری تتراشاپ راه‌اندازی شد');
+            console.log('🔗 پایگاه‌های ارتباطی:', CLOUD_SERVICES);
+        });
+
+        // API برای ارتباط با backend واقعی
+        window.TetraShopAPI = {
+            callService: callCloudService,
+            getStatus: () => serviceManager.services,
+            restartService: (serviceName) => {
+                serviceManager.updateServiceStatus(serviceName, ServiceStatus.READY);
+            }
+        };
+    </script>
+</body>
+</html>
