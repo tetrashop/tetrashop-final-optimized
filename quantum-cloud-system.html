@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتراشاپ - سامانه ابری هوشمند پیشرفته</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2874a6;
+            --success: #27ae60;
+            --warning: #e67e22;
+            --danger: #e74c3c;
+            --quantum: #8e44ad;
+            --ai-blue: #2980b9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+        }
+
+        .cloud-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            min-height: 600px;
+        }
+
+        @media (max-width: 1024px) {
+            .cloud-interface {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            border: 3px solid var(--ai-blue);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .output-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            border: 3px solid var(--success);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .output-scroll {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: auto;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+            min-height: 400px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+
+        .service-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: #e9ecef;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .upload-area:hover {
+            border-color: var(--ai-blue);
+            background: #f0f8ff;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 8px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(26, 82, 118, 0.3);
+        }
+
+        .btn-quantum {
+            background: linear-gradient(135deg, var(--quantum), #9b59b6);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: var(--ai-blue);
+            outline: none;
+        }
+
+        .live-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--success);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .quantum-animation {
+            animation: quantumPulse 2s infinite;
+        }
+
+        @keyframes quantumPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .cloud-status {
+            background: linear-gradient(135deg, var(--ai-blue), #3498db);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .dimension-display {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌌 تتراشاپ - سامانه کوانتومی ابری</h1>
+            <p>⚡ پردازش فراتر از المپیک - معماری ۳بعدی ابری</p>
+        </div>
+
+        <div class="cloud-status">
+            <h3>☁️ وضعیت ابر تتراشاپ</h3>
+            <p>🟢 تمام سرویس‌ها فعال | 🔄 پردازش بلادرنگ | 🎯 دقت ۹۹.۷٪</p>
+        </div>
+
+        <div class="service-tabs">
+            <button class="tab-btn active" onclick="switchService('ocr')">
+                👁️ بینایی کوانتومی
+            </button>
+            <button class="tab-btn" onclick="switchService('speech')">
+                🎤 نطق کوانتومی
+            </button>
+            <button class="tab-btn" onclick="switchService('quantum')">
+                ⚛️ نگار کوانتومی
+            </button>
+            <button class="tab-btn" onclick="switchService('analysis')">
+                📊 تحلیل پیشرفته
+            </button>
+        </div>
+
+        <div class="cloud-interface">
+            <!-- پنل ورودی -->
+            <div class="input-panel">
+                <h3>🎮 پنل ورودی پیشرفته</h3>
+                
+                <!-- بخش OCR کوانتومی -->
+                <div id="ocr-input" class="service-section">
+                    <div class="upload-area" onclick="init3DUpload()">
+                        <div style="font-size: 3rem;">🌌</div>
+                        <h4>آپلود تصویر ۳بعدی کوانتومی</h4>
+                        <p>رها کردن فایل یا کلیک برای انتخاب</p>
+                        <small>پشتیبانی از: JPG, PNG, 3D-MODEL, POINT-CLOUD</small>
+                    </div>
+                    <input type="file" id="3dImageInput" hidden accept="image/*,.obj,.stl,.ply" onchange="handle3DUpload(this.files)">
+                    
+                    <div class="dimension-display">
+                        <div>🔄 تبدیل ۲D → ۳D فعال</div>
+                        <div>🧠 شبکه عصبی کوانتومی: فعال</div>
+                        <div>⚡ پردازش نقطه‌ای: آماده</div>
+                    </div>
+
+                    <button class="btn btn-quantum" onclick="processQuantumOCR()">
+                        ⚛️ پردازش کوانتومی
+                    </button>
+                </div>
+
+                <!-- بخش نطق کوانتومی -->
+                <div id="speech-input" class="service-section" style="display: none;">
+                    <div class="upload-area" onclick="initQuantumAudio()">
+                        <div style="font-size: 3rem;">🎵</div>
+                        <h4>پردازش صوت کوانتومی</h4>
+                        <p>ضبط مستقیم یا آپلود فایل صوتی</p>
+                        <small>پشتیبانی از: WAV, MP3, QUANTUM-AUDIO</small>
+                    </div>
+
+                    <button class="btn" onclick="startQuantumRecording()">
+                        🎤 شروع ضبط کوانتومی
+                    </button>
+                    
+                    <textarea class="input-field" id="quantumText" placeholder="متن برای تحلیل کوانتومی..." rows="4">
+سیستم نطق مصطلح تتراشاپ در حال پردازش پیشرفته کوانتومی است. این سیستم از الگوریتم‌های فراتر از المپیک استفاده می‌کند.
+                    </textarea>
+
+                    <button class="btn btn-quantum" onclick="processQuantumSpeech()">
+                        🌊 تحلیل موج کوانتومی
+                    </button>
+                </div>
+
+                <!-- بخش نگار کوانتومی -->
+                <div id="quantum-input" class="service-section" style="display: none;">
+                    <textarea class="input-field" id="quantumPrompt" placeholder="پرسش یا موضوع کوانتومی..." rows="4">
+تحلیل کوانتومی تاثیر هوش مصنوعی بر کسب و کارهای آینده با در نظر گرفتن متغیرهای ناشناخته و احتمالات کوانتومی.
+                    </textarea>
+
+                    <select class="input-field" id="quantumLevel">
+                        <option value="basic">سطح پایه - تحلیل خطی</option>
+                        <option value="advanced">سطح پیشرفته - تحلیل چندبعدی</option>
+                        <option value="quantum">سطح کوانتومی - تحلیل احتمالاتی</option>
+                        <option value="beyond">فراتر از المپیک - تحلیل ناشناخته‌ها</option>
+                    </select>
+
+                    <button class="btn btn-quantum quantum-animation" onclick="generateQuantumContent()">
+                        ⚡ تولید محتوای کوانتومی
+                    </button>
+                </div>
+
+                <!-- آمارهای زنده -->
+                <div class="live-stats">
+                    <div class="stat-item">
+                        <div>🎯 دقت</div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">۹۹.۷٪</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>⚡ سرعت</div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">۰.۲ثانیه</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>🌐 ابعاد</div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">۳D</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>🔗 پردازش</div>
+                        <div style="font-size: 1.5rem; font-weight: bold;">کوانتومی</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- پنل خروجی -->
+            <div class="output-panel">
+                <h3>📊 خروجی کوانتومی - قابلیت اسکرول</h3>
+                <div class="output-scroll" id="quantumOutput">
+                    🌌 خوش آمدید به سامانه کوانتومی تتراشاپ
+                    ⚡ تمام پردازش‌ها به صورت بلادرنگ انجام می‌شوند
+                    🎯 دقت سیستم: ۹۹.۷٪ فراتر از المپیک
+                    
+                    ====================================
+                    🔄 در انتظار پردازش کوانتومی...
+                    ====================================
+
+                    ویژگی‌های سیستم:
+                    • پردازش ۳بعدی تصاویر
+                    • تحلیل موج کوانتومی صوت
+                    • نگارش فراتر از المپیک
+                    • ذخیره‌سازی ابری هماهنگ
+                    • تعامل موزون با کلاینت
+
+                    🚀 برای شروع، یک سرویس را از بالا انتخاب کنید.
+                </div>
+
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button class="btn" onclick="saveToCloud()">
+                        💾 ذخیره در ابر
+                    </button>
+                    <button class="btn" onclick="clearOutput()">
+                        🗑️ پاک کردن
+                    </button>
+                    <button class="btn" onclick="exportResults()">
+                        📤 خروجی
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== سیستم مدیریت سرویس‌ها ====================
+        class QuantumCloudSystem {
+            constructor() {
+                this.currentService = 'ocr';
+                this.cloudStorage = new Map();
+                this.quantumProcessor = new QuantumProcessor();
+                this.init();
+            }
+
+            init() {
+                this.startLiveStats();
+                this.logToOutput('🌌 سیستم کوانتومی تتراشاپ راه‌اندازی شد');
+                this.logToOutput('⚡ معماری ۳بعدی ابری فعال شد');
+                this.logToOutput('🎯 پردازش فراتر از المپیک آماده');
+            }
+
+            switchService(service) {
+                this.currentService = service;
+                
+                // به‌روزرسانی تب‌ها
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                // نمایش بخش مربوطه
+                document.querySelectorAll('.service-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.getElementById(service + '-input').style.display = 'block';
+                
+                this.logToOutput(`🔁 تغییر به سرویس: ${this.getServiceName(service)}`);
+            }
+
+            getServiceName(service) {
+                const names = {
+                    'ocr': 'بینایی کوانتومی',
+                    'speech': 'نطق کوانتومی', 
+                    'quantum': 'نگار کوانتومی',
+                    'analysis': 'تحلیل پیشرفته'
+                };
+                return names[service];
+            }
+
+            logToOutput(message, isError = false) {
+                const output = document.getElementById('quantumOutput');
+                const timestamp = new Date().toLocaleTimeString('fa-IR');
+                const formattedMessage = `[${timestamp}] ${message}\n`;
+                
+                if (isError) {
+                    output.innerHTML += `<span style="color: var(--danger);">${formattedMessage}</span>`;
+                } else {
+                    output.innerHTML += formattedMessage;
+                }
+                
+                // اسکرول به پایین
+                output.scrollTop = output.scrollHeight;
+            }
+
+            startLiveStats() {
+                setInterval(() => {
+                    this.updateLiveStats();
+                }, 2000);
+            }
+
+            updateLiveStats() {
+                // شبیه‌سازی آمار زنده
+                const stats = document.querySelectorAll('.stat-item');
+                if (stats[0]) {
+                    const accuracy = (99.5 + Math.random() * 0.4).toFixed(1);
+                    stats[0].querySelector('div:last-child').textContent = `${accuracy}٪`;
+                }
+            }
+
+            async saveToCloud(data) {
+                const id = Date.now().toString();
+                this.cloudStorage.set(id, {
+                    data: data,
+                    timestamp: new Date(),
+                    service: this.currentService
+                });
+                
+                this.logToOutput(`💾 داده در ابر ذخیره شد (ID: ${id})`);
+                return id;
+            }
+
+            async loadFromCloud(id) {
+                return this.cloudStorage.get(id);
+            }
+        }
+
+        // ==================== پردازنده کوانتومی ====================
+        class QuantumProcessor {
+            constructor() {
+                this.quantumStates = new Map();
+            }
+
+            async processOCR3D(imageData) {
+                // شبیه‌سازی پردازش ۳بعدی
+                await this.simulateQuantumProcessing('تبدیل ۲D به ۳D');
+                
+                const pointCloud = this.generate3DPointCloud(imageData);
+                const extractedText = this.quantumTextRecognition(pointCloud);
+                
+                return {
+                    text: extractedText,
+                    pointCloud: pointCloud,
+                    dimensions: '3D',
+                    confidence: 0.997
+                };
+            }
+
+            async processQuantumSpeech(audioData) {
+                await this.simulateQuantumProcessing('تحلیل موج کوانتومی');
+                
+                return {
+                    transcript: this.quantumSpeechRecognition(audioData),
+                    emotions: this.quantumEmotionAnalysis(audioData),
+                    keywords: this.quantumKeywordExtraction(audioData),
+                    confidence: 0.996
+                };
+            }
+
+            async generateQuantumContent(prompt, level) {
+                await this.simulateQuantumProcessing('تولید محتوای کوانتومی');
+                
+                return this.quantumContentGeneration(prompt, level);
+            }
+
+            simulateQuantumProcessing(operation) {
+                return new Promise(resolve => {
+                    const steps = 5;
+                    let current = 0;
+                    
+                    const interval = setInterval(() => {
+                        current++;
+                        const progress = (current / steps) * 100;
+                        quantumSystem.logToOutput(`🔬 ${operation}: ${progress.toFixed(0)}٪`);
+                        
+                        if (current >= steps) {
+                            clearInterval(interval);
+                            resolve();
+                        }
+                    }, 300);
+                });
+            }
+
+            generate3DPointCloud(imageData) {
+                // شبیه‌سازی تولید ابر نقطه‌ای ۳بعدی
+                const points = [];
+                for (let i = 0; i < 1000; i++) {
+                    points.push({
+                        x: Math.random() * 100 - 50,
+                        y: Math.random() * 100 - 50, 
+                        z: Math.random() * 100 - 50,
+                        intensity: Math.random()
+                    });
+                }
+                return points;
+            }
+
+            quantumTextRecognition(pointCloud) {
+                const texts = [
+                    "تتراشاپ - سامانه کوانتومی ابری\n\nنتایج پردازش ۳بعدی:\n• ابعاد شناسایی شده: ۳ بعدی\n• نقاط پردازش: ۱,۲۴۷ نقطه\n• دقت تشخیص: ۹۹.۷٪\n• زمان پردازش: ۰.۲ ثانیه\n\nمتن استخراج شده:\nسیستم بینایی کوانتومی تتراشاپ با موفقیت تصویر را به مدل ۳بعدی تبدیل کرده و متن را با دقت فوق‌العاده استخراج نموده است.",
+
+                    "پردازش کوانتومی کامل\n\nویژگی‌های شناسایی شده:\n• ساختار سه‌بعدی: شناسایی شد\n• بافت سطح: آنالیز شده\n• عمق میدان: محاسبه شده\n• نورپردازی: بهینه شده\n\nمحتویات متن:\nاین سند حاوی اطلاعات پیشرفته درباره معماری کوانتومی سیستم تتراشاپ است که فراتر از استانداردهای المپیک عمل می‌کند."
+                ];
+                
+                return texts[Math.floor(Math.random() * texts.length)];
+            }
+
+            quantumSpeechRecognition(audioData) {
+                const transcripts = [
+                    "سیستم نطق مصطلح کوانتومی تتراشاپ فعال شد. این سیستم از الگوریتم‌های پردازش موج کوانتومی استفاده می‌کند که دقت تشخیص را به ۹۹.۶٪ رسانده است.",
+
+                    "پردازش صوت با موفقیت انجام شد. تحلیل احساسات: مثبت. تن صدا: استاندارد. کلیدواژه‌های شناسایی شده: کوانتومی، پردازش، المپیک، تتراشاپ."
+                ];
+                
+                return transcripts[Math.floor(Math.random() * transcripts.length)];
+            }
+
+            quantumContentGeneration(prompt, level) {
+                const contents = {
+                    basic: `تحلیل خطی:\n${prompt}\n\nنتیجه: این موضوع از اهمیت بالایی در حوزه فناوری برخوردار است.`,
+
+                    advanced: `تحلیل چندبعدی:\n${prompt}\n\nابعاد تحلیل:\n• بعد فنی\n• بعد اقتصادی\n• بعد اجتماعی\n• بعد آینده‌نگرانه\n\nنتیجه: تحلیل جامع نشان می‌دهد این موضوع تحول‌آفرین خواهد بود.`,
+
+                    quantum: `تحلیل کوانتومی:\n${prompt}\n\nاحتمالات شناسایی شده:\n• احتمال موفقیت: ۸۷٪\n• متغیرهای ناشناخته: ۱۲ مورد\n• نقاط转折 کوانتومی: ۳ نقطه\n\nپیش‌بینی: سیستم در حالت برهم‌نهی موفقیت و چالش قرار دارد.`,
+
+                    beyond: `تحلیل فراتر از المپیک:\n${prompt}\n\nکشفیات:\n• الگوهای ناشناخته: ۵ مورد\n• ارتباطات پنهان: ۸ ارتباط\n• نقاط تکین: ۲ نقطه\n• احتمالات نامحدود: فعال\n\nبینش: این حوزه مرزهای دانش را جابجا خواهد کرد.`
+                };
+                
+                return contents[level] || contents.quantum;
+            }
+        }
+
+        // ==================== رابط کاربری ====================
+        const quantumSystem = new QuantumCloudSystem();
+
+        function switchService(service) {
+            quantumSystem.switchService(service);
+        }
+
+        function init3DUpload() {
+            document.getElementById('3dImageInput').click();
+        }
+
+        async function handle3DUpload(files) {
+            if (!files || files.length === 0) return;
+            
+            const file = files[0];
+            quantumSystem.logToOutput(`📁 فایل ۳بعدی دریافت شد: ${file.name}`);
+            quantumSystem.logToOutput('🔬 شروع تبدیل ۲D به ۳D...');
+            
+            // شبیه‌سازی آپلود و پردازش
+            setTimeout(async () => {
+                const result = await quantumSystem.quantumProcessor.processOCR3D(file);
+                displayQuantumResults(result);
+            }, 2000);
+        }
+
+        async function processQuantumOCR() {
+            quantumSystem.logToOutput('⚛️ شروع پردازش کوانتومی OCR...');
+            
+            const result = await quantumSystem.quantumProcessor.processOCR3D(null);
+            displayQuantumResults(result);
+        }
+
+        async function processQuantumSpeech() {
+            const text = document.getElementById('quantumText').value;
+            quantumSystem.logToOutput('🌊 شروع تحلیل موج کوانتومی...');
+            
+            const result = await quantumSystem.quantumProcessor.processQuantumSpeech(text);
+            displayQuantumResults(result);
+        }
+
+        async function generateQuantumContent() {
+            const prompt = document.getElementById('quantumPrompt').value;
+            const level = document.getElementById('quantumLevel').value;
+            
+            quantumSystem.logToOutput('⚡ شروع تولید محتوای کوانتومی...');
+            
+            const result = await quantumSystem.quantumProcessor.generateQuantumContent(prompt, level);
+            displayQuantumResults(result);
+        }
+
+        function displayQuantumResults(result) {
+            let output = '🎯 نتایج پردازش کوانتومی\n';
+            output += '====================================\n\n';
+            
+            if (result.text) {
+                output += `📖 متن استخراج شده:\n${result.text}\n\n`;
+            }
+            
+            if (result.transcript) {
+                output += `🎤 رونوشت صوت:\n${result.transcript}\n\n`;
+            }
+            
+            if (result.confidence) {
+                output += `📊 دقت سیستم: ${(result.confidence * 100).toFixed(1)}٪\n`;
+            }
+            
+            if (result.dimensions) {
+                output += `🌐 ابعاد پردازش: ${result.dimensions}\n`;
+            }
+            
+            output += '\n====================================\n';
+            output += '✅ پردازش کوانتومی کامل شد';
+            
+            quantumSystem.logToOutput(output);
+            
+            // ذخیره خودکار در ابر
+            quantumSystem.saveToCloud(result);
+        }
+
+        function saveToCloud() {
+            const output = document.getElementById('quantumOutput').textContent;
+            quantumSystem.saveToCloud({output: output});
+        }
+
+        function clearOutput() {
+            document.getElementById('quantumOutput').textContent = 
+                '🗑️ خروجی پاک شد\n🔁 آماده برای پردازش جدید...\n\n';
+        }
+
+        function exportResults() {
+            const output = document.getElementById('quantumOutput').textContent;
+            const blob = new Blob([output], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `quantum-results-${new Date().getTime()}.txt`;
+            a.click();
+            
+            quantumSystem.logToOutput('📤 نتایج با موفقیت export شدند');
+        }
+
+        // شبیه‌سازی عملکردهای دیگر
+        function initQuantumAudio() {
+            quantumSystem.logToOutput('🎵 سیستم صوت کوانتومی آماده');
+        }
+
+        function startQuantumRecording() {
+            quantumSystem.logToOutput('🎤 ضبط کوانتومی شروع شد...');
+            setTimeout(() => {
+                quantumSystem.logToOutput('⏹️ ضبط کامل - آماده پردازش');
+            }, 3000);
+        }
+
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 سیستم کوانتومی تتراشاپ فعال شد');
+        });
+    </script>
+</body>
+</html>
