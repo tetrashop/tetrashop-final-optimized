@@ -3,10 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتراشاپ - سیستم یکپارچه نهایی</title>
+    <title>تتراشاپ - فروشگاه آنلاین هوشمند</title>
+    <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
-    <h1>🚀 تتراشاپ - سیستم یکپارچه نهایی</h1>
-    <p>سیستم با موفقیت راه‌اندازی شد!</p>
+    <!-- هدر -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <span>🛒</span>
+                <h1>تتراشاپ</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#home" class="active">خانه</a></li>
+                <li><a href="#products">محصولات</a></li>
+                <li><a href="#categories">دسته‌بندی‌ها</a></li>
+                <li><a href="#about">درباره ما</a></li>
+                <li><a href="#contact">تماس</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="btn-login" onclick="openLoginModal()">ورود</button>
+                <a href="admin/login.html" class="btn-admin">🛡️ مدیریت</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- بخش هیرو -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>به تتراشاپ خوش آمدید</h1>
+                <p>بهترین محصولات با بهترین قیمت‌ها را در بزرگترین فروشگاه آنلاین پیدا کنید</p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="scrollToProducts()">مشاهده محصولات</button>
+                    <button class="btn-secondary">عضویت رایگان</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <span>🔥 پرفروش‌ترین</span>
+                    <h3>گوشی هوشمند</h3>
+                    <p>۱۲,۹۰۰,۰۰۰ تومان</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش محصولات ویژه -->
+    <section id="products" class="featured-products">
+        <div class="container">
+            <h2 class="section-title">محصولات ویژه</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- محصولات با JavaScript پر می‌شوند -->
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش دسته‌بندی‌ها -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 class="section-title">دسته‌بندی‌ها</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterProducts('موبایل')">
+                    <span>📱</span>
+                    <h3>موبایل</h3>
+                    <p>۱۲۳ محصول</p>
+                </div>
+                <div class="category-card" onclick="filterProducts('لپ‌تاپ')">
+                    <span>💻</span>
+                    <h3>لپ‌تاپ</h3>
+                    <p>۸۷ محصول</p>
+                </div>
+                <div class="category-card" onclick="filterProducts('هدفون')">
+                    <span>🎧</span>
+                    <h3>هدفون</h3>
+                    <p>۵۴ محصول</p>
+                </div>
+                <div class="category-card" onclick="filterProducts('ساعت')">
+                    <span>⌚</span>
+                    <h3>ساعت هوشمند</h3>
+                    <p>۳۲ محصول</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>تتراشاپ</h3>
+                    <p>فروشگاه آنلاین با کیفیت و قیمت مناسب</p>
+                </div>
+                <div class="footer-section">
+                    <h4>دسترسی سریع</h4>
+                    <ul>
+                        <li><a href="#home">خانه</a></li>
+                        <li><a href="#products">محصولات</a></li>
+                        <li><a href="#about">درباره ما</a></li>
+                        <li><a href="#contact">تماس</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>پشتیبانی</h4>
+                    <ul>
+                        <li><a href="#">سوالات متداول</a></li>
+                        <li><a href="#">راهنمای خرید</a></li>
+                        <li><a href="#">شرایط بازگشت</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; ۲۰۲۴ تتراشاپ - تمام حقوق محفوظ است</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- مودال ورود -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>ورود به حساب کاربری</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="ایمیل" required>
+                <input type="password" placeholder="رمز عبور" required>
+                <button type="submit" class="btn-primary">ورود</button>
+            </form>
+            <p>حساب کاربری ندارید؟ <a href="#" onclick="openRegisterModal()">ثبت‌نام کنید</a></p>
+        </div>
+    </div>
+
+    <script src="../scripts/main.js"></script>
 </body>
 </html>
