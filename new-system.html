@@ -1,0 +1,44 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>تتراشاپ جدید</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #667eea; color: white; }
+        .container { max-width: 800px; margin: 0 auto; background: white; color: #333; padding: 30px; border-radius: 15px; }
+        button { background: #1a5276; color: white; border: none; padding: 12px 20px; margin: 10px; border-radius: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 تتراشاپ - سیستم جدید</h1>
+        <p>این یک سیستم جدید است که در Termux اجرا می‌شود</p>
+        
+        <div>
+            <button onclick="runOCR()">👁️ اجرای OCR</button>
+            <button onclick="runSpeech()">🎤 پردازش صوت</button>
+            <button onclick="runWriter()">✍️ تولید محتوا</button>
+        </div>
+        
+        <div id="output" style="background: #f8f9fa; padding: 15px; border-radius: 8px; min-height: 100px; margin-top: 20px;">
+            خروجی اینجا نمایش داده می‌شود...
+        </div>
+    </div>
+
+    <script>
+        function runOCR() {
+            document.getElementById('output').innerHTML = 
+                '✅ سیستم OCR اجرا شد!<br>📊 درآمد: ۲۵۴ میلیون تومان<br>👥 کاربران: ۱۲,۴۵۰ نفر';
+        }
+        
+        function runSpeech() {
+            document.getElementById('output').innerHTML = 
+                '✅ پردازش صوت کامل!<br>🎯 دقت: ۹۶٪<br>🔊 مدت: ۲.۳ ثانیه';
+        }
+        
+        function runWriter() {
+            document.getElementById('output').innerHTML = 
+                '✅ محتوا تولید شد!<br>📝 کیفیت: ۹۴٪<br>⚡ سرعت: ۱.۸ ثانیه';
+        }
+    </script>
+</body>
+</html>

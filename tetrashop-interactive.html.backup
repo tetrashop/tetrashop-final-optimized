@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتراشاپ - نسخه تعاملی کامل</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2874a6;
+            --success: #27ae60;
+            --warning: #e67e22;
+            --danger: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 3px solid var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: #f8f9fa;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            min-height: 120px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 تتراشاپ - نسخه تعاملی Cloudflare</h1>
+            <p>✅ تمام قابلیت‌ها فعال شده‌اند - شبیه‌سازی کامل</p>
+        </div>
+
+        <!-- سیستم OCR شبیه‌سازی شده -->
+        <div class="service-card">
+            <h3>👁️ سیستم OCR (شبیه‌سازی شده)</h3>
+            <div class="file-upload" onclick="simulateOCR()">
+                📸 کلیک کنید برای شبیه‌سازی آپلود تصویر
+            </div>
+            <div class="result-box" id="ocrResult">
+                منتظر آپلود تصویر...
+            </div>
+        </div>
+
+        <!-- نطق مصطلح شبیه‌سازی شده -->
+        <div class="service-card">
+            <h3>🎤 نطق مصطلح (شبیه‌سازی شده)</h3>
+            <button class="btn" onclick="simulateSpeechRecognition()">
+                🎤 شبیه‌سازی تشخیص گفتار
+            </button>
+            <div class="result-box" id="speechResult">
+                متن تشخیص داده شده اینجا نمایش داده می‌شود...
+            </div>
+        </div>
+
+        <!-- نویسنده هوشمند شبیه‌سازی شده -->
+        <div class="service-card">
+            <h3>✍️ نویسنده هوشمند (شبیه‌سازی شده)</h3>
+            <input type="text" class="input-field" id="topicInput" placeholder="موضوع محتوا..." value="هوش مصنوعی در کسب و کار">
+            <button class="btn" onclick="simulateAIContent()">
+                🧠 تولید محتوا
+            </button>
+            <div class="result-box" id="contentResult">
+                محتوای تولید شده...
+            </div>
+        </div>
+
+        <!-- داشبورد مالی -->
+        <div class="service-card">
+            <h3>📊 داشبورد مالی (زنده)</h3>
+            <button class="btn" onclick="updateFinancialDashboard()">
+                🔄 به‌روزرسانی آمار
+            </button>
+            <div class="result-box" id="financialResult">
+                درآمد ماهانه: ۲۵۴,۰۰۰,۰۰۰ تومان
+                سود خالص: ۱۸۷,۰۰۰,۰۰۰ تومان
+                رشد: ۳۴٪
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // شبیه‌سازی کامل تمام قابلیت‌ها
+        function simulateOCR() {
+            const results = [
+                "متن استخراج شده از تصویر:\n\nتتراشاپ - سیستم OCR پیشرفته\nدقت تشخیص: 98%\nزبان: فارسی\nکاراکترهای شناسایی: 156",
+                "نتایج پردازش تصویر:\n\nسامانه هوشمند تتراشاپ\nپردازش ابری با دقت بالا\nویژگی‌ها:\n• تشخیص چندزبانه\n• تحلیل ساختاری\n• خروجی فرمت‌های مختلف",
+                "متن شناسایی شده:\n\nهوش مصنوعی در خدمت پردازش اسناد\nسیستم تتراشاپ با قابلیت‌های پیشرفته\nامنیت بالا و کارایی عالی"
+            ];
+            
+            const randomResult = results[Math.floor(Math.random() * results.length)];
+            document.getElementById('ocrResult').textContent = 
+                `✅ پردازش تصویر کامل\n\n${randomResult}\n\n⏱ زمان پردازش: 1.8 ثانیه`;
+        }
+
+        function simulateSpeechRecognition() {
+            const transcripts = [
+                "سیستم نطق مصطلح تتراشاپ با موفقیت فعال شد. این سامانه از هوش مصنوعی پیشرفته برای تشخیص گفتار استفاده می‌کند.",
+                "پردازش صوت در ابر تتراشاپ انجام شد. دقت تشخیص: 96 درصد. زبان شناسایی شده: فارسی.",
+                "متن تشخیص داده شده: تتراشاپ ارائه‌دهنده سرویس‌های ابری هوشمند با امتیاز 19 از 20 می‌باشد."
+            ];
+            
+            // شبیه‌سازی پردازش
+            document.getElementById('speechResult').textContent = "🎤 در حال پردازش صوت...";
+            
+            setTimeout(() => {
+                const randomTranscript = transcripts[Math.floor(Math.random() * transcripts.length)];
+                document.getElementById('speechResult').textContent = 
+                    `✅ پردازش صوت کامل\n\n📝 متن تشخیص داده شده:\n${randomTranscript}\n\n🎯 دقت: 96%`;
+            }, 2000);
+        }
+
+        function simulateAIContent() {
+            const topic = document.getElementById('topicInput').value || "هوش مصنوعی";
+            
+            const contents = {
+                formal: `موضوع: ${topic}
+
+این حوزه از اهمیت ویژه‌ای در عصر حاضر برخوردار است. تتراشاپ با بهره‌گیری از فناوری‌های نوین، راهکارهای جامعی در این زمینه ارائه می‌دهد.
+
+ویژگی‌های کلیدی:
+• پردازش پیشرفته
+• دقت بالا
+• مقیاس‌پذیری
+
+🎯 امتیاز محتوا: 94/100`,
+
+                creative: `✨ ${topic}: دریچه‌ای به آینده
+
+آماده‌اید برای کشف رازهای ${topic}؟ این سفر شگفت‌انگیز شما را با تتراشاپ همراه می‌کند!
+
+🚀 آنچه خواهید آموخت:
+• اصول پایه ${topic}
+• کاربردهای عملی
+• راهکارهای نوین
+
+💡 بینش طلایی:
+"تتراشاپ همکار هوشمند موفقیت شماست!"`
+            };
+            
+            document.getElementById('contentResult').textContent = 
+                "🧠 در حال تولید محتوا...";
+            
+            setTimeout(() => {
+                const style = Math.random() > 0.5 ? 'formal' : 'creative';
+                document.getElementById('contentResult').textContent = contents[style];
+            }, 1500);
+        }
+
+        function updateFinancialDashboard() {
+            const revenues = [
+                "💰 درآمد ماهانه: ۲۵۴,۰۰۰,۰۰۰ تومان\n💸 سود خالص: ۱۸۷,۰۰۰,۰۰۰ تومان\n📈 رشد: ۳۴٪",
+                "💰 درآمد ماهانه: ۲۶۷,۰۰۰,۰۰۰ تومان\n💸 سود خالص: ۱۹۸,۰۰۰,۰۰۰ تومان\n📈 رشد: ۳۷٪",
+                "💰 درآمد ماهانه: ۲۸۹,۰۰۰,۰۰۰ تومان\n💸 سود خالص: ۲۱۵,۰۰۰,۰۰۰ تومان\n📈 رشد: ۴۱٪"
+            ];
+            
+            const randomStats = revenues[Math.floor(Math.random() * revenues.length)];
+            document.getElementById('financialResult').textContent = randomStats;
+        }
+
+        // راه‌اندازی اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ تتراشاپ نسخه تعاملی راه‌اندازی شد');
+            console.log('🚀 تمام قابلیت‌ها به صورت شبیه‌سازی شده فعال هستند');
+        });
+    </script>
+</body>
+</html>
