@@ -4,223 +4,392 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تتراشاپ ✨ - فروشگاه لوکس آنلاین</title>
-    <link rel="stylesheet" href="../styles/luxury.css">
+    <style>
+        /* استایل کامل و یکپارچه */
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #FFD700;
+            --gold-dark: #B8860B;
+            --black: #0a0a0a;
+            --dark: #1a1a1a;
+            --darker: #141414;
+            --gray: #2d2d2d;
+            --light: #ffffff;
+            --silver: #c0c0c0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, Geneva, sans-serif;
+            background: var(--black);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* هدر لوکس */
+        .luxury-header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .luxury-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .luxury-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .luxury-nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .luxury-nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .luxury-nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .luxury-nav-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* دکمه‌ها */
+        .luxury-btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .luxury-btn-primary {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .luxury-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .luxury-btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .luxury-btn-secondary:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* هیرو */
+        .luxury-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(45deg, var(--darker), var(--black));
+            padding: 0 1rem;
+            margin-top: 60px;
+        }
+
+        .luxury-hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .luxury-hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--silver);
+        }
+
+        .luxury-hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* محصولات */
+        .luxury-products {
+            padding: 4rem 1rem;
+            background: var(--darker);
+        }
+
+        .luxury-section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--gold);
+        }
+
+        .luxury-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .luxury-product-card {
+            background: var(--gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s;
+        }
+
+        .luxury-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--gold);
+        }
+
+        .luxury-product-image {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .luxury-product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .luxury-product-description {
+            color: var(--silver);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .luxury-product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin: 1rem 0;
+        }
+
+        /* فوتر */
+        .luxury-footer {
+            background: var(--black);
+            padding: 3rem 1rem 2rem;
+            border-top: 1px solid var(--gray);
+        }
+
+        .luxury-footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .luxury-footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .luxury-footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .luxury-footer-section p, .luxury-footer-section li {
+            color: var(--silver);
+            margin-bottom: 0.5rem;
+        }
+
+        .luxury-footer-section ul {
+            list-style: none;
+        }
+
+        .luxury-footer-section a {
+            color: var(--silver);
+            text-decoration: none;
+        }
+
+        .luxury-footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .luxury-footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray);
+            color: var(--silver);
+        }
+
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .luxury-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .luxury-nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .luxury-hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .luxury-hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- هدر لوکس -->
+    <!-- هدر -->
     <header class="luxury-header">
         <nav class="luxury-nav">
             <div class="luxury-logo">تتراشاپ</div>
-            
             <ul class="luxury-nav-links">
                 <li><a href="#home">خانه</a></li>
-                <li><a href="#products">محصولات ویژه</a></li>
-                <li><a href="#categories">دسته‌بندی‌ها</a></li>
+                <li><a href="#products">محصولات</a></li>
+                <li><a href="#categories">دسته‌بندی</a></li>
                 <li><a href="#about">درباره ما</a></li>
-                <li><a href="#contact">تماس</a></li>
             </ul>
-            
             <div class="luxury-nav-actions">
-                <a href="#" class="luxury-btn luxury-btn-secondary">ورود کاربران</a>
                 <a href="admin/login.html" class="luxury-btn luxury-btn-primary">🛡️ مدیریت</a>
             </div>
         </nav>
     </header>
 
-    <!-- هیرو شیک -->
+    <!-- هیرو -->
     <section id="home" class="luxury-hero">
-        <div class="luxury-hero-content fade-in-up">
-            <h1>تجربه‌ای لوکس از خرید آنلاین</h1>
-            <p>کشف کنید دنیایی از محصولات استثنایی با طراحی‌های منحصر به فرد و کیفیتی بی‌نظیر</p>
+        <div class="luxury-hero-content">
+            <h1>به تتراشاپ خوش آمدید</h1>
+            <p>فروشگاه لوکس آنلاین با بهترین محصولات و خدمات</p>
             <div class="luxury-hero-actions">
-                <a href="#products" class="luxury-btn luxury-btn-primary">کشف مجموعه</a>
-                <a href="#" class="luxury-btn luxury-btn-secondary">عضویت ویژه</a>
+                <a href="#products" class="luxury-btn luxury-btn-primary">🛍️ مشاهده محصولات</a>
+                <a href="#categories" class="luxury-btn luxury-btn-secondary">📂 دسته‌بندی‌ها</a>
             </div>
         </div>
     </section>
 
-    <!-- محصولات ویژه -->
+    <!-- محصولات -->
     <section id="products" class="luxury-products">
-        <h2 class="luxury-section-title">محصولات منتخب</h2>
+        <h2 class="luxury-section-title">محصولات ویژه</h2>
         <div class="luxury-products-grid">
-            <!-- محصول 1 -->
-            <div class="luxury-product-card fade-in-up">
+            <div class="luxury-product-card">
                 <div class="luxury-product-image">📱</div>
-                <h3 class="luxury-product-title">گوشی هوشمند پریمیوم</h3>
-                <p class="luxury-product-description">طراحی شیک، عملکرد استثنایی - تجربه‌ای فراموش‌نشدنی</p>
+                <h3 class="luxury-product-title">گوشی هوشمند</h3>
+                <p class="luxury-product-description">گوشی پریمیوم با طراحی شیک</p>
                 <div class="luxury-product-price">۱۲,۹۰۰,۰۰۰ تومان</div>
-                <button class="luxury-btn luxury-btn-primary" style="width: 100%">افزودن به سبد</button>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
             </div>
-
-            <!-- محصول 2 -->
-            <div class="luxury-product-card fade-in-up">
+            <div class="luxury-product-card">
                 <div class="luxury-product-image">💻</div>
-                <h3 class="luxury-product-title">لپ‌تاپ اولترا</h3>
-                <p class="luxury-product-description">قدرت بی‌نظیر در طراحی فوق‌العاده - برای حرفه‌ای‌ها</p>
-                <div class="luxury-product-price">۴۵,۰۰۰,۰۰۰ تومان</div>
-                <button class="luxury-btn luxury-btn-primary" style="width: 100%">افزودن به سبد</button>
+                <h3 class="luxury-product-title">لپ‌تاپ حرفه‌ای</h3>
+                <p class="luxury-product-description">برای کارهای سنگین و طراحی</p>
+                <div class="luxury-product-price">۲۵,۰۰۰,۰۰۰ تومان</div>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
             </div>
-
-            <!-- محصول 3 -->
-            <div class="luxury-product-card fade-in-up">
+            <div class="luxury-product-card">
                 <div class="luxury-product-image">🎧</div>
-                <h3 class="luxury-product-title">هدفون مستر</h3>
-                <p class="luxury-product-description">کیفیت صدای استودیویی در طراحی ارگونومیک لوکس</p>
+                <h3 class="luxury-product-title">هدفون گیمینگ</h3>
+                <p class="luxury-product-description">کیفیت صدای استودیویی</p>
                 <div class="luxury-product-price">۲,۵۰۰,۰۰۰ تومان</div>
-                <button class="luxury-btn luxury-btn-primary" style="width: 100%">افزودن به سبد</button>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
             </div>
-
-            <!-- محصول 4 -->
-            <div class="luxury-product-card fade-in-up">
+            <div class="luxury-product-card">
                 <div class="luxury-product-image">⌚</div>
-                <h3 class="luxury-product-title">ساخت سوئیس</h3>
-                <p class="luxury-product-description">ترکیبی از تکنولوژی روز و هنر ساعت‌سازی سوئیسی</p>
-                <div class="luxury-product-price">۸,۹۰۰,۰۰۰ تومان</div>
-                <button class="luxury-btn luxury-btn-primary" style="width: 100%">افزودن به سبد</button>
+                <h3 class="luxury-product-title">ساعت هوشمند</h3>
+                <p class="luxury-product-description">طراحی مدرن و امکانات کامل</p>
+                <div class="luxury-product-price">۳,۹۰۰,۰۰۰ تومان</div>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
             </div>
         </div>
     </section>
 
-    <!-- دسته‌بندی‌ها -->
-    <section id="categories" class="luxury-categories">
-        <h2 class="luxury-section-title">دسته‌بندی‌ها</h2>
-        <div class="luxury-categories-grid">
-            <div class="luxury-category-card fade-in-up">
-                <span class="luxury-category-icon">📱</span>
-                <h3 class="luxury-category-title">موبایل و تبلت</h3>
-                <p class="luxury-category-count">۱۲۳ محصول</p>
-            </div>
-            <div class="luxury-category-card fade-in-up">
-                <span class="luxury-category-icon">💻</span>
-                <h3 class="luxury-category-title">لپ‌تاپ و کامپیوتر</h3>
-                <p class="luxury-category-count">۸۷ محصول</p>
-            </div>
-            <div class="luxury-category-card fade-in-up">
-                <span class="luxury-category-icon">🎧</span>
-                <h3 class="luxury-category-title">صوت و تصویر</h3>
-                <p class="luxury-category-count">۵۴ محصول</p>
-            </div>
-            <div class="luxury-category-card fade-in-up">
-                <span class="luxury-category-icon">⌚</span>
-                <h3 class="luxury-category-title">گجت‌های هوشمند</h3>
-                <p class="luxury-category-count">۳۲ محصول</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- فوتر لوکس -->
+    <!-- فوتر -->
     <footer class="luxury-footer">
         <div class="luxury-footer-content">
             <div class="luxury-footer-section">
                 <h3>تتراشاپ</h3>
-                <p>ارائه بهترین محصولات با بالاترین کیفیت در فضایی لوکس و منحصر به فرد</p>
+                <p>فروشگاه آنلاین با کیفیت و خدمات عالی</p>
             </div>
             <div class="luxury-footer-section">
-                <h4>دسترسی سریع</h4>
+                <h4>لینک‌های سریع</h4>
                 <ul>
                     <li><a href="#home">خانه</a></li>
-                    <li><a href="#products">محصولات ویژه</a></li>
-                    <li><a href="#categories">دسته‌بندی‌ها</a></li>
-                    <li><a href="#about">درباره ما</a></li>
-                </ul>
-            </div>
-            <div class="luxury-footer-section">
-                <h4>خدمات مشتریان</h4>
-                <ul>
-                    <li><a href="#">راهنمای خرید</a></li>
-                    <li><a href="#">شرایط بازگشت</a></li>
-                    <li><a href="#">ضمانت محصولات</a></li>
-                    <li><a href="#">پشتیبانی ۲۴/۷</a></li>
+                    <li><a href="#products">محصولات</a></li>
+                    <li><a href="#categories">دسته‌بندی</a></li>
                 </ul>
             </div>
             <div class="luxury-footer-section">
                 <h4>تماس با ما</h4>
                 <ul>
-                    <li>📞 ۰۲۱-۱۲۳۴۵۶۷۸</li>
-                    <li>📧 info@tetrashop.com</li>
-                    <li>📍 تهران، خیابان ولیعصر</li>
+                    <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    <li>ایمیل: info@tetrashop.com</li>
+                    <li>آدرس: تهران</li>
                 </ul>
             </div>
         </div>
         <div class="luxury-footer-bottom">
-            <p>© ۲۰۲۴ تتراشاپ ✨ - تمام حقوق محفوظ است</p>
+            <p>© ۱۴۰۳ تتراشاپ - تمام حقوق محفوظ است</p>
         </div>
     </footer>
 
     <script>
-        // اسکریپت ساده برای انیمیشن‌ها
+        // اسکریپت ساده برای تعاملات
         document.addEventListener('DOMContentLoaded', function() {
-            // انیمیشن اسکرول
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
-                    }
-                });
-            }, observerOptions);
-
-            // مشاهده المنت‌ها برای انیمیشن
-            document.querySelectorAll('.fade-in-up').forEach(el => {
-                observer.observe(el);
-            });
-
-            // مدیریت کلیک دکمه‌ها
-            document.querySelectorAll('.luxury-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    if (this.textContent.includes('سبد')) {
-                        e.preventDefault();
-                        showNotification('✨ محصول به سبد خرید اضافه شد!');
-                    }
-                });
-            });
-
-            function showNotification(message) {
-                // ایجاد نوتیفیکیشن شیک
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 100px;
-                    right: 30px;
-                    background: linear-gradient(135deg, #D4AF37, #FFD700);
-                    color: #1a1a1a;
-                    padding: 1.5rem 2rem;
-                    border-radius: 15px;
-                    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-                    z-index: 10000;
-                    font-weight: 600;
-                    animation: slideInRight 0.5s ease;
-                `;
-                notification.textContent = message;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.animation = 'slideOutRight 0.5s ease forwards';
-                    setTimeout(() => notification.remove(), 500);
-                }, 3000);
-            }
-
-            // اضافه کردن استایل‌های انیمیشن
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideInRight {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
+            console.log('تتراشاپ فعال شد!');
+            
+            // مدیریت کلیک دکمه‌های خرید
+            document.querySelectorAll('.luxury-btn-primary').forEach(btn => {
+                if (btn.textContent.includes('سبد')) {
+                    btn.addEventListener('click', function() {
+                        alert('✅ محصول به سبد خرید اضافه شد!');
+                    });
                 }
-                @keyframes slideOutRight {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
+            });
         });
-
-        console.log('✨ تتراشاپ لوکس فعال شد!');
     </script>
 </body>
 </html>

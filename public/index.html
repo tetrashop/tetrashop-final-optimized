@@ -1,187 +1,395 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="fa">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتورشاپ - فروشگاه تعاملی</title>
+    <title>تتراشاپ ✨ - فروشگاه لوکس آنلاین</title>
     <style>
+        /* استایل کامل و یکپارچه */
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #FFD700;
+            --gold-dark: #B8860B;
+            --black: #0a0a0a;
+            --dark: #1a1a1a;
+            --darker: #141414;
+            --gray: #2d2d2d;
+            --light: #ffffff;
+            --silver: #c0c0c0;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Tahoma, Geneva, sans-serif;
+            background: var(--black);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* هدر لوکس */
+        .luxury-header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .luxury-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .luxury-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .luxury-nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .luxury-nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .luxury-nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .luxury-nav-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* دکمه‌ها */
+        .luxury-btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .luxury-btn-primary {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .luxury-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .luxury-btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .luxury-btn-secondary:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* هیرو */
+        .luxury-hero {
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            direction: rtl;
-            padding: 1rem;
-        }
-        .game-container {
-            background: rgba(255,255,255,0.95);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            justify-content: center;
             text-align: center;
-            max-width: 500px;
-            width: 100%;
+            background: linear-gradient(45deg, var(--darker), var(--black));
+            padding: 0 1rem;
+            margin-top: 60px;
         }
-        .living-button {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 1rem 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+        .luxury-hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
         }
-        .living-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+        .luxury-hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--silver);
         }
-        .product-card {
-            background: white;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s;
-            cursor: pointer;
-            text-align: right;
+
+        .luxury-hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-        .product-card:hover {
-            transform: translateY(-3px);
-            border-color: #4299e1;
-            box-shadow: 0 8px 20px rgba(66, 153, 225, 0.2);
+
+        /* محصولات */
+        .luxury-products {
+            padding: 4rem 1rem;
+            background: var(--darker);
         }
-        .score-display {
-            background: #f7fafc;
-            padding: 1rem;
+
+        .luxury-section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--gold);
+        }
+
+        .luxury-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .luxury-product-card {
+            background: var(--gray);
+            padding: 1.5rem;
             border-radius: 10px;
-            margin: 1rem 0;
-            font-weight: bold;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
             transition: all 0.3s;
         }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #38a169;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            z-index: 1000;
-            animation: fadeIn 0.3s;
+
+        .luxury-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--gold);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .luxury-product-image {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .luxury-product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .luxury-product-description {
+            color: var(--silver);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .luxury-product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin: 1rem 0;
+        }
+
+        /* فوتر */
+        .luxury-footer {
+            background: var(--black);
+            padding: 3rem 1rem 2rem;
+            border-top: 1px solid var(--gray);
+        }
+
+        .luxury-footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .luxury-footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .luxury-footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .luxury-footer-section p, .luxury-footer-section li {
+            color: var(--silver);
+            margin-bottom: 0.5rem;
+        }
+
+        .luxury-footer-section ul {
+            list-style: none;
+        }
+
+        .luxury-footer-section a {
+            color: var(--silver);
+            text-decoration: none;
+        }
+
+        .luxury-footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .luxury-footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray);
+            color: var(--silver);
+        }
+
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .luxury-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .luxury-nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .luxury-hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .luxury-hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <h1 style="
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        ">🎮 تتورشاپ تعاملی</h1>
-        
-        <p style="color: #666; margin-bottom: 1.5rem;">هر کلیک یک تجربه لذت‌بخش!</p>
-        
-        <button class="living-button" onclick="addToCart()">
-            🛒 افزودن به سبد خرید
-        </button>
-        
-        <div style="margin: 1.5rem 0;">
-            <div class="product-card" onclick="selectProduct('🎮 کنسول بازی', 8500000)">
-                <h3>🎮 کنسول بازی</h3>
-                <p>۸,۵۰۰,۰۰۰ تومان</p>
-                <small>کلیک کن و ببین!</small>
+    <!-- هدر -->
+    <header class="luxury-header">
+        <nav class="luxury-nav">
+            <div class="luxury-logo">تتراشاپ</div>
+            <ul class="luxury-nav-links">
+                <li><a href="#home">خانه</a></li>
+                <li><a href="#products">محصولات</a></li>
+                <li><a href="#categories">دسته‌بندی</a></li>
+                <li><a href="#about">درباره ما</a></li>
+            </ul>
+            <div class="luxury-nav-actions">
+                <a href="admin/login.html" class="luxury-btn luxury-btn-primary">🛡️ مدیریت</a>
             </div>
-            <div class="product-card" onclick="selectProduct('🎧 هدفون حرفه‌ای', 1200000)">
-                <h3>🎧 هدفون حرفه‌ای</h3>
-                <p>۱,۲۰۰,۰۰۰ تومان</p>
-                <small>لمسش کن!</small>
-            </div>
-            <div class="product-card" onclick="selectProduct('⌨️ کیبورد مکانیکی', 900000)">
-                <h3>⌨️ کیبورد مکانیکی</h3>
-                <p>۹۰۰,۰۰۰ تومان</p>
-                <small>امتحانش کن!</small>
+        </nav>
+    </header>
+
+    <!-- هیرو -->
+    <section id="home" class="luxury-hero">
+        <div class="luxury-hero-content">
+            <h1>به تتراشاپ خوش آمدید</h1>
+            <p>فروشگاه لوکس آنلاین با بهترین محصولات و خدمات</p>
+            <div class="luxury-hero-actions">
+                <a href="#products" class="luxury-btn luxury-btn-primary">🛍️ مشاهده محصولات</a>
+                <a href="#categories" class="luxury-btn luxury-btn-secondary">📂 دسته‌بندی‌ها</a>
             </div>
         </div>
-        
-        <div class="score-display" id="scoreDisplay">
-            🏆 امتیاز شما: <span id="score">۰</span>
+    </section>
+
+    <!-- محصولات -->
+    <section id="products" class="luxury-products">
+        <h2 class="luxury-section-title">محصولات ویژه</h2>
+        <div class="luxury-products-grid">
+            <div class="luxury-product-card">
+                <div class="luxury-product-image">📱</div>
+                <h3 class="luxury-product-title">گوشی هوشمند</h3>
+                <p class="luxury-product-description">گوشی پریمیوم با طراحی شیک</p>
+                <div class="luxury-product-price">۱۲,۹۰۰,۰۰۰ تومان</div>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
+            </div>
+            <div class="luxury-product-card">
+                <div class="luxury-product-image">💻</div>
+                <h3 class="luxury-product-title">لپ‌تاپ حرفه‌ای</h3>
+                <p class="luxury-product-description">برای کارهای سنگین و طراحی</p>
+                <div class="luxury-product-price">۲۵,۰۰۰,۰۰۰ تومان</div>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
+            </div>
+            <div class="luxury-product-card">
+                <div class="luxury-product-image">🎧</div>
+                <h3 class="luxury-product-title">هدفون گیمینگ</h3>
+                <p class="luxury-product-description">کیفیت صدای استودیویی</p>
+                <div class="luxury-product-price">۲,۵۰۰,۰۰۰ تومان</div>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
+            </div>
+            <div class="luxury-product-card">
+                <div class="luxury-product-image">⌚</div>
+                <h3 class="luxury-product-title">ساعت هوشمند</h3>
+                <p class="luxury-product-description">طراحی مدرن و امکانات کامل</p>
+                <div class="luxury-product-price">۳,۹۰۰,۰۰۰ تومان</div>
+                <button class="luxury-btn luxury-btn-primary">🛒 افزودن به سبد</button>
+            </div>
         </div>
-        
-        <p style="color: #718096; font-size: 0.8rem; margin-top: 1rem;">
-            با هر تعامل امتیاز بگیر و از تجربه لذت ببر!
-        </p>
-    </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer class="luxury-footer">
+        <div class="luxury-footer-content">
+            <div class="luxury-footer-section">
+                <h3>تتراشاپ</h3>
+                <p>فروشگاه آنلاین با کیفیت و خدمات عالی</p>
+            </div>
+            <div class="luxury-footer-section">
+                <h4>لینک‌های سریع</h4>
+                <ul>
+                    <li><a href="#home">خانه</a></li>
+                    <li><a href="#products">محصولات</a></li>
+                    <li><a href="#categories">دسته‌بندی</a></li>
+                </ul>
+            </div>
+            <div class="luxury-footer-section">
+                <h4>تماس با ما</h4>
+                <ul>
+                    <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                    <li>ایمیل: info@tetrashop.com</li>
+                    <li>آدرس: تهران</li>
+                </ul>
+            </div>
+        </div>
+        <div class="luxury-footer-bottom">
+            <p>© ۱۴۰۳ تتراشاپ - تمام حقوق محفوظ است</p>
+        </div>
+    </footer>
 
     <script>
-        let score = 0;
-        let clickCount = 0;
-        
-        function addToCart() {
-            score += 10;
-            clickCount++;
-            updateScore();
-            animateButton(event.target);
-            showNotification('🎉 آیتم به سبد اضافه شد! +۱۰ امتیاز');
-        }
-        
-        function selectProduct(productName, price) {
-            score += 5;
-            clickCount++;
-            updateScore();
-            animateCard(event.target);
-            showNotification(`🎊 ${productName} انتخاب شد! +۵ امتیاز`);
-        }
-        
-        function updateScore() {
-            document.getElementById('score').textContent = score;
+        // اسکریپت ساده برای تعاملات
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('تتراشاپ فعال شد!');
             
-            // تغییر رنگ پس از ۳ کلیک
-            if (clickCount >= 3) {
-                document.getElementById('scoreDisplay').style.background = 
-                    'linear-gradient(45deg, #ffd89b, #19547b)';
-                document.getElementById('scoreDisplay').style.color = 'white';
-            }
-        }
-        
-        function animateButton(button) {
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = 'scale(1)';
-            }, 150);
-        }
-        
-        function animateCard(card) {
-            card.style.background = '#f0fff4';
-            setTimeout(() => {
-                card.style.background = 'white';
-            }, 300);
-        }
-        
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.remove();
-            }, 2000);
-        }
+            // مدیریت کلیک دکمه‌های خرید
+            document.querySelectorAll('.luxury-btn-primary').forEach(btn => {
+                if (btn.textContent.includes('سبد')) {
+                    btn.addEventListener('click', function() {
+                        alert('✅ محصول به سبد خرید اضافه شد!');
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>

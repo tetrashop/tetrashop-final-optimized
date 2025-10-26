@@ -1,0 +1,3 @@
+root: .
+clean_urls: true
+directory_index: index.html
