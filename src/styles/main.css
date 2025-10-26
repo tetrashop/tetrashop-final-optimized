@@ -1,21 +1,19 @@
-/* متغیرهای طراحی */
+/* استایل اصلی تتراشاپ - ساده و شیک */
 :root {
-    --primary: #1a5276;
-    --primary-dark: #154360;
-    --secondary: #2874a6;
-    --accent: #3498db;
-    --success: #27ae60;
-    --warning: #e67e22;
-    --danger: #e74c3c;
-    --light: #f8f9fa;
-    --dark: #343a40;
-    --gray: #6c757d;
-    --border: #dee2e6;
-    --shadow: 0 2px 10px rgba(0,0,0,0.1);
-    --transition: all 0.3s ease;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #3b82f6;
+    --secondary: #64748b;
+    --accent: #f59e0b;
+    --background: #ffffff;
+    --surface: #f8fafc;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* ریست استایل‌ها */
 * {
     margin: 0;
     padding: 0;
@@ -24,21 +22,21 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background);
+    color: var(--text);
     line-height: 1.6;
-    color: var(--dark);
-    background: var(--light);
     direction: rtl;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 1rem;
 }
 
-/* هدر و نویگیشن */
+/* هدر */
 .header {
-    background: white;
+    background: var(--background);
     box-shadow: var(--shadow);
     position: fixed;
     top: 0;
@@ -54,12 +52,16 @@ body {
 }
 
 .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary);
+}
+
+.logo::before {
+    content: "🛒";
 }
 
 .nav-links {
@@ -70,15 +72,14 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--dark);
+    color: var(--text);
     font-weight: 500;
-    transition: var(--transition);
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 6px;
+    transition: all 0.2s;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
+.nav-links a:hover {
     background: var(--primary);
     color: white;
 }
@@ -89,134 +90,81 @@ body {
     align-items: center;
 }
 
-.btn-login {
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
+.btn {
     padding: 0.5rem 1.5rem;
-    border-radius: 25px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
-    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    font-family: inherit;
 }
 
-.btn-login:hover {
+.btn-primary {
     background: var(--primary);
     color: white;
 }
 
-.btn-admin {
-    background: var(--danger);
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: var(--transition);
 }
 
-.btn-admin:hover {
-    background: #c0392b;
-}
-
-/* بخش هیرو */
+/* هیرو */
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     color: white;
-    padding: 120px 0 80px;
-    margin-top: 80px;
+    padding: 8rem 0 4rem;
+    margin-top: 4rem;
+    text-align: center;
 }
 
-.hero .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.hero-content h1 {
+.hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    line-height: 1.2;
+    font-weight: 800;
 }
 
-.hero-content p {
-    font-size: 1.2rem;
+.hero p {
+    font-size: 1.25rem;
     margin-bottom: 2rem;
     opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-actions {
     display: flex;
     gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.btn-primary {
-    background: var(--accent);
-    color: white;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-primary:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: white;
-    padding: 12px 30px;
-    border: 2px solid white;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-secondary:hover {
-    background: white;
-    color: var(--primary);
-}
-
-.hero-image {
-    position: relative;
-}
-
-.floating-card {
-    background: white;
-    color: var(--dark);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(-50%) translateX(0); }
-    50% { transform: translateY(-50%) translateX(-10px); }
-}
-
-/* بخش محصولات */
-.featured-products {
+/* محصولات */
+.products {
     padding: 4rem 0;
+    background: var(--surface);
 }
 
 .section-title {
     text-align: center;
     font-size: 2.5rem;
-    color: var(--primary);
     margin-bottom: 3rem;
+    color: var(--text);
 }
 
 .products-grid {
@@ -227,48 +175,53 @@ body {
 
 .product-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 12px;
     padding: 1.5rem;
     box-shadow: var(--shadow);
-    transition: var(--transition);
+    transition: all 0.3s;
     text-align: center;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: var(--shadow-lg);
 }
 
 .product-image {
-    width: 100%;
-    height: 200px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    border-radius: 10px;
-    margin-bottom: 1rem;
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    border-radius: 12px;
+    margin: 0 auto 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 2rem;
     color: white;
-    font-size: 3rem;
 }
 
 .product-title {
-    font-size: 1.3rem;
-    color: var(--dark);
+    font-size: 1.25rem;
+    font-weight: 600;
     margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.product-description {
+    color: var(--text-light);
+    margin-bottom: 1rem;
 }
 
 .product-price {
     font-size: 1.5rem;
+    font-weight: 700;
     color: var(--primary);
-    font-weight: bold;
     margin-bottom: 1rem;
 }
 
-/* بخش دسته‌بندی‌ها */
+/* دسته‌بندی‌ها */
 .categories {
     padding: 4rem 0;
-    background: white;
 }
 
 .categories-grid {
@@ -278,29 +231,40 @@ body {
 }
 
 .category-card {
-    background: var(--light);
-    padding: 2rem;
-    border-radius: 10px;
+    background: white;
+    padding: 2rem 1rem;
+    border-radius: 12px;
     text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
     cursor: pointer;
-    transition: var(--transition);
 }
 
 .category-card:hover {
-    background: var(--primary);
-    color: white;
     transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
 }
 
-.category-card span {
-    font-size: 3rem;
+.category-icon {
+    font-size: 2.5rem;
     margin-bottom: 1rem;
     display: block;
 }
 
+.category-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.category-count {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
 /* فوتر */
 .footer {
-    background: var(--dark);
+    background: var(--text);
     color: white;
     padding: 3rem 0 1rem;
 }
@@ -312,9 +276,9 @@ body {
     margin-bottom: 2rem;
 }
 
-.footer-section h3,
-.footer-section h4 {
+.footer-section h3 {
     margin-bottom: 1rem;
+    color: white;
 }
 
 .footer-section ul {
@@ -326,9 +290,9 @@ body {
 }
 
 .footer-section a {
-    color: #ccc;
+    color: #cbd5e1;
     text-decoration: none;
-    transition: var(--transition);
+    transition: color 0.2s;
 }
 
 .footer-section a:hover {
@@ -338,8 +302,8 @@ body {
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid #555;
-    color: #ccc;
+    border-top: 1px solid #374151;
+    color: #9ca3af;
 }
 
 /* مودال */
@@ -358,7 +322,7 @@ body {
     background: white;
     margin: 10% auto;
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 90%;
     max-width: 400px;
     position: relative;
@@ -372,19 +336,6 @@ body {
     cursor: pointer;
 }
 
-.modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.modal-content input {
-    padding: 12px;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
 /* رسپانسیو */
 @media (max-width: 768px) {
     .nav {
@@ -396,22 +347,25 @@ body {
         gap: 1rem;
     }
     
-    .hero .container {
-        grid-template-columns: 1fr;
-        text-align: center;
+    .hero h1 {
+        font-size: 2rem;
     }
     
-    .hero-content h1 {
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .section-title {
         font-size: 2rem;
     }
     
     .hero-actions {
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     
-    .floating-card {
-        position: relative;
-        transform: none;
-        margin-top: 2rem;
+    .btn {
+        width: 100%;
+        max-width: 300px;
     }
 }
