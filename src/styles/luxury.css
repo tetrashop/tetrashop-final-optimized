@@ -1,0 +1,487 @@
+/* طراحی لوکس و شیک برای تتراشاپ */
+:root {
+    /* پالت رنگی لوکس */
+    --luxury-gold: #D4AF37;
+    --luxury-dark: #1a1a1a;
+    --luxury-darker: #0d0d0d;
+    --luxury-light: #f8f9fa;
+    --luxury-accent: #8B4513;
+    --luxury-secondary: #2c2c2c;
+    --luxury-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFEC8B 100%);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* ریست و پایه */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--luxury-darker);
+    color: var(--luxury-light);
+    line-height: 1.7;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+}
+
+/* هدر لوکس */
+.luxury-header {
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.luxury-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
+}
+
+.luxury-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--luxury-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.luxury-logo::before {
+    content: "✨";
+    font-size: 2rem;
+}
+
+.luxury-nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.luxury-nav-links a {
+    color: var(--luxury-light);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.luxury-nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--luxury-gradient);
+    transition: left 0.3s ease;
+    z-index: -1;
+    border-radius: 50px;
+}
+
+.luxury-nav-links a:hover::before {
+    left: 0;
+}
+
+.luxury-nav-links a:hover {
+    color: var(--luxury-dark);
+    transform: translateY(-2px);
+}
+
+.luxury-nav-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.luxury-btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.luxury-btn-primary {
+    background: var(--luxury-gradient);
+    color: var(--luxury-dark);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.luxury-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+}
+
+.luxury-btn-secondary {
+    background: transparent;
+    color: var(--luxury-light);
+    border: 2px solid var(--luxury-gold);
+}
+
+.luxury-btn-secondary:hover {
+    background: var(--luxury-gold);
+    color: var(--luxury-dark);
+    transform: translateY(-2px);
+}
+
+/* هیرو شیک */
+.luxury-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--luxury-darker) 0%, var(--luxury-dark) 100%);
+}
+
+.luxury-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(1deg); }
+}
+
+.luxury-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.luxury-hero h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: var(--luxury-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+}
+
+.luxury-hero p {
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.luxury-hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* محصولات لوکس */
+.luxury-products {
+    padding: 8rem 2rem;
+    background: var(--luxury-dark);
+}
+
+.luxury-section-title {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+    background: var(--luxury-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
+
+.luxury-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--luxury-gradient);
+}
+
+.luxury-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.luxury-product-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.luxury-product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--luxury-gradient);
+    opacity: 0.1;
+    transition: left 0.4s ease;
+}
+
+.luxury-product-card:hover::before {
+    left: 0;
+}
+
+.luxury-product-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.luxury-product-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    background: var(--luxury-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    color: var(--luxury-dark);
+}
+
+.luxury-product-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--luxury-light);
+}
+
+.luxury-product-description {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.luxury-product-price {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--luxury-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+}
+
+/* دسته‌بندی‌ها */
+.luxury-categories {
+    padding: 6rem 2rem;
+    background: var(--luxury-darker);
+}
+
+.luxury-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.luxury-category-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.luxury-category-card:hover {
+    transform: translateY(-5px);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.luxury-category-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.luxury-category-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--luxury-light);
+}
+
+.luxury-category-count {
+    color: var(--luxury-gold);
+    font-weight: 600;
+}
+
+/* فوتر لوکس */
+.luxury-footer {
+    background: var(--luxury-darker);
+    border-top: 1px solid var(--glass-border);
+    padding: 4rem 2rem 2rem;
+}
+
+.luxury-footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.luxury-footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--luxury-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.luxury-footer-section ul {
+    list-style: none;
+}
+
+.luxury-footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.luxury-footer-section a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.luxury-footer-section a:hover {
+    color: var(--luxury-gold);
+}
+
+.luxury-footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* رسپانسیو */
+@media (max-width: 768px) {
+    .luxury-nav {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .luxury-nav-links {
+        gap: 1rem;
+    }
+    
+    .luxury-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .luxury-hero p {
+        font-size: 1.1rem;
+    }
+    
+    .luxury-section-title {
+        font-size: 2.5rem;
+    }
+    
+    .luxury-hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .luxury-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* اسکرول بار سفارشی */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--luxury-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--luxury-gradient);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--luxury-gold);
+}
