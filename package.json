@@ -1,0 +1,17 @@
+{
+  "name": "tetrashop-final-optimized",
+  "version": "1.0.0",
+  "description": "سیستم یکپارچه تتراشاپ - نسخه نهایی بهینه‌شده",
+  "main": "src/pages/index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "build": "echo 'Build completed'",
+    "deploy": "npx wrangler pages publish src/pages"
+  },
+  "keywords": ["tetrashop", "ecommerce", "cloudflare"],
+  "author": "Tetrashop Team",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

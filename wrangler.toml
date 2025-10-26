@@ -1,0 +1,12 @@
+name = "tetrashop-final-optimized"
+compatibility_date = "2023-12-01"
+
+[env.production]
+pages_build_output_dir = "src/pages"
+
+[[routes]]
+pattern = "tetrashop.cloud/*"
+custom_domain = true
+
+[build]
+command = "npm run build"
