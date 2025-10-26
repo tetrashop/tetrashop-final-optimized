@@ -1,0 +1,12 @@
+{
+  "app": {
+    "name": "تتراشاپ",
+    "version": "1.0.0"
+  },
+  "security": {
+    "encryption": "AES-256-GCM"
+  },
+  "performance": {
+    "cacheTtl": 300
+  }
+}
